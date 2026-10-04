@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { DEFAULT_LOCALE, isLocale, LOCALES, pathOf } from "../src/i18n/locales.ts";
 import { formatDate, LANGUAGE_IN, t, UI } from "../src/i18n/ui.ts";
+import { MARKS } from "../src/lib/marks.ts";
 import { SITE } from "../src/site.ts";
 
 test("the default language has no prefix, another has its own, and every path ends with a slash", () => {
@@ -59,7 +60,7 @@ test("each language names each language", () => {
 test("every channel of the association is an https address with a mark the footer draws", () => {
   for (const channel of SITE.social) {
     assert.match(channel.href, /^https:\/\//);
-    assert.ok(["linkedin", "github"].includes(channel.mark));
+    assert.ok(Object.hasOwn(MARKS, channel.mark));
   }
 });
 
