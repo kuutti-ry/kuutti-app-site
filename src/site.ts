@@ -1,3 +1,5 @@
+import type { Mark } from "./lib/marks.ts";
+
 /**
  * What the site knows about the association and its channels. A value that is
  * not decided yet is null, and the page says that it is coming: nothing here
@@ -19,7 +21,9 @@ export const SITE = {
   social: [
     { name: "LinkedIn", href: "https://www.linkedin.com/company/145260967/", mark: "linkedin" },
     { name: "GitHub", href: "https://github.com/kuutti-ry", mark: "github" },
-  ] as { name: string; href: string; mark: "linkedin" | "github" }[],
+    { name: "TikTok", href: "https://www.tiktok.com/@kuutti_ry", mark: "tiktok" },
+    { name: "Instagram", href: "https://www.instagram.com/kuutti_ry/", mark: "instagram" },
+  ] as { name: string; href: string; mark: Mark }[],
   /** The stores; null until the app is published, and the home page says "coming soon". */
   stores: { apple: null as string | null, google: null as string | null },
 } as const;
