@@ -24,6 +24,10 @@ export const SITE = {
     { name: "TikTok", href: "https://www.tiktok.com/@kuutti_ry", mark: "tiktok" },
     { name: "Instagram", href: "https://www.instagram.com/kuutti_ry/", mark: "instagram" },
   ] as { name: string; href: string; mark: Mark }[],
-  /** The stores; null until the app is published, and the home page says "coming soon". */
+  /**
+   * The app's listings in the stores. Null until the app is published: the
+   * home page then shows that store's badge dimmed, not as a link, and says
+   * the app is coming (src/components/StoreBadges.astro).
+   */
   stores: { apple: null as string | null, google: null as string | null },
 } as const;
