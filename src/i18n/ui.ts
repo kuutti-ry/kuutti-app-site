@@ -36,6 +36,7 @@ export const UI = {
       "This page has not yet been read by a native speaker. If something reads wrong, the English page is the source.",
     "doc.dated": "Wording of {date}",
     "doc.version": "Version {version}",
+    "doc.registered": "Registered {date}",
     "doc.businessId": "Business ID {businessId}",
     "footer.line": "Kuutti ry, Espoo, Finland. Business ID {businessId}.",
     "footer.channels": "Kuutti ry elsewhere",

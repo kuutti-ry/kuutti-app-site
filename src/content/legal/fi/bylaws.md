@@ -2,8 +2,9 @@
 title: Kuutti ry:n säännöt
 description: Yhdistyksen säännöt - tarkoitus, jäsenet, hallitus, kokoukset ja se, mitä yhdistys ei saa tehdä.
 order: 1
-status: filed
+status: in_force
 dated: 2026-10-06
+registered: 2026-10-06
 businessId: true
 binding: true
 listing:

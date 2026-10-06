@@ -5,9 +5,9 @@ description: How to help Kuutti - with your time now, and with a donation once t
 
 ## Donations
 
-There is no donate button yet, on purpose. In Finland, asking the public for money needs a notification to the police or a permit, and an association must exist before it can ask. Kuutti ry is being founded.
+There is no donate button yet, on purpose. In Finland, asking the public for money needs a notification to the police or a permit, and only an association that exists may ask. Kuutti ry was entered in the Register of Associations on 6 October 2026.
 
-When the association is registered and may collect money, this page will say how to give, what the money is for, and how much of it has come in.
+When the association may collect money, this page will say how to give, what the money is for, and how much of it has come in.
 
 ## With your time
 

@@ -8,8 +8,9 @@
  *   carries neither.
  * - A legal text is never machine-written into a language: it has no
  *   `machine` key at all. A text adopted (filed or in force) has exactly one
- *   binding language, and a text in force names its version; a draft may
- *   still be waiting for its binding text, and never has two.
+ *   binding language, and a text in force names its version or the day it
+ *   was registered; a draft may still be waiting for its binding text, and
+ *   never has two.
  * - Nothing in the content loads anything from anybody else: no image, no
  *   frame, no script, and no HTML at all.
  */
@@ -99,8 +100,12 @@ for (const slug of new Set(legal.map((text) => text.slug))) {
     if (text.front.has("machine")) {
       problems.push(`${text.file}: a legal text is written by people; it has no "machine" key`);
     }
-    if (text.front.get("status") === "in_force" && !text.front.get("version")) {
-      problems.push(`${text.file}: a text in force names its version`);
+    if (
+      text.front.get("status") === "in_force" &&
+      !text.front.get("version") &&
+      !text.front.get("registered")
+    ) {
+      problems.push(`${text.file}: a text in force names its version or the day it was registered`);
     }
   }
 }

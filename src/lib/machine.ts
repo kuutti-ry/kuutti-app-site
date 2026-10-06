@@ -116,6 +116,7 @@ async function machineText(props: RouteProps, machineOf: Map<string, string>): P
   const meta = [
     t(locale, "doc.dated", { date: formatDate(locale, data.dated) }),
     data.version && t(locale, "doc.version", { version: data.version }),
+    data.registered && t(locale, "doc.registered", { date: formatDate(locale, data.registered) }),
     data.businessId && t(locale, "doc.businessId", { businessId: SITE.businessId }),
     t(locale, STATUS_KEY[data.status]),
   ].filter(Boolean);

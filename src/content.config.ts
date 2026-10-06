@@ -50,6 +50,8 @@ const legal = defineCollection({
     status: z.enum(["draft", "filed", "in_force"]),
     /** The version a person consents to in the app (consent_version there), once in force. */
     version: z.string().optional(),
+    /** The day a text was entered in a public register: the bylaws, in the Register of Associations. */
+    registered: z.coerce.date().optional(),
     /** The day of the wording, as written in the text's source. */
     dated: z.coerce.date(),
     /** Whether the page names the association's business ID under the title: the bylaws do. */

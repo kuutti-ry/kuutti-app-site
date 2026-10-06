@@ -119,6 +119,8 @@ const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : l
           {t(locale, "doc.dated", { date: formatDate(locale, view.text.data.dated) })}
           {view.text.data.version &&
             ` · ${t(locale, "doc.version", { version: view.text.data.version })}`}
+          {view.text.data.registered &&
+            ` · ${t(locale, "doc.registered", { date: formatDate(locale, view.text.data.registered) })}`}
           {view.text.data.businessId &&
             ` · ${t(locale, "doc.businessId", { businessId: SITE.businessId })}`}
         </p>
