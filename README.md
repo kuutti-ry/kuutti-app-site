@@ -58,4 +58,4 @@ The rules of the app's repository hold here: `main` only through a pull request,
 
 ## Licence
 
-The code is under the GNU Affero General Public License, version 3 (`LICENSE`), like the app. The name Kuutti and the logo are the association's and are not licensed with the code.
+The code is under the GNU Affero General Public License, version 3 (`LICENSE`), like the app. The name Kuutti and the logo are the association's and are not licensed with the code. The App Store and Google Play badges in `public/badges/` are Apple's and Google's, as they publish them for marketing, and are not licensed with the code either.

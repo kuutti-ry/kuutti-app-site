@@ -1,5 +1,6 @@
 ---
 import Notice from "../components/Notice.astro";
+import StoreBadges from "../components/StoreBadges.astro";
 import { formatDate, LANGUAGE_IN, STATUS_KEY, t } from "../i18n/ui.ts";
 import Base from "../layouts/Base.astro";
 import { legalShelf, writtenIn } from "../lib/content.ts";
@@ -54,7 +55,7 @@ const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : l
       <section class="hero">
         <img src="/logo.png" alt="" width="392" height="392" />
         <h1>{t(locale, "site.name")}</h1>
-        <p>{t(locale, "home.soon")}</p>
+        <StoreBadges locale={locale} />
       </section>
     )
   }

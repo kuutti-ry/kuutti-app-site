@@ -77,3 +77,9 @@ A "human / machine" switch after niro.ai was built the same day (a Markdown vers
 ## 12. No postal address on the site (2026-10-06)
 
 The maintainer's word, the day the association was registered: the association's postal address is not published on the site, and no text promises it. The Register of Associations shows it to whoever looks there; the site does not repeat it. The privacy policy names the controller by name, business ID and registration; a contact address for questions and requests about personal data is a separate matter, still promised before the app opens.
+
+## 13. The stores' badges on the home page, dimmed until the app is there (2026-10-06)
+
+The maintainer's word, after a site seen at Hilma's (shortsync.app): instead of "Coming soon..." alone, the home page shows the App Store and Google Play badges, dimmed and not links, with "Coming soon..." under them. The badges are the stores' own, as Apple and Google publish them (Apple's SVG from its marketing toolbox, Google's PNG from its badge page), kept in `public/badges/` so the page still loads nothing from either. When the app is published, `SITE.stores` takes the listing's address and that badge becomes a link at full strength; "Coming soon..." goes when both are there.
+
+Apple licenses its badge artwork for apps that are on the App Store, and both stores have a badge for an app not yet out (Apple's "Pre-order on the App Store", Google's "Pre-register on Google Play"). Showing the download badges dimmed before the app is out goes beyond what their guidelines describe; the maintainer chose them over badges drawn by the site or plain buttons. The image's alternative text says that the app is coming to that store, so a screen reader does not hear a download that is not there. Decision 8's "no button" stands: a dimmed badge is not a link.

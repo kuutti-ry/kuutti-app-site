@@ -1,0 +1,54 @@
+---
+import type { Locale } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
+import { SITE } from "../site.ts";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+// The stores' own badges, as Apple and Google publish them, kept in
+// public/badges/ so that nothing is loaded from either (rule 1). Until the
+// app is in a store its badge is dimmed and is not a link, and the line
+// under the badges says the app is coming (docs/decisions.md, 13). The
+// badges are in English, as the site is; a language that comes back takes
+// the stores' badges in that language.
+const badges = [
+  {
+    href: SITE.stores.apple,
+    src: "/badges/app-store.svg",
+    width: 120,
+    height: 40,
+    name: t(locale, "store.apple"),
+    padded: false,
+  },
+  {
+    href: SITE.stores.google,
+    src: "/badges/google-play.png",
+    width: 646,
+    height: 250,
+    name: t(locale, "store.google"),
+    padded: true,
+  },
+];
+const soon = badges.some((badge) => badge.href === null);
+---
+
+<ul class="stores" aria-label={t(locale, "store.label")}>
+  {
+    badges.map((badge) => {
+      const image = (
+        <img
+          class:list={["store", { "store-padded": badge.padded, "store-soon": badge.href === null }]}
+          src={badge.src}
+          width={badge.width}
+          height={badge.height}
+          alt={badge.href === null ? t(locale, "store.soon", { store: badge.name }) : badge.name}
+        />
+      );
+      return <li>{badge.href === null ? image : <a href={badge.href}>{image}</a>}</li>;
+    })
+  }
+</ul>
+{soon && <p>{t(locale, "home.soon")}</p>}

@@ -13,6 +13,10 @@ export const UI = {
     "nav.label": "Pages",
     "home.soon": "Coming soon...",
     "home.description": "Kuutti. Coming soon...",
+    "store.label": "Kuutti in the app stores",
+    "store.apple": "Download on the App Store",
+    "store.google": "Get it on Google Play",
+    "store.soon": "{store}: coming soon",
     "legal.title": "Legal and privacy",
     "legal.description":
       "The association's bylaws, the terms of use of the app, and how personal data is handled.",
