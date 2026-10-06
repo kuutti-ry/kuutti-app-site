@@ -8,8 +8,6 @@
  * - Every link inside the site leads to a page or a file that exists, and an
  *   anchor to an id that is there.
  * - Every page says its language, has a title, a description and one h1.
- * - Every page has its machine version (src/lib/machine.ts), and every address
- *   of the site that a machine version or /llms.txt names is there.
  * - The sitemap names every page search engines may index and no other, and
  *   robots.txt names the sitemap.
  */
@@ -26,13 +24,11 @@ if (!existsSync(dist)) {
 const ORIGIN = "https://kuutti.app";
 const problems: string[] = [];
 const pages: string[] = [];
-const machineTexts: string[] = [join(dist, "llms.txt")];
 (function walk(dir: string) {
   for (const name of readdirSync(dir)) {
     const path = join(dir, name);
     if (statSync(path).isDirectory()) walk(path);
     else if (name.endsWith(".html")) pages.push(path);
-    else if (name.endsWith(".md")) machineTexts.push(path);
   }
 })(dist);
 
@@ -122,25 +118,6 @@ for (const path of pages) {
   }
 }
 
-// The machine versions and their index.
-for (const path of pages) {
-  const page = `/${relative(dist, path)}`;
-  if (page === "/404.html") continue;
-  const machine = page === "/index.html" ? "/index.md" : page.replace(/\/index\.html$/, ".md");
-  if (!fileOf(machine)) problems.push(`${page}: no machine version at ${machine}`);
-}
-for (const path of machineTexts) {
-  if (!existsSync(path)) {
-    problems.push(`/${relative(dist, path)} is not there`);
-    continue;
-  }
-  const text = readFileSync(path, "utf8");
-  for (const [, address = ""] of text.matchAll(/https:\/\/kuutti\.app(\/[^\s)>#]*)/g)) {
-    if (!fileOf(address))
-      problems.push(`/${relative(dist, path)}: ${ORIGIN}${address} leads nowhere`);
-  }
-}
-
 // The sitemap: every page a search engine may index, and no page it is told to leave alone.
 const sitemap = existsSync(join(dist, "sitemap.xml"))
   ? readFileSync(join(dist, "sitemap.xml"), "utf8")
@@ -173,5 +150,5 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, each with its machine version, no script, nothing from elsewhere, no dead link, and the sitemap names what may be indexed`,
+  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, and the sitemap names what may be indexed`,
 );

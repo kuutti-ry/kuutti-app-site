@@ -3,18 +3,6 @@
 # loaded from anybody else (the typeface is the site's own file), nothing is
 # framed, nothing is posted.
 customHeaders:
-  # The machine versions of the pages (src/lib/machine.ts) are Markdown, read
-  # as plain text in a browser; search engines index the pages, not these.
-  - pattern: "**/*.md"
-    headers:
-      - key: Content-Type
-        value: "text/plain; charset=utf-8"
-      - key: X-Robots-Tag
-        value: "noindex"
-  - pattern: "/llms.txt"
-    headers:
-      - key: Content-Type
-        value: "text/plain; charset=utf-8"
   - pattern: "**"
     headers:
       - key: Content-Security-Policy

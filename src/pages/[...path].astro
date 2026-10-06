@@ -1,6 +1,5 @@
 ---
 import Notice from "../components/Notice.astro";
-import { machinePathOf } from "../i18n/locales.ts";
 import { formatDate, LANGUAGE_IN, STATUS_KEY, t } from "../i18n/ui.ts";
 import Base from "../layouts/Base.astro";
 import { legalShelf, writtenIn } from "../lib/content.ts";
@@ -49,7 +48,6 @@ const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : l
   description={head.description}
   alternates={alternates}
   noindex={draft}
-  machine={machinePathOf(locale, slug)}
 >
   {
     view.kind === "home" && (
