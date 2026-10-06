@@ -11,7 +11,7 @@ This text describes the app as it is built today. The app is not open yet, and s
 
 ## 1. Who is responsible
 
-The controller of your personal data is **Kuutti ry** (business ID 3659478-7), a non-profit association in Espoo, Finland. It was entered in the Register of Associations on 6 October 2026; its postal address is added here before the app opens.
+The controller of your personal data is **Kuutti ry** (business ID 3659478-7), a non-profit association in Espoo, Finland. It was entered in the Register of Associations on 6 October 2026.
 
 An address for questions and for requests about your data is published here before the app opens. The association has not named a data protection officer.
 

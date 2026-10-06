@@ -75,3 +75,7 @@ The maintainer asked for a sitemap, and for the "human / machine" switch of niro
 `/llms.txt` (the llmstxt.org convention) is the index: what Kuutti is, and every page and legal text with its description, linked to its machine version; the home page's machine version is the same text. Every page names its machine version in `<link rel="alternate" type="text/markdown">`. Amplify serves the files as `text/plain; charset=utf-8`, so that any browser shows them as text, and tells search engines not to index them: the pages are what to index.
 
 `/sitemap.xml` names every page a search engine may index, which is every page but a draft (a draft tells search engines to leave it alone, rule 3 of `CLAUDE.md`), and `robots.txt` names the sitemap. `pnpm check:site` holds all of it: every page has its machine version, every address of the site in them is there, and the sitemap names exactly the pages without `noindex`.
+
+## 12. No postal address on the site (2026-10-06)
+
+The maintainer's word, the day the association was registered: the association's postal address is not published on the site, and no text promises it. The Register of Associations shows it to whoever looks there; the site does not repeat it. The privacy policy names the controller by name, business ID and registration; a contact address for questions and requests about personal data is a separate matter, still promised before the app opens.

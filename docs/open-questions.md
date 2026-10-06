@@ -10,7 +10,6 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 
 | question | what the site says meanwhile |
 |---|---|
-| **The association's postal address.** Kuutti ry was entered in the Register of Associations on 06/10/2026, and the register shows its postal address publicly. The privacy policy promised an address once registered | the privacy policy: "its postal address is added here before the app opens"; no address anywhere on the site |
 | **A contact address.** `kuutti.app` has a null MX record: the domain receives no mail. A privacy policy needs an address that answers | nothing on the site names an address; `contactEmail` is `null` in `src/site.ts` |
 | **A privacy contact**, by name or by role | "has not named a data protection officer" |
 | **Social channels**: YouTube | LinkedIn, GitHub, TikTok and Instagram are in the footer (`social` in `src/site.ts`); YouTube is not shown until it exists |
