@@ -24,7 +24,7 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 
 | question | what the site says meanwhile |
 |---|---|
-| **The bylaws are adopted, not registered**: the founding charter of 01/10/2026, filed with the register the same day | shown in Finnish at `/legal/bylaws/` as filed for registration (`status: filed`), dated 01/10/2026, word for word as filed; until registration the register may ask for changes. No founder's name, birth date or address is shown |
+| **The bylaws are adopted, not registered**: the founding charter of 01/10/2026, filed with the register the same day | shown in Finnish at `/legal/bylaws/` as filed for registration (`status: filed`), dated 06/10/2026, word for word as in the correction notice of that day (its "sanotunmääräajan" in 8 is shown as "sanotun määräajan"); until registration the register may ask for changes. No founder's name, birth date or address is shown |
 | **The Finnish texts of the terms and of the privacy policy**, written by people | English drafts only, marked as drafts and as not binding |
 | **A lawyer's reading** of both, the grounds of section 5 of the privacy policy in particular | drafts |
 | **Finnish and Swedish of the pages** were written by a machine | out of the site for now (decision 8); `docs/translation-review.md` |

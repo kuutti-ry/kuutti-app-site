@@ -3,7 +3,7 @@ title: Kuutti ry:n säännöt
 description: Yhdistyksen säännöt - tarkoitus, jäsenet, hallitus, kokoukset ja se, mitä yhdistys ei saa tehdä.
 order: 1
 status: filed
-dated: 2026-10-01
+dated: 2026-10-06
 businessId: true
 binding: true
 listing:
@@ -62,7 +62,7 @@ Yhdistyksen tilikausi on kalenterivuosi.
 
 ## 8. Yhdistyksen kokoukset
 
-Yhdistyksen kokoukseen voidaan osallistua myös postitse taikka tietoliikenneyhteyden tai muun teknisen apuvälineen avulla kokouksen aikana tai ennen kokousta. Hallitus voi päättää, että yhdistyksen kokous järjestetään pelkästään tietoliikenneyhteyden tai muun teknisen apuvälineen avulla ilman fyysistä kokouspaikkaa.
+Yhdistyksen kokoukseen voidaan osallistua myös postitse taikka tietoliikenneyhteyden ja muun teknisen apuvälineen avulla kokouksen aikana tai ennen kokousta. Hallitus voi päättää, että yhdistyksen kokous järjestetään pelkästään tietoliikenneyhteyden ja muun teknisen apuvälineen avulla ilman fyysistä kokouspaikkaa.
 
 Jäsen voi antaa nimittämälleen edustajalle valtakirjan yhdistyksen kokoukseen osallistumista ja äänioikeuden käyttämistä varten. Sama henkilö voi edustaa yhdistyksen kokouksessa korkeintaan yhtä jäsentä. Kuitenkin jos edustaja on myös itse yhdistyksen jäsen, hän voi äänestää sekä valtakirjalla että omasta puolestaan.
 
@@ -109,11 +109,11 @@ Jäsenellä on oikeus erota yhdistyksestä ilmoittamalla siitä kirjallisesti ha
 
 Jäsen voidaan erottaa yhdistyslain 14 §:ssä säädettyjen perusteiden lisäksi, jos hän on yhdistyksen nimissä tai sen puolesta ryhtynyt toimeen, jonka sääntöjen 2 tai 11 kohta kieltää, tai pyrkinyt tällaiseen toimeen. Äänestäminen tai mielipiteen esittäminen yhdistyksen kokouksessa ei ole erottamisperuste.
 
-Päätös yhdistyksen varsinaisen jäsenen, kunniajäsenen tai kunniapuheenjohtajan erottamisesta on tehtävä yhdistyksen kokouksessa yksimielisesti tai siten, että erottamista kannattaa vähintään neljä ääntä ja vastustaa korkeintaan yksi ääni. Erottamisen syyn selvittämiseen ja selityksen antamiseen sovelletaan yhdistyslain säännöksiä. Erottamisesta on mainittava kokouskutsussa ja kokous on kutsuttava koolle vähintään kolmekymmentä (30) vuorokautta ennen kokousta. Varsinaisen jäsenen erottamista seuraavan kahdentoista (12) kuukauden aikana ei voida tehdä sääntöjen 13 kohdassa tarkoitettuja päätöksiä.
+Päätös yhdistyksen varsinaisen jäsenen, kunniajäsenen tai kunniapuheenjohtajan erottamisesta on tehtävä yhdistyksen kokouksessa yksimielisesti tai siten, että erottamista kannattaa vähintään neljä ääntä ja vastustaa korkeintaan yksi ääni. Erottamisen syyn selvittämiseen ja selityksen antamiseen sovelletaan yhdistyslain säännöksiä. Erottamisesta on mainittava kokouskutsussa ja kokous on kutsuttava koolle vähintään kolmekymmentä (30) vuorokautta ennen kokousta.
 
 Kannattavan jäsenen erottamisesta päättää hallitus.
 
-Yhdistyksen hallitus voi erottaa jäsenen, jos syynä on jäsenmaksun maksamatta jättäminen ja jäsenmaksu on myöhässä vähintään kuusi (6) kuukautta eräpäivästä. Tämä päätös voidaan tehdä hallituksen jäsenten yksinkertaisella enemmistöllä. Ennen päätöstä jäsenelle on lähetettävä kirjallinen maksukehotus ja varattava vähintään kolmekymmentä (30) vuorokautta maksun suorittamiseen. Varsinaisen jäsenen erottamista tällä perusteella seuraavan kahdentoista (12) kuukauden aikana ei voida tehdä sääntöjen 13 kohdassa tarkoitettuja päätöksiä.
+Yhdistyksen hallitus voi erottaa jäsenen, jos syynä on jäsenmaksun maksamatta jättäminen ja jäsenmaksu on myöhässä vähintään kuusi (6) kuukautta eräpäivästä. Tämä päätös voidaan tehdä hallituksen jäsenten yksinkertaisella enemmistöllä. Ennen päätöstä jäsenelle on lähetettävä kirjallinen maksukehotus ja varattava vähintään kolmekymmentä (30) vuorokautta maksun suorittamiseen.
 
 ## 13. Sääntöjen muuttaminen ja yhdistyksen purkaminen
 
