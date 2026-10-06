@@ -77,7 +77,8 @@ jobs:
 
   issue-link:
     name: issue-link
-    if: github.event_name == 'pull_request'
+    # Dependabot's pull requests work on no issue, as in the app's repository.
+    if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-24.04-arm
     env:
       PR_BODY: ${{ github.event.pull_request.body }}
