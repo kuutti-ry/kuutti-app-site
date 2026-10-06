@@ -8,6 +8,8 @@
  * - Every link inside the site leads to a page or a file that exists, and an
  *   anchor to an id that is there.
  * - Every page says its language, has a title, a description and one h1.
+ * - The sitemap names every page search engines may index and no other, and
+ *   robots.txt names the sitemap.
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -19,6 +21,7 @@ if (!existsSync(dist)) {
   process.exit(1);
 }
 
+const ORIGIN = "https://kuutti.app";
 const problems: string[] = [];
 const pages: string[] = [];
 (function walk(dir: string) {
@@ -28,6 +31,12 @@ const pages: string[] = [];
     else if (name.endsWith(".html")) pages.push(path);
   }
 })(dist);
+
+/** The file an address of the site is served from, or null when there is none. */
+const fileOf = (address: string): string | null => {
+  const file = address.endsWith("/") ? join(dist, address, "index.html") : join(dist, address);
+  return existsSync(file) && !statSync(file).isDirectory() ? file : null;
+};
 
 const attribute = (tag: string, name: string) =>
   new RegExp(`\\s${name}="([^"]*)"`, "i").exec(tag)?.[1];
@@ -109,10 +118,37 @@ for (const path of pages) {
   }
 }
 
+// The sitemap: every page a search engine may index, and no page it is told to leave alone.
+const sitemap = existsSync(join(dist, "sitemap.xml"))
+  ? readFileSync(join(dist, "sitemap.xml"), "utf8")
+  : "";
+if (sitemap === "") problems.push("/sitemap.xml is not there");
+const listed = new Set(
+  [...sitemap.matchAll(/<loc>https:\/\/kuutti\.app(\/[^<]*)<\/loc>/g)].map(([, at = ""]) => at),
+);
+for (const address of listed) {
+  if (!fileOf(address)) problems.push(`/sitemap.xml: ${ORIGIN}${address} leads nowhere`);
+}
+for (const path of pages) {
+  const page = `/${relative(dist, path)}`;
+  if (page === "/404.html") continue;
+  const address = page.replace(/index\.html$/, "");
+  const leftAlone = /<meta name="robots" content="noindex"/.test(readFileSync(path, "utf8"));
+  if (leftAlone && listed.has(address))
+    problems.push(`/sitemap.xml names ${address}, which says noindex`);
+  if (!leftAlone && !listed.has(address)) problems.push(`/sitemap.xml does not name ${address}`);
+}
+const robots = existsSync(join(dist, "robots.txt"))
+  ? readFileSync(join(dist, "robots.txt"), "utf8")
+  : "";
+if (!robots.split("\n").includes(`Sitemap: ${ORIGIN}/sitemap.xml`)) {
+  problems.push("/robots.txt does not name the sitemap");
+}
+
 if (problems.length > 0) {
   console.error(problems.join("\n"));
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link`,
+  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, and the sitemap names what may be indexed`,
 );

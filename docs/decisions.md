@@ -67,3 +67,13 @@ So the site is light only: `color-scheme: light`, the dark tokens are gone, and 
 The maintainer's line, in the first sentence of the App page ("Kuutti is an app made in Finland 🇫🇮 for Finland 🇫🇮."; it stood on the home page for an hour first, then with the volunteers on the association's page), the flag of Finland after each "Finland". The flag is drawn as SVG in the official proportions and blue, and sizes with the text: an emoji flag is a flag on Apple and Android and two letters on Windows, which has no flag emoji. It is decorative for a screen reader; the words say Finland.
 
 The rule that a text carries no HTML and no image stands: the author writes the emoji, and the page template draws the flag in its place in the HTML the content layer rendered (`src/lib/flag.ts`, one replacement, no dependency; a Markdown plugin would have needed a package in Astro 7). It holds for every page and every flag to come.
+
+## 11. A sitemap, and no machine versions (2026-10-06)
+
+`/sitemap.xml` names every page a search engine may index, which is every page but a draft (a draft tells search engines to leave it alone, rule 3 of `CLAUDE.md`), and `robots.txt` names it. A legal text carries `<lastmod>`, the date of its wording; a page has no reliable date and carries none, as a guessed one is worse than none; `changefreq` and `priority` are left out, as search engines ignore them. `src/lib/sitemap.ts` makes it from the same routes as the pages, and `pnpm check:site` holds that it names exactly the pages without `noindex` and that `robots.txt` names it.
+
+A "human / machine" switch after niro.ai was built the same day (a Markdown version of every page at its path with `.md`, an index at `/llms.txt`, and two links in the header) and taken out before it was merged, on the maintainer's word: the switch sat out of line with the navigation, and Kuutti is not an AI product. It is in the history of pull request 11 if it is ever wanted.
+
+## 12. No postal address on the site (2026-10-06)
+
+The maintainer's word, the day the association was registered: the association's postal address is not published on the site, and no text promises it. The Register of Associations shows it to whoever looks there; the site does not repeat it. The privacy policy names the controller by name, business ID and registration; a contact address for questions and requests about personal data is a separate matter, still promised before the app opens.

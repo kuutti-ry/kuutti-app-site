@@ -1,6 +1,6 @@
 ---
 import Notice from "../components/Notice.astro";
-import { formatDate, LANGUAGE_IN, t } from "../i18n/ui.ts";
+import { formatDate, LANGUAGE_IN, STATUS_KEY, t } from "../i18n/ui.ts";
 import Base from "../layouts/Base.astro";
 import { legalShelf, writtenIn } from "../lib/content.ts";
 import { drawFlags } from "../lib/flag.ts";
@@ -37,7 +37,6 @@ const head =
         : { title: view.text.data.title, description: view.text.data.description };
 const draft = view.kind === "text" && view.text.data.status === "draft";
 const filed = view.kind === "text" && view.text.data.status === "filed";
-const STATUS = { draft: "legal.draft", filed: "legal.filed", in_force: "legal.inForce" } as const;
 // A legal text is read in the language it was written in, whatever the site speaks.
 const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : locale;
 ---
@@ -86,7 +85,7 @@ const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : l
               <h2>
                 {text.title}
                 <span class="tag">
-                  {t(locale, STATUS[text.status])}
+                  {t(locale, STATUS_KEY[text.status])}
                 </span>
               </h2>
               <p>{text.description}</p>
@@ -118,6 +117,8 @@ const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : l
           {t(locale, "doc.dated", { date: formatDate(locale, view.text.data.dated) })}
           {view.text.data.version &&
             ` · ${t(locale, "doc.version", { version: view.text.data.version })}`}
+          {view.text.data.registered &&
+            ` · ${t(locale, "doc.registered", { date: formatDate(locale, view.text.data.registered) })}`}
           {view.text.data.businessId &&
             ` · ${t(locale, "doc.businessId", { businessId: SITE.businessId })}`}
         </p>

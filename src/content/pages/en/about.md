@@ -4,7 +4,7 @@ description: Kuutti ry - why it was founded, what its bylaws forbid it to do, an
 nav: 2
 ---
 
-Kuutti ry is a non-profit association in Espoo, founded on 1 October 2026 and waiting to be entered in the Register of Associations. Its [bylaws](/legal/bylaws/), in Finnish, are public.
+Kuutti ry is a non-profit association in Espoo, founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. Its [bylaws](/legal/bylaws/), in Finnish, are public.
 
 ## Why
 

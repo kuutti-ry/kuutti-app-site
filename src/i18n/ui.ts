@@ -36,6 +36,7 @@ export const UI = {
       "This page has not yet been read by a native speaker. If something reads wrong, the English page is the source.",
     "doc.dated": "Wording of {date}",
     "doc.version": "Version {version}",
+    "doc.registered": "Registered {date}",
     "doc.businessId": "Business ID {businessId}",
     "footer.line": "Kuutti ry, Espoo, Finland. Business ID {businessId}.",
     "footer.channels": "Kuutti ry elsewhere",
@@ -47,6 +48,13 @@ export const UI = {
 } as const satisfies Record<Locale, Record<string, string>>;
 
 export type UiKey = keyof (typeof UI)["en"];
+
+/** How the legal page names a text's status. */
+export const STATUS_KEY = {
+  draft: "legal.draft",
+  filed: "legal.filed",
+  in_force: "legal.inForce",
+} as const satisfies Record<string, UiKey>;
 
 /** The site's words in a language; `{name}` in a text is replaced from `values`. */
 export function t(locale: Locale, key: UiKey, values: Record<string, string> = {}): string {

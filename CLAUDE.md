@@ -11,7 +11,7 @@ The site's issues live in the app's repository (`kuutti-ry/kuutti-app#53` is the
 - `pnpm install --frozen-lockfile`. Node 22.18+ and pnpm come from `package.json`; `corepack enable` once.
 - `pnpm dev` serves the site at http://127.0.0.1:4321. `pnpm build` writes `dist/`; `pnpm preview` serves it.
 - `pnpm typecheck` (`astro check`), `pnpm lint` (Biome, then `scripts/check-content.ts`), `pnpm test` (node's test runner), `pnpm format`.
-- `pnpm check:site` reads `dist/` after a build: no script, nothing loaded from elsewhere, no dead link, a language and one `h1` on every page.
+- `pnpm check:site` reads `dist/` after a build: no script, nothing loaded from elsewhere, no dead link, a language and one `h1` on every page, and a sitemap of exactly the pages that may be indexed.
 
 Before pushing: typecheck, lint, test, build and check:site pass locally. Do not push red.
 
@@ -41,6 +41,7 @@ As in the app's repository:
 
 - TypeScript strict. Biome is the formatter and the linter.
 - A page is Markdown in `src/content/pages/<language>/`, in every language of the site under one name (`src/i18n/locales.ts`: English only for now, `docs/decisions.md` 8). Markdown only: no HTML and no images in a text.
+- `/sitemap.xml` names the pages that may be indexed; `src/lib/sitemap.ts` makes it from the content, and it is never written by hand (`docs/decisions.md` 11).
 - The site's own words (navigation, notices, the footer) are in `src/i18n/ui.ts`, in every language of the site, and a test holds that none is missing.
 - Links inside the site are written in full, with the language's prefix where it has one and a trailing slash (`/legal/privacy/`); the build checks that each leads somewhere.
 - Dates and numbers are written as Finland writes them, in every language.
