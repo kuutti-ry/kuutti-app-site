@@ -14,8 +14,10 @@ interface Props {
   alternates: Partial<Record<Locale, string>>;
   /** A page that search engines leave alone: drafts of legal texts, the 404. */
   noindex?: boolean;
+  /** The page's machine version (src/lib/machine.ts), when it has one. */
+  machine?: string;
 }
-const { locale, slug, title, description, alternates, noindex = false } = Astro.props;
+const { locale, slug, title, description, alternates, noindex = false, machine } = Astro.props;
 const site = Astro.site ?? new URL("https://kuutti.app");
 const name = t(locale, "site.name");
 // The home page is titled by the name alone, as the placeholder was.
@@ -46,6 +48,7 @@ const own = alternates[locale];
         />
       )
     }
+    {machine && <link rel="alternate" type="text/markdown" href={new URL(machine, site).href} />}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content={heading} />
@@ -56,7 +59,7 @@ const own = alternates[locale];
   </head>
   <body>
     <a class="skip" href="#content">{t(locale, "skip")}</a>
-    <Header locale={locale} slug={slug} />
+    <Header locale={locale} slug={slug} machine={machine} />
     <main id="content" tabindex="-1">
       <slot />
     </main>

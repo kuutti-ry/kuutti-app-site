@@ -40,6 +40,14 @@ export const UI = {
     "footer.line": "Kuutti ry, Espoo, Finland. Business ID {businessId}.",
     "footer.channels": "Kuutti ry elsewhere",
     "footer.channel": "Kuutti ry on {name}",
+    "mode.label": "Read this page as",
+    "mode.human": "Human",
+    "mode.machine": "Machine",
+    "machine.summary":
+      "Kuutti is a service for meeting people in Finland: free, without ads, one real adult behind every account, and open source. It is run by Kuutti ry, a non-profit association in Espoo. The app is being built and is not open yet.",
+    "machine.human": "For people: {url}",
+    "machine.index": "Every page, for machines: {url}",
+    "machine.pages": "Pages",
     "notFound.title": "There is no such page",
     "notFound.body": "The address may be old or mistyped.",
     "notFound.home": "To the home page",
@@ -47,6 +55,13 @@ export const UI = {
 } as const satisfies Record<Locale, Record<string, string>>;
 
 export type UiKey = keyof (typeof UI)["en"];
+
+/** How the legal page and a text's machine version name a text's status. */
+export const STATUS_KEY = {
+  draft: "legal.draft",
+  filed: "legal.filed",
+  in_force: "legal.inForce",
+} as const satisfies Record<string, UiKey>;
 
 /** The site's words in a language; `{name}` in a text is replaced from `values`. */
 export function t(locale: Locale, key: UiKey, values: Record<string, string> = {}): string {

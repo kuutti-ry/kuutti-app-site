@@ -218,6 +218,46 @@ hr {
   flex: 1 1 auto;
 }
 
+/*
+ * Human or machine: the page, or its text as Markdown (src/lib/machine.ts).
+ * Two links; the one you are on is a weight and a line, never colour alone.
+ */
+.mode {
+  display: flex;
+  margin: 0;
+  padding: 0.2rem;
+  list-style: none;
+  border: 1px solid hsl(var(--border));
+  border-radius: 999px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mode a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  color: hsl(var(--muted-foreground));
+  text-decoration: none;
+}
+
+.mode a:hover {
+  color: hsl(var(--foreground));
+}
+
+.mode a[aria-current="page"] {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.35em;
+}
+
 .site-nav ul {
   list-style: none;
   padding: 0;

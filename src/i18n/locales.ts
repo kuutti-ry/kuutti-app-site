@@ -18,6 +18,16 @@ export function pathOf(locale: Locale, slug: string): string {
 }
 
 /**
+ * The path of a page's machine version (src/lib/machine.ts): the page's own
+ * path with ".md" for its last slash, and "index.md" for a home page.
+ * "/about/" is "/about.md", "/" is "/index.md".
+ */
+export function machinePathOf(locale: Locale, slug: string): string {
+  const prefix = locale === DEFAULT_LOCALE ? "" : `/${locale}`;
+  return slug === "" ? `${prefix}/index.md` : `${prefix}/${slug}.md`;
+}
+
+/**
  * The languages a legal text may be written in: the site's own, and Finnish
  * and Swedish, which bind and are read as they are whatever the site speaks
  * (docs/decisions.md, 6 and 8). A text in a language the site does not

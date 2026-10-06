@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { DEFAULT_LOCALE, isLocale, LOCALES, pathOf } from "../src/i18n/locales.ts";
+import { DEFAULT_LOCALE, isLocale, LOCALES, machinePathOf, pathOf } from "../src/i18n/locales.ts";
 import { formatDate, LANGUAGE_IN, t, UI } from "../src/i18n/ui.ts";
 import { MARKS } from "../src/lib/marks.ts";
 import { SITE } from "../src/site.ts";
@@ -13,6 +13,12 @@ test("the default language has no prefix, another has its own, and every path en
     assert.equal(pathOf(locale, ""), `/${locale}/`);
     assert.equal(pathOf(locale, "about"), `/${locale}/about/`);
   }
+});
+
+test("a page's machine version is its path with .md for the last slash, index.md at home", () => {
+  assert.equal(machinePathOf(DEFAULT_LOCALE, ""), "/index.md");
+  assert.equal(machinePathOf(DEFAULT_LOCALE, "about"), "/about.md");
+  assert.equal(machinePathOf(DEFAULT_LOCALE, "legal/bylaws"), "/legal/bylaws.md");
 });
 
 test("a language is one of the site's and nothing else", () => {

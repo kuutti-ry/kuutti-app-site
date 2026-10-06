@@ -7,8 +7,10 @@ interface Props {
   locale: Locale;
   /** The page's slug ("" is the home page), for "you are here". */
   slug: string;
+  /** The page's machine version (src/lib/machine.ts); a page without one has no switch. */
+  machine?: string | undefined;
 }
-const { locale, slug } = Astro.props;
+const { locale, slug, machine } = Astro.props;
 // The pages that carry `nav` in their front matter, in that order, and nothing else.
 const links = await navigation(locale);
 const here = (link: string) => slug === link || slug.startsWith(`${link}/`);
@@ -32,5 +34,19 @@ const here = (link: string) => slug === link || slug.startsWith(`${link}/`);
         }
       </ul>
     </nav>
+    {
+      machine && (
+        <ul class="mode" aria-label={t(locale, "mode.label")}>
+          <li>
+            <a href={pathOf(locale, slug)} aria-current="page">
+              {t(locale, "mode.human")}
+            </a>
+          </li>
+          <li>
+            <a href={machine}>{t(locale, "mode.machine")}</a>
+          </li>
+        </ul>
+      )
+    }
   </div>
 </header>
