@@ -1,11 +1,17 @@
 import type { APIRoute } from "astro";
-import { sitemapPaths } from "../lib/machine.ts";
+import { sitemapEntries } from "../lib/machine.ts";
 
 // Every page search engines may index, for robots.txt to name. A draft is
 // left out, as its page tells search engines to leave it alone; so are the
-// machine versions, whose pages are the ones to index.
+// machine versions, whose pages are the ones to index. A legal text carries
+// the date of its wording as <lastmod>; changefreq and priority are left out,
+// as search engines ignore them.
 export const GET: APIRoute = async () => {
-  const urls = (await sitemapPaths()).map((loc) => `  <url><loc>${loc}</loc></url>`);
+  const urls = (await sitemapEntries()).map(({ loc, lastmod }) =>
+    lastmod
+      ? `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`
+      : `  <url><loc>${loc}</loc></url>`,
+  );
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',

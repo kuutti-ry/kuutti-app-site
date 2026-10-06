@@ -165,11 +165,18 @@ export async function llmsText(): Promise<string> {
   return `${await index(DEFAULT_LOCALE, machineOf)}\n`;
 }
 
-/** The pages search engines are told about: every page but a draft (which they are told to leave alone). */
-export async function sitemapPaths(): Promise<string[]> {
-  return (await routes())
-    .filter(
-      (route) => route.props.view.kind !== "text" || route.props.view.text.data.status !== "draft",
-    )
-    .map((route) => full(pagePath(route.props)));
+/**
+ * The pages search engines are told about: every page but a draft (which they
+ * are told to leave alone). A legal text says when its wording last changed
+ * (`dated`); a page has no such date, and a guessed one is worse than none.
+ */
+export async function sitemapEntries(): Promise<{ loc: string; lastmod?: string }[]> {
+  return (await routes()).flatMap((route) => {
+    const { view } = route.props;
+    if (view.kind === "text" && view.text.data.status === "draft") return [];
+    const loc = full(pagePath(route.props));
+    return view.kind === "text"
+      ? [{ loc, lastmod: view.text.data.dated.toISOString().slice(0, 10) }]
+      : [{ loc }];
+  });
 }
