@@ -278,8 +278,9 @@ hr {
   color: hsl(var(--muted-foreground));
 }
 
-/* The stores' badges, side by side, wrapping on a narrow screen. */
+/* The stores' badges, side by side, wrapping on a narrow screen; --badge is their height. */
 .stores {
+  --badge: 3.5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -297,7 +298,7 @@ hr {
 
 .store {
   display: block;
-  height: 3rem;
+  height: var(--badge);
   width: auto;
 }
 
@@ -307,8 +308,8 @@ hr {
  * its badge is as high as Apple's.
  */
 .store-padded {
-  height: calc(3rem * 250 / 168);
-  margin: calc(-3rem * 41 / 168);
+  height: calc(var(--badge) * 250 / 168);
+  margin: calc(var(--badge) * -41 / 168);
 }
 
 /* Not in the store yet: dimmed, and the line under the badges says so in words. */
