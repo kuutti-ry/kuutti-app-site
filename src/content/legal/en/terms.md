@@ -3,6 +3,7 @@ title: Terms of use
 description: What the association promises the people who use Kuutti, and what they promise the association and each other.
 order: 2
 status: draft
+consent_version: "2026-09-draft-1"
 dated: 2026-10-01
 binding: false
 ---

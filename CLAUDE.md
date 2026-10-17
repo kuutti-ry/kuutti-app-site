@@ -11,7 +11,9 @@ The site's issues live in the app's repository (`kuutti-ry/kuutti-app#53` is the
 - `pnpm install --frozen-lockfile`. Node 22.18+ and pnpm come from `package.json`; `corepack enable` once.
 - `pnpm dev` serves the site at http://127.0.0.1:4321. `pnpm build` writes `dist/`; `pnpm preview` serves it.
 - `pnpm typecheck` (`astro check`), `pnpm lint` (Biome, then `scripts/check-content.ts`), `pnpm test` (node's test runner), `pnpm format`.
-- `pnpm check:site` reads `dist/` after a build: no script, nothing loaded from elsewhere, no dead link, a language and one `h1` on every page, and a sitemap of exactly the pages that may be indexed.
+- `pnpm check:site` reads `dist/` after a build: no script, nothing loaded from elsewhere, no dead link, a language and one `h1` on every page, a sitemap of exactly the pages that may be indexed, a `/legal/versions.json` whose every address leads to its version's anchor, and an anchor for every version of `src/consent-versions.ts`.
+- `pnpm check:app-versions` reads the app's generated `CONSENT_VERSIONS` on `main` from GitHub and holds it to `src/consent-versions.ts` (`-- --app <file>` reads a local one instead); CI runs it in the `site` job.
+- `pnpm check:pinned -- --base origin/main` holds every row of the base's `src/consent-versions.ts` unchanged and in its place; CI runs it in the `lint` job.
 
 Before pushing: typecheck, lint, test, build and check:site pass locally. Do not push red.
 
@@ -43,6 +45,7 @@ As in the app's repository:
 - A page is Markdown in `src/content/pages/<language>/`, in every language of the site under one name (`src/i18n/locales.ts`: English only for now, `docs/decisions.md` 8). Markdown only: no HTML and no images in a text.
 - `/sitemap.xml` names the pages that may be indexed; `src/lib/sitemap.ts` makes it from the content, and it is never written by hand (`docs/decisions.md` 11).
 - The site's own words (navigation, notices, the footer) are in `src/i18n/ui.ts`, in every language of the site, and a test holds that none is missing.
+- A legal text a person agrees to in the app carries `consent_version` (quoted), the app's version of it. The build refuses a Finnish heading or body, or a draft's, or a status or binding, that changed without a new version and its row at the end of `src/consent-versions.ts`; a row is never changed or removed, and its version keeps its anchor on the page: a new version asks everybody again, so it is the maintainer's bump, never an agent's own. The site's version lands first, the app's follows (`docs/decisions.md`, 14).
 - Links inside the site are written in full, with the language's prefix where it has one and a trailing slash (`/legal/privacy/`); the build checks that each leads somewhere.
 - Dates and numbers are written as Finland writes them, in every language.
 - Do not add a framework, a component library or a build step for something a style sheet can do.

@@ -10,10 +10,17 @@
  * - Every page says its language, has a title, a description and one h1.
  * - The sitemap names every page search engines may index and no other, and
  *   robots.txt names the sitemap.
+ * - /legal/versions.json names every kind of the app's, and each address
+ *   leads to a page of the site and to the anchor of its version there.
+ * - Every version of src/consent-versions.ts, not only the newest, has its
+ *   anchor on its page: people agreed to it, and the app's builds in their
+ *   hands link to it until they are updated.
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { LOCALES } from "../src/i18n/locales.ts";
+import { PINNED } from "../src/consent-versions.ts";
+import { DEFAULT_LOCALE, LOCALES, pathOf } from "../src/i18n/locales.ts";
+import { anchorOf, CONSENT_KINDS, isConsentKind, TEXT_OF } from "../src/lib/consent.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
 if (!existsSync(dist)) {
@@ -145,10 +152,59 @@ if (!robots.split("\n").includes(`Sitemap: ${ORIGIN}/sitemap.xml`)) {
   problems.push("/robots.txt does not name the sitemap");
 }
 
+// What the app's CI reads (kuutti-ry/kuutti-app#208): a version per kind, at an anchor that is there.
+const versionsFile = join(dist, "legal", "versions.json");
+const versions: unknown = existsSync(versionsFile)
+  ? JSON.parse(readFileSync(versionsFile, "utf8"))
+  : null;
+if (typeof versions !== "object" || versions === null) {
+  problems.push("/legal/versions.json is not there");
+} else {
+  for (const kind of Object.keys(versions)) {
+    if (!isConsentKind(kind))
+      problems.push(`/legal/versions.json: ${kind} is not a kind of the app's`);
+  }
+  for (const kind of CONSENT_KINDS) {
+    const entry: unknown = Object.hasOwn(versions, kind)
+      ? (versions as Record<string, unknown>)[kind]
+      : undefined;
+    const url = typeof entry === "object" && entry !== null && "url" in entry ? entry.url : null;
+    if (typeof url !== "string" || !url.startsWith(`${ORIGIN}/`)) {
+      problems.push(`/legal/versions.json: ${kind} has no address on the site`);
+      continue;
+    }
+    const { pathname, hash } = new URL(url);
+    const file = fileOf(pathname);
+    const anchor = hash.slice(1).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (!file) problems.push(`/legal/versions.json: ${kind} leads nowhere (${url})`);
+    else if (anchor === "" || !new RegExp(`\\sid="${anchor}"`).test(readFileSync(file, "utf8"))) {
+      problems.push(`/legal/versions.json: ${kind} names an anchor that is not there (${url})`);
+    }
+  }
+}
+
+// shortcut: a page shows one version of each text, the newest, and today
+// each kind has one row. The first new version fails here until the text of
+// the one before it stays on the page under its own anchor (an earlier
+// versions section, or a page per version), since production records
+// consents to it until the next release of the API and the stores.
+for (const kind of CONSENT_KINDS) {
+  const path = pathOf(DEFAULT_LOCALE, `legal/${TEXT_OF[kind]}`);
+  const file = fileOf(path);
+  const html = file ? readFileSync(file, "utf8") : "";
+  for (const version of Object.keys(PINNED[kind])) {
+    if (!html.includes(` id="${anchorOf(kind, version)}"`)) {
+      problems.push(
+        `${path}: no anchor for ${kind} ${version}; a version people agreed to keeps its text on the site under its anchor`,
+      );
+    }
+  }
+}
+
 if (problems.length > 0) {
   console.error(problems.join("\n"));
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, and the sitemap names what may be indexed`,
+  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, and every pinned version has its anchor`,
 );

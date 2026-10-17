@@ -23,7 +23,8 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 | question | what the site says meanwhile |
 |---|---|
 | **The bylaws are registered** (06/10/2026), as worded in the correction notice of that day | in force, in Finnish, at `/legal/bylaws/` (`status: in_force`, `registered: 2026-10-06`). The notice's "sanotunmääräajan" in 8 is shown as "sanotun määräajan"; whether the registered text has the typo too is unchecked |
-| **The Finnish texts of the terms and of the privacy policy**, written by people | English drafts only, marked as drafts and as not binding |
+| **The Finnish texts of the terms and of the privacy policy**, written by people | English drafts only, marked as drafts and as not binding; their versions are pinned to the English drafts until then (decisions, 14) |
+| **The research and sensitive-answers wordings** on the privacy page are the app's drafts (`legal.research.*`, `legal.special_category.*` in its `messages.yaml`), copied as they are, Finnish and English. The app's rule says a person writes `legal.*`; their Finnish came in with the app's changes of 26/09 and 08/10/2026, and whether a native reader and the association's counsel have read it is the maintainer's to confirm | shown after the privacy policy's text, under the page's draft notice, each wording beginning DRAFT / LUONNOS as in the app |
 | **A lawyer's reading** of both, the grounds of section 5 of the privacy policy in particular | drafts |
 | **Finnish and Swedish of the pages** were written by a machine | out of the site for now (decision 8); `docs/translation-review.md` |
 | **The licence of the texts.** The code is AGPL-3.0; whether the texts are too, or under a licence for texts, or not licensed at all | the README names the code's licence only |

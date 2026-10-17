@@ -11,12 +11,18 @@
  *   binding language, and a text in force names its version or the day it
  *   was registered; a draft may still be waiting for its binding text, and
  *   never has two.
+ * - A text a person agrees to in the app (src/lib/consent.ts) names its
+ *   `consent_version`, the same in every language, and no other text does.
+ *   A consent read on another text's page (src/content/consents) is one of
+ *   the app's kinds without a page of its own. Whether each text is the one
+ *   its version was pinned to is the build's to say (src/consent-versions.ts).
  * - Nothing in the content loads anything from anybody else: no image, no
  *   frame, no script, and no HTML at all.
  */
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { LOCALES, TEXT_LANGUAGES } from "../src/i18n/locales.ts";
+import { isConsentKind, TEXT_OF } from "../src/lib/consent.ts";
 
 const root = join(import.meta.dirname, "..", "src", "content");
 const problems: string[] = [];
@@ -51,7 +57,15 @@ function read(collection: string, languages: readonly string[]): Text[] {
       const front = new Map<string, string>();
       for (const line of (match[1] ?? "").split("\n")) {
         const at = line.indexOf(":");
-        if (at > 0) front.set(line.slice(0, at).trim(), line.slice(at + 1).trim());
+        if (at > 0) {
+          front.set(
+            line.slice(0, at).trim(),
+            line
+              .slice(at + 1)
+              .trim()
+              .replace(/^"(.*)"$/, "$1"),
+          );
+        }
       }
       found.push({ locale, slug: name.slice(0, -3), file, front, body: match[2] ?? "" });
     }
@@ -62,6 +76,7 @@ function read(collection: string, languages: readonly string[]): Text[] {
 // A page is in a language of the site; a legal text in any it may be written in.
 const pages = read("pages", LOCALES);
 const legal = read("legal", TEXT_LANGUAGES);
+const consents = read("consents", TEXT_LANGUAGES);
 
 for (const slug of new Set(pages.map((page) => page.slug))) {
   for (const locale of LOCALES) {
@@ -102,7 +117,7 @@ for (const slug of new Set(legal.map((text) => text.slug))) {
     }
     if (
       text.front.get("status") === "in_force" &&
-      !text.front.get("version") &&
+      !text.front.get("consent_version") &&
       !text.front.get("registered")
     ) {
       problems.push(`${text.file}: a text in force names its version or the day it was registered`);
@@ -110,7 +125,34 @@ for (const slug of new Set(legal.map((text) => text.slug))) {
   }
 }
 
-for (const text of [...pages, ...legal]) {
+// The version of a text a person agrees to in the app: one per kind, in every language.
+for (const slug of new Set([...legal, ...consents].map((text) => text.slug))) {
+  const own = [...legal, ...consents].filter((text) => text.slug === slug);
+  const versions = new Set(own.map((text) => text.front.get("consent_version") ?? ""));
+  if (!isConsentKind(slug)) {
+    if (!versions.has("") || versions.size > 1) {
+      problems.push(`*/${slug}.md: a consent_version, and the app records no consent of that kind`);
+    }
+    continue;
+  }
+  if (versions.has(""))
+    problems.push(`*/${slug}.md: the app records it; it names its consent_version`);
+  if (versions.size > 1) {
+    problems.push(`*/${slug}.md: one consent_version in one language and another in another`);
+  }
+}
+for (const text of consents) {
+  if (isConsentKind(text.slug) && TEXT_OF[text.slug] === text.slug) {
+    problems.push(`${text.file}: ${text.slug} is a text of its own, under legal/`);
+  }
+  if (text.front.has("machine")) {
+    problems.push(
+      `${text.file}: a consent's wording is written by people; it has no "machine" key`,
+    );
+  }
+}
+
+for (const text of [...pages, ...legal, ...consents]) {
   if (/<[a-z!/][^>]*>/i.test(text.body)) {
     problems.push(`${text.file}: HTML in the text; Markdown only`);
   }
@@ -127,5 +169,5 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `content holds: ${pages.length} pages in ${LOCALES.length} languages, ${legal.length} legal texts`,
+  `content holds: ${pages.length} pages in ${LOCALES.length} languages, ${legal.length} legal texts, ${consents.length} consent wordings`,
 );

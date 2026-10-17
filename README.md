@@ -22,6 +22,8 @@ pnpm dev          # http://127.0.0.1:4321
 | `pnpm lint` | Biome, then what the content must hold (`scripts/check-content.ts`) |
 | `pnpm test` | the tests of the site's own code |
 | `pnpm check:site` | what the built site must hold (`scripts/check-site.ts`): no script, nothing from elsewhere, no dead link |
+| `pnpm check:app-versions` | the app's consent versions on `main`, read from GitHub, against the site's (`scripts/check-app-versions.ts`; `-- --app <file>` reads a local one) |
+| `pnpm check:pinned -- --base origin/main` | every row of the base's `src/consent-versions.ts` is still there, unchanged, in its place (`scripts/check-pinned.ts`) |
 | `pnpm format` | Biome writes |
 
 ## Where things are
@@ -29,6 +31,8 @@ pnpm dev          # http://127.0.0.1:4321
 ```
 src/content/pages/<language>/<slug>.md    the pages: the app, the association, support us, help, deleting an account
 src/content/legal/<language>/<slug>.md    the legal texts: bylaws, terms of use, privacy policy
+src/content/consents/<language>/<kind>.md the app's research and sensitive-answers consents, read on the privacy page
+src/consent-versions.ts                   every version of each text a person agrees to, with its fingerprint
 src/i18n/                                 the languages, and the site's own words (navigation, notices)
 src/site.ts                               what the site knows: addresses, channels, store links
 src/pages/[...path].astro                 the one template every page is made from
@@ -47,6 +51,7 @@ English only for now (`docs/decisions.md`, 8), at the root (`/about/`). The code
 
 - **English is the source.** Finnish and Swedish written by a machine, an agent included, carry `machine: true`, and the page says so to its reader. A native reader who has read a page replaces the flag with `reviewedBy`.
 - **A legal text is never translated by a machine.** It exists in the languages it was written in by people, and the legal page links to those. The Finnish text is the one that counts.
+- **A text a person agrees to in the app has a version.** Its front matter names `consent_version`, the build holds its Finnish heading and body (or a draft's), and a legal text's status and binding, to that version's row in `src/consent-versions.ts`, and publishes the versions at `/legal/versions.json` for the app's CI (`docs/decisions.md`, 14). A changed text is a new version and a new row.
 
 ## Hosting
 
