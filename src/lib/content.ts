@@ -7,6 +7,14 @@ import {
   TEXT_LANGUAGES,
   type TextLanguage,
 } from "../i18n/locales.ts";
+import {
+  byLanguage,
+  CONSENT_KINDS,
+  type ConsentKind,
+  isConsentKind,
+  TEXT_OF,
+  type Wording,
+} from "./consent.ts";
 
 export type Page = CollectionEntry<"pages">;
 export type LegalText = CollectionEntry<"legal">;
@@ -102,5 +110,75 @@ export async function legalShelf(locale: Locale): Promise<
         return version && href ? [{ language, href, binding: version.data.binding }] : [];
       }),
     };
+  });
+}
+
+const bodyOf = (entry: { id: string; body?: string }): string => {
+  if (entry.body === undefined) throw new Error(`${entry.id} has no body`);
+  return entry.body;
+};
+
+/**
+ * Every text a person agrees to in the app, in each language it is written
+ * in, with its version: the terms and the privacy policy, and the consents
+ * the privacy page carries (src/lib/consent.ts).
+ */
+export async function wordings(): Promise<Wording[]> {
+  const texts = (await allLegal()).flatMap((text): Wording[] => {
+    const { language, slug } = writtenIn(text.id);
+    if (!isConsentKind(slug)) return [];
+    const { consent_version: version, dated, title, status, binding } = text.data;
+    const standing = { status, binding };
+    return [{ kind: slug, language, version, dated, title, standing, body: bodyOf(text) }];
+  });
+  const consents = (await getCollection("consents")).flatMap((entry): Wording[] => {
+    const { language, slug } = writtenIn(entry.id);
+    if (!isConsentKind(slug)) throw new Error(`consent "${entry.id}" is not a kind of the app's`);
+    const { consent_version: version, dated, title } = entry.data;
+    return [{ kind: slug, language, version, dated, title, body: bodyOf(entry) }];
+  });
+  return [...texts, ...consents];
+}
+
+/**
+ * The consents a legal text carries besides its own (the research opt-in and
+ * the sensitive answers, on the privacy page), each in every language it is
+ * written in, Finnish first, with its version and the day of its wording.
+ * The title is the reader's language's where the wording has it.
+ */
+export async function consentsOn(
+  locale: Locale,
+  slug: string,
+): Promise<
+  {
+    kind: ConsentKind;
+    title: string;
+    version: string;
+    dated: Date;
+    wordings: { language: TextLanguage; title: string; html: string }[];
+  }[]
+> {
+  const entries = await getCollection("consents");
+  return CONSENT_KINDS.filter((kind) => TEXT_OF[kind] === slug && kind !== slug).flatMap((kind) => {
+    const own = byLanguage(
+      entries
+        .filter((entry) => writtenIn(entry.id).slug === kind)
+        .map((entry) => ({ ...entry, language: writtenIn(entry.id).language })),
+    );
+    const first = own[0];
+    if (!first) return [];
+    const named = own.find((entry) => entry.language === locale) ?? first;
+    return [
+      {
+        kind,
+        title: named.data.title,
+        version: first.data.consent_version,
+        dated: first.data.dated,
+        wordings: own.map((entry) => {
+          if (entry.rendered === undefined) throw new Error(`${entry.id} was not rendered`);
+          return { language: entry.language, title: entry.data.title, html: entry.rendered.html };
+        }),
+      },
+    ];
   });
 }

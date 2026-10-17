@@ -3,7 +3,8 @@ import Notice from "../components/Notice.astro";
 import StoreBadges from "../components/StoreBadges.astro";
 import { formatDate, LANGUAGE_IN, STATUS_KEY, t } from "../i18n/ui.ts";
 import Base from "../layouts/Base.astro";
-import { legalShelf, writtenIn } from "../lib/content.ts";
+import { anchorOf, isConsentKind } from "../lib/consent.ts";
+import { consentsOn, legalShelf, writtenIn } from "../lib/content.ts";
 import { drawFlags } from "../lib/flag.ts";
 import { type RouteProps, routes } from "../lib/routes.ts";
 import { SITE } from "../site.ts";
@@ -40,6 +41,17 @@ const draft = view.kind === "text" && view.text.data.status === "draft";
 const filed = view.kind === "text" && view.text.data.status === "filed";
 // A legal text is read in the language it was written in, whatever the site speaks.
 const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : locale;
+// A text a person agrees to in the app names its version where the app's link
+// lands (#<kind>-<version>), and the privacy page carries the consents the app
+// asks apart, in their own words and languages (kuutti-ry/kuutti-app#208).
+const textSlug = view.kind === "text" ? writtenIn(view.text.id).slug : "";
+const consentVersion = view.kind === "text" ? view.text.data.consent_version : undefined;
+const versionAnchor =
+  isConsentKind(textSlug) && consentVersion ? anchorOf(textSlug, consentVersion) : undefined;
+const consents = view.kind === "text" ? await consentsOn(locale, textSlug) : [];
+// A draft's version is the one the app records for the draft; the text in
+// force will be given its own (the drafts say so), so the line says which.
+const versionKey = draft ? "doc.draftVersion" : "doc.version";
 ---
 
 <Base
@@ -114,10 +126,9 @@ const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : l
     view.kind === "text" && html !== null && (
       <article class="prose" lang={textLanguage === locale ? undefined : textLanguage}>
         <h1>{view.text.data.title}</h1>
-        <p class="meta">
+        <p class="meta" id={versionAnchor}>
           {t(locale, "doc.dated", { date: formatDate(locale, view.text.data.dated) })}
-          {view.text.data.version &&
-            ` · ${t(locale, "doc.version", { version: view.text.data.version })}`}
+          {consentVersion && ` · ${t(locale, versionKey, { version: consentVersion })}`}
           {view.text.data.registered &&
             ` · ${t(locale, "doc.registered", { date: formatDate(locale, view.text.data.registered) })}`}
           {view.text.data.businessId &&
@@ -136,6 +147,36 @@ const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : l
           />
         )}
         <Fragment set:html={html} />
+        {consents.length > 0 && (
+          <>
+            <h2>{t(locale, "consents.title")}</h2>
+            <p>{t(locale, "consents.intro")}</p>
+            {consents.map((consent) => (
+              <>
+                <h3 id={anchorOf(consent.kind, consent.version)}>{consent.title}</h3>
+                <p class="meta">
+                  {t(locale, "doc.dated", { date: formatDate(locale, consent.dated) })}
+                  {` · ${t(locale, versionKey, { version: consent.version })}`}
+                </p>
+                {consent.wordings.map((wording) => (
+                  <>
+                    <p>
+                      {t(locale, wording.language === "fi" ? "consents.counts" : "consents.wording", {
+                        language: LANGUAGE_IN[locale][wording.language],
+                      })}
+                    </p>
+                    <blockquote lang={wording.language === textLanguage ? undefined : wording.language}>
+                      <p>
+                        <strong>{wording.title}</strong>
+                      </p>
+                      <Fragment set:html={wording.html} />
+                    </blockquote>
+                  </>
+                ))}
+              </>
+            ))}
+          </>
+        )}
       </article>
     )
   }

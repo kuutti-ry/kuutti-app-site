@@ -17,7 +17,9 @@
     "lint": "biome check . && node scripts/check-content.ts",
     "format": "biome check --write .",
     "test": "node --test scripts/*.test.ts",
-    "check:site": "node scripts/check-site.ts"
+    "check:site": "node scripts/check-site.ts",
+    "check:app-versions": "node scripts/check-app-versions.ts",
+    "check:pinned": "node scripts/check-pinned.ts"
   },
   "dependencies": {
     "astro": "7.3.8"

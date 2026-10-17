@@ -38,8 +38,14 @@ export const UI = {
     "notice.machine.title": "Translated by a machine",
     "notice.machine.body":
       "This page has not yet been read by a native speaker. If something reads wrong, the English page is the source.",
+    "consents.title": "The consents asked for in the app",
+    "consents.intro":
+      "Besides the terms of use and this text, the app asks for two consents, each with a yes and a version of its own. Their wording is given here as the app has it, in the languages it is written in.",
+    "consents.wording": "The wording {language}:",
+    "consents.counts": "The wording {language}, the one that counts:",
     "doc.dated": "Wording of {date}",
     "doc.version": "Version {version}",
+    "doc.draftVersion": "Draft version {version}",
     "doc.registered": "Registered {date}",
     "doc.businessId": "Business ID {businessId}",
     "footer.line": "Kuutti ry, Espoo, Finland. Business ID {businessId}.",

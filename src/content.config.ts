@@ -2,16 +2,30 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { LOCALES } from "./i18n/locales.ts";
+import { CONSENT_VERSION } from "./lib/consent.ts";
 
-// Two kinds of text, both Markdown, one folder per language:
+// Three kinds of text, all Markdown, one folder per language:
 //
-//   src/content/pages/<language>/<slug>.md   what the site says about Kuutti
-//   src/content/legal/<language>/<slug>.md   what binds: bylaws, terms, privacy
+//   src/content/pages/<language>/<slug>.md     what the site says about Kuutti
+//   src/content/legal/<language>/<slug>.md     what binds: bylaws, terms, privacy
+//   src/content/consents/<language>/<kind>.md  a consent the app asks apart, read
+//                                              on the privacy page (lib/consent.ts)
 //
 // A page exists in every language of the site (src/i18n/locales.ts). A legal
 // text exists in the languages it was written in by people, and in no other:
 // it is never translated by a machine (the app's rule for its consent texts,
 // and this site's).
+
+/**
+ * A version as the app names it, and as an anchor of the page carries it:
+ * `"2026-09-draft-1"`, quoted, since YAML reads `2026-11-1` as a day.
+ */
+const consentVersion = z
+  .string({ error: 'consent_version is quoted ("2026-11-1"): unquoted, YAML may read it as a day' })
+  .regex(
+    CONSENT_VERSION,
+    "consent_version is lower-case letters, digits, dots and hyphens, not digits alone",
+  );
 
 /** A text's name and one-line description, as a list shows it. */
 const listed = z.object({ title: z.string().min(1), description: z.string().min(1).max(200) });
@@ -48,8 +62,13 @@ const legal = defineCollection({
      * registered); a text in force names its version.
      */
     status: z.enum(["draft", "filed", "in_force"]),
-    /** The version a person consents to in the app (consent_version there), once in force. */
-    version: z.string().optional(),
+    /**
+     * The version a person agrees to in the app, by the app's name
+     * (consent_version there): every text of a kind the app records carries
+     * it, and the build holds its Finnish body, or a draft's, to the row of
+     * src/consent-versions.ts (kuutti-ry/kuutti-app#208).
+     */
+    consent_version: consentVersion.optional(),
     /** The day a text was entered in a public register: the bylaws, in the Register of Associations. */
     registered: z.coerce.date().optional(),
     /** The day of the wording, as written in the text's source. */
@@ -70,4 +89,21 @@ const legal = defineCollection({
   }),
 });
 
-export const collections = { pages, legal };
+/**
+ * The research opt-in and the sensitive answers: the app asks for each apart,
+ * and its wording is read on the privacy page. The body is the wording as the
+ * app has it (legal.<kind>.summary in the app's messages.yaml), in the
+ * languages it is written in, never translated.
+ */
+const consents = defineCollection({
+  loader: glob({ pattern: "*/*.md", base: "./src/content/consents" }),
+  schema: z.object({
+    /** The wording's heading, as the app has it (legal.<kind>.title there), pinned with the body. */
+    title: z.string().min(1),
+    consent_version: consentVersion,
+    /** The day of the wording: when the app's text took this form. */
+    dated: z.coerce.date(),
+  }),
+});
+
+export const collections = { pages, legal, consents };
