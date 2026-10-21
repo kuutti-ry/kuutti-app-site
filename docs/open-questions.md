@@ -15,7 +15,7 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 | **Social channels**: YouTube | LinkedIn, GitHub, TikTok and Instagram are in the footer (`social` in `src/site.ts`); YouTube is not shown until it exists |
 | **The team**: who wants to be named, and with which title | "listed here once they have chosen"; nobody is named |
 | **Those who help**: whether Telia, Väestöliitto or anybody else has agreed to be named | "nobody is listed yet" |
-| **The story of the name and of the logo**, and the questions about marketing | the name's meaning only: a seal pup, and the logo its tail. To be confirmed, and told properly |
+| **The story of the name and of the logo**, and the questions about marketing | the name's meaning only: a seal pup, and the logo its face. To be confirmed, and told properly |
 | **When the app opens** | "there is no date yet" |
 
 ## About the texts
