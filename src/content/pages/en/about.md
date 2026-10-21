@@ -50,7 +50,7 @@ So that every account is one real adult, and so that somebody who was banned sta
 
 ### What does the name mean?
 
-A kuutti is a seal pup, in Finnish. The logo is its tail.
+A kuutti is a seal pup, in Finnish. The logo is its face.
 
 ### When does it open?
 
