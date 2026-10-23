@@ -52,11 +52,15 @@ The logo file is black lines on an off-white square, which shows as a square on 
 
 On 21/10/2026 the maintainer gave the site a new logo, a seal pup's face above a wave, in place of the tail, for the header and the home page. The files are made from the drawing the same way: `public/logo.png` is the drawing cropped to its lines, in its own ink (#232323) on transparency, at 840 x 572 px; `public/kuutti.png` and `public/favicon.png` are a square around it on white, 392 px. The header shows it 40 px high and the home page at most 280 px wide, which keeps the page shorter than the tail did at every width (decisions 8 and 13).
 
+On 23/10/2026 the maintainer gave the same face with a thicker stroke. The three files are made from it the same way and keep their sizes, the lines 7 to 8 px from the edges of `public/logo.png` and the face 384 px wide in the 392 px square: the strokes are wider, and nothing else moved, so no page changes an image's size.
+
 ## 8. English only, two tabs, and the home page as the placeholder had it (2026-09-28)
 
 The maintainer's word, the day the site was made: one language for now, English; two pages in the navigation, "App" and "About Us"; the home page with only what the placeholder page shows (the logo, the name, "Coming soon..."), and no button; the footer one line, "Kuutti ry, Espoo, Finland." (first asked with the name in front, then without, the same evening). On 01/10/2026 the maintainer asked for the business ID in it, once the association had one: "Kuutti ry, Espoo, Finland. Business ID 3659478-7." On 03/10/2026, links to the association's LinkedIn and GitHub beside it, by their marks, as other services' sites have them; the marks are drawn in the page, so nothing is loaded from either service (rule 1). On 04/10/2026, TikTok and Instagram beside them, once the accounts existed.
 
 So English lives at the root (`/app/`, `/about/`), and the Finnish and Swedish pages and the language switcher are out of the site for now. They are in the history (424c56f) and come back as a language in `src/i18n/locales.ts`, its words in `src/i18n/ui.ts` and its pages under `src/content`; the code stays written for any number of languages. The legal texts stay where they were, reached by links from the pages and not from the navigation, the bylaws in Finnish under the English pages as the maintainer asked the same evening (decision 6); "Help", "Support us" and "Deleting your account" likewise, by their addresses and the links that name them. Decision 5 is set aside while this holds.
+
+Set aside in part by 15 (23/10/2026): the home page also says what Kuutti is, and the footer gives the association's postal address.
 
 ## 9. White, Inter served by the site, and the logo alone in the header (2026-09-28)
 
@@ -80,11 +84,15 @@ A "human / machine" switch after niro.ai was built the same day (a Markdown vers
 
 The maintainer's word, the day the association was registered: the association's postal address is not published on the site, and no text promises it. The Register of Associations shows it to whoever looks there; the site does not repeat it. The privacy policy names the controller by name, business ID and registration; a contact address for questions and requests about personal data is a separate matter, still promised before the app opens.
 
+Set aside by 15 (23/10/2026): the address is in the footer and on "About Us".
+
 ## 13. The stores' badges on the home page, dimmed until the app is there (2026-10-06)
 
 The maintainer's word, after a site seen at Hilma's (shortsync.app): instead of "Coming soon..." alone, the home page shows the App Store and Google Play badges, dimmed and not links, with "Coming soon..." under them. The badges are the stores' own, as Apple and Google publish them (Apple's SVG from its marketing toolbox, Google's PNG from its badge page), kept in `public/badges/` so the page still loads nothing from either. When the app is published, `SITE.stores` takes the listing's address and that badge becomes a link at full strength; "Coming soon..." goes when both are there.
 
 Apple licenses its badge artwork for apps that are on the App Store, and both stores have a badge for an app not yet out (Apple's "Pre-order on the App Store", Google's "Pre-register on Google Play"). Showing the download badges dimmed before the app is out goes beyond what their guidelines describe; the maintainer chose them over badges drawn by the site or plain buttons. The image's alternative text says that the app is coming to that store, so a screen reader does not hear a download that is not there. Decision 8's "no button" stands: a dimmed badge is not a link.
+
+Since 15 (23/10/2026), the line under the badges says "Not in the stores yet." instead of "Coming soon...".
 
 ## 14. One version per kind, pinned by a fingerprint, and /legal/versions.json (2026-10-17)
 
@@ -96,3 +104,13 @@ kuutti-ry/kuutti-app#208, as the maintainer decided it there: the four texts a p
 - **The site leads.** Its Finnish text is the one that binds, so a new version lands here first: the site's check lets the app be at an earlier row of the history while the app's pull request follows, and once the site is deployed the app's own check fails until the app has the new version: on every app pull request, and on the app's `main` too if anything merges there before the bump, so an app pull request that went green before the deploy runs its checks again before it merges. The first time, the site's pull request is merged and deployed before the app's, whose check would otherwise find no `versions.json`.
 
 The anchor of a version is on the line that names it (the text's own) or on the consent's heading, and `pnpm check:site` holds that every address in `versions.json` leads to it.
+
+## 15. The association as the register has it, and a home page that says what Kuutti is (2026-10-23)
+
+Google for Nonprofits could not confirm that kuutti.app is Kuutti ry's (23/10/2026). What it asks of a nonprofit's site: that it is not mainly placeholder content ("Coming Soon", "Under Construction"), and that it shows the details the organisation registered with, such as its charity ID, a physical street address and a clear statement of its mission. The maintainer's word the same day: add what Google wants; the address is in the register for whoever looks, so it is no secret. That sets 12 aside, and 8 in part.
+
+- The footer names the association as the register does: "Kuutti ry, Tontunmäentie 22 E, 02200 Espoo, Finland. Business ID 3659478-7." The address is `postalAddress` in `src/site.ts`, as PRH's extract of 06/10/2026 gives it.
+- The home page says under the name, in one sentence, what Kuutti is and who makes it, and the same sentence is the page's description for search engines. It is one line on a laptop, so the footer still fits a window 825 px high; on a phone the footer's marks now fall just below the first screen. The badges stay under it, dimmed (13), and the line under them says "Not in the stores yet." in place of "Coming soon...", the words Google's check reads as a placeholder.
+- "About Us" says that kuutti.app is the association's official website, and gives the association as the register has it: name, business ID, form, domicile and postal address, with a link to its entry in YTJ, the Finnish Business Information System.
+
+The privacy policy and the terms are unchanged. They are drafts pinned to their versions (14), so the controller's address in them would be a new version, and a new version is the maintainer's to make.

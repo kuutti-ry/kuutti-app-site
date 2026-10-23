@@ -27,8 +27,9 @@ const htmlOf = (entry: { id: string; rendered?: { html: string } }): string => {
 const html =
   view.kind === "page" ? htmlOf(view.page) : view.kind === "text" ? htmlOf(view.text) : null;
 
-// The home page says what the placeholder page said (docs/decisions.md, 8):
-// the logo, the name, and that the app is coming. Nothing else, no button.
+// The home page: the logo, the name, in a sentence what Kuutti is and who
+// makes it, and that the app is coming (docs/decisions.md, 8, 13 and 15).
+// No button. The sentence is also the page's description.
 const head =
   view.kind === "home"
     ? { title: t(locale, "site.name"), description: t(locale, "home.description") }
@@ -67,6 +68,7 @@ const versionKey = draft ? "doc.draftVersion" : "doc.version";
       <section class="hero">
         <img src="/logo.png" alt="" width="840" height="572" />
         <h1>{t(locale, "site.name")}</h1>
+        <p class="lead">{t(locale, "home.description")}</p>
         <StoreBadges locale={locale} />
       </section>
     )

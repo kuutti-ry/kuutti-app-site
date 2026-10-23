@@ -8,13 +8,13 @@ interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-// One line, and the association's channels beside it by their marks
-// (docs/decisions.md, 8; the marks are src/lib/marks.ts).
+// One line, the association as the register has it, and its channels beside
+// it by their marks (docs/decisions.md, 8 and 15; the marks are src/lib/marks.ts).
 ---
 
 <footer class="site-footer">
   <div>
-    <p>{t(locale, "footer.line", { businessId: SITE.businessId })}</p>
+    <p>{t(locale, "footer.line", { address: SITE.postalAddress, businessId: SITE.businessId })}</p>
     {
       SITE.social.length > 0 && (
         <ul class="channels" aria-label={t(locale, "footer.channels")}>

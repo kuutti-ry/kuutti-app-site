@@ -64,10 +64,14 @@ test("every channel of the association is an https address with a mark the foote
   }
 });
 
-test("the home page says what the placeholder said, and the footer is one line", () => {
-  assert.equal(t("en", "home.soon"), "Coming soon...");
+test("the home page says what Kuutti is, and the footer names the association as the register does", () => {
   assert.equal(
-    t("en", "footer.line", { businessId: SITE.businessId }),
-    "Kuutti ry, Espoo, Finland. Business ID 3659478-7.",
+    t("en", "home.description"),
+    "A free app for meeting people in Finland, made by Kuutti ry, a non-profit association.",
+  );
+  assert.equal(t("en", "home.soon"), "Not in the stores yet.");
+  assert.equal(
+    t("en", "footer.line", { address: SITE.postalAddress, businessId: SITE.businessId }),
+    "Kuutti ry, Tontunmäentie 22\u00a0E, 02200\u00a0Espoo, Finland. Business ID 3659478-7.",
   );
 });
