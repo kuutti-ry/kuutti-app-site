@@ -54,4 +54,4 @@ Drafting it meant reading what the app keeps. These are for the app's repository
 | **Removing `site/`** from the app's repository, with its `amplify.yml` and the mentions in `CLAUDE.md` and ADR-001 | kuutti-ry/kuutti-app#109 |
 | **The waitlist's numbers on the home page.** The API has a public `GET /waitlist` and allows the site's origin | not shown: it needs a script in the browser, and the site has none |
 | **The wording about collecting money** on "Support us" ("a notification to the police or a permit") | written from the founding notes; to be confirmed by somebody who knows the law on money collections |
-| **The store links** | "Coming soon...", kept from the placeholder, where the links will be; `stores` is `null` in `src/site.ts` |
+| **The store links** | the stores' badges dimmed, and "Not in the stores yet." under them (decisions 13 and 15); `stores` is `null` in `src/site.ts` |

@@ -251,7 +251,7 @@ hr {
 
 /* --- Home --------------------------------------------------------------- */
 
-/* The placeholder page, kept: the logo, the name, and that the app is coming. */
+/* The logo, the name, what Kuutti is, and that the app is coming (docs/decisions.md, 15). */
 .hero {
   display: flex;
   flex-direction: column;

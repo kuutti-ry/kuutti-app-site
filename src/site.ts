@@ -11,6 +11,13 @@ export const SITE = {
    * Registration Office when the notice of founding was filed on 01/10/2026.
    */
   businessId: "3659478-7",
+  /**
+   * The association's postal address as the Register of Associations has it
+   * (PRH's extract of 06/10/2026). In the footer since 23/10/2026, when
+   * Google for Nonprofits asked for a street address (docs/decisions.md, 15).
+   * No-break spaces keep the house letter and the postcode with their numbers.
+   */
+  postalAddress: "Tontunmäentie 22\u00a0E, 02200\u00a0Espoo",
   /** Where the app's source is published (AGPL-3.0). */
   appSource: "https://github.com/kuutti-ry/kuutti-app",
   /** Where this site's source is published (AGPL-3.0). */

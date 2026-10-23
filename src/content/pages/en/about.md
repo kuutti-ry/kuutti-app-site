@@ -1,10 +1,20 @@
 ---
 title: About Us
-description: Kuutti ry - why it was founded, what its bylaws forbid it to do, and who is behind it.
+description: Kuutti ry - why it was founded, what its bylaws forbid it to do, who is behind it, and the association as the register has it.
 nav: 2
 ---
 
-Kuutti ry is a non-profit association in Espoo, founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. Its [bylaws](/legal/bylaws/), in Finnish, are public.
+Kuutti ry is a non-profit association in Espoo, founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. This site, kuutti.app, is its official website. Its [bylaws](/legal/bylaws/), in Finnish, are public.
+
+## In the register
+
+- **Name:** Kuutti ry
+- **Business ID:** 3659478-7
+- **Form:** registered non-profit association (aatteellinen yhdistys)
+- **Domicile:** Espoo
+- **Postal address:** Tontunmäentie 22&nbsp;E, 02200&nbsp;Espoo, Finland
+
+The [association's entry](https://tietopalvelu.ytj.fi/yritys/3659478-7) in the Finnish Business Information System (YTJ) shows the same.
 
 ## Why
 
