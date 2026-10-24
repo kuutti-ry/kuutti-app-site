@@ -4,6 +4,7 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { DEFAULT_LOCALE, type Locale } from "../i18n/locales.ts";
 import { t } from "../i18n/ui.ts";
+import { fingerprinted } from "../lib/fingerprint.ts";
 
 interface Props {
   locale: Locale;
@@ -21,6 +22,11 @@ const name = t(locale, "site.name");
 // The home page is titled by the name alone, as the placeholder was.
 const heading = slug === "" ? title : `${title} · ${name}`;
 const own = alternates[locale];
+// The icon and the share image are kept by their address elsewhere (a
+// messenger's preview, a browser's icon), so the address carries a
+// fingerprint of the file and changes with it (src/lib/fingerprint.ts).
+const icon = fingerprinted("/favicon.png");
+const shareImage = new URL(fingerprinted("/kuutti.png"), site).href;
 ---
 
 <!doctype html>
@@ -46,12 +52,12 @@ const own = alternates[locale];
         />
       )
     }
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href={icon} />
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content={heading} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={new URL("/kuutti.png", site).href} />
+    <meta property="og:image" content={shareImage} />
     <meta name="referrer" content="no-referrer" />
     <slot name="head" />
   </head>
