@@ -53,13 +53,15 @@ const own = alternates[locale];
     <meta property="og:type" content="website" />
     <meta property="og:image" content={new URL("/kuutti.png", site).href} />
     <meta name="referrer" content="no-referrer" />
+    <slot name="head" />
   </head>
   <body>
     <a class="skip" href="#content">{t(locale, "skip")}</a>
-    <Header locale={locale} slug={slug} />
+    {/* Gaiane's structure (/ga/) brings a header and a footer of its own. */}
+    <slot name="header"><Header locale={locale} slug={slug} /></slot>
     <main id="content" tabindex="-1">
       <slot />
     </main>
-    <Footer locale={locale} />
+    <slot name="footer"><Footer locale={locale} /></slot>
   </body>
 </html>

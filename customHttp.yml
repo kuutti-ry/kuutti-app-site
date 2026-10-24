@@ -1,12 +1,14 @@
 # The headers Amplify Hosting sends with every answer. The policy is the
-# site's promise in a form a browser enforces: nothing runs, nothing is
-# loaded from anybody else (the typeface is the site's own file), nothing is
-# framed, nothing is posted.
+# site's promise in a form a browser enforces: nothing runs but the pond
+# demo's one file, named in full (docs/decisions.md, 17; SCRIPTED in
+# src/site.ts), nothing is loaded from anybody else (the typeface is the
+# site's own file), nothing is framed, nothing is posted. One policy for every
+# address: Amplify does not say which of two matching patterns wins.
 customHeaders:
   - pattern: "**"
     headers:
       - key: Content-Security-Policy
-        value: "default-src 'none'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+        value: "default-src 'none'; script-src https://kuutti.app/ga/pond/pond.js; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
       - key: Strict-Transport-Security
         value: "max-age=63072000; includeSubDomains; preload"
       - key: X-Content-Type-Options

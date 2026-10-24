@@ -55,6 +55,49 @@ export const UI = {
     "notFound.title": "There is no such page",
     "notFound.body": "The address may be old or mistyped.",
     "notFound.home": "To the home page",
+    // Gaiane's structure, at /ga/ (docs/decisions.md, 16).
+    "ga.menu": "Menu",
+    "ga.download": "Download",
+    "ga.language": "Language",
+    "ga.languageSoon": "coming later",
+    "ga.crumbs": "Where you are",
+    "ga.newTab": "opens in a new tab",
+    "ga.footer.name": "Kuutti ry",
+    "ga.footer.legal": "Legal",
+    "ga.footer.register": "Kuutti ry in the business register",
+    "ga.footer.contact": "Contact",
+    "ga.footer.write": "Get in touch",
+    "ga.footer.noEmail": "An e-mail address will be here before the app opens.",
+    "ga.footer.pages": "Pages",
+    "ga.footer.source": "Kuutti's source code",
+    "ga.qr.title": "On a computer?",
+    "ga.qr.body": "Scan the code with your phone's camera to open this page there.",
+    "ga.qr.alt": "QR code of the address kuutti.app/ga/download/",
+    // The pond demo, at /ga/pond/ (docs/decisions.md, 17). Its script reads them from the page.
+    "pond.label": "The seal pup's pond. Tap the water or a fish to play.",
+    "pond.tilt": "Tilt",
+    "pond.phone": "Use the phone's tilt",
+    "pond.phoneOn": "Tilt is on",
+    "pond.start": "Start a 30 second round",
+    "pond.restart": "Restart the round",
+    "pond.again": "Play again",
+    "pond.left": "Seconds left",
+    "pond.caught": "Fish caught",
+    "pond.free": "Free play. Tap a fish any time.",
+    "pond.running": "Round running. Fish get faster with every catch.",
+    "pond.over": "Round over. You caught {score} fish.",
+    "pond.tiltHint": "Tilt the phone left and right.",
+    "pond.noTilt": "This browser gives no tilt. The slider works.",
+    "pond.tiltRefused": "Tilt was not allowed. The slider works.",
+    "pond.colours": "Colours, to try on the spot:",
+    "pond.colour.water": "Water",
+    "pond.colour.line": "Surface line",
+    "pond.colour.airHead": "Pup above, head",
+    "pond.colour.airBody": "Pup above, body",
+    "pond.colour.waterHead": "Pup below, head",
+    "pond.colour.waterBody": "Pup below, body",
+    "pond.colour.fish": "Fish",
+    "pond.noScript": "The pond needs JavaScript, and this browser runs none here.",
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 
@@ -76,6 +119,13 @@ export function t(locale: Locale, key: UiKey, values: Record<string, string> = {
 /** The language of a legal text, named in the reader's language: "in Finnish". */
 export const LANGUAGE_IN: Record<Locale, Record<TextLanguage, string>> = {
   en: { fi: "in Finnish", sv: "in Swedish", en: "in English" },
+};
+
+/** Each language in its own words, as a language menu names it. */
+export const LANGUAGE_NAME: Record<TextLanguage, string> = {
+  fi: "Suomi",
+  sv: "Svenska",
+  en: "English",
 };
 
 /** Dates as Finland writes them, in every language (the app's rule: en-FI). */

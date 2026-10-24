@@ -1,0 +1,7 @@
+#!/bin/sh
+# Refuses a commit that carries a font file other than Inter's, before it
+# ever leaves your machine: Saiga, Kuutti's typeface, is never in this public
+# repository (docs/decisions.md, 18). Enable once per clone:
+#
+#   git config core.hooksPath .githooks
+exec node scripts/check-fonts.ts

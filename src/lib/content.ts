@@ -73,6 +73,36 @@ export async function navigation(locale: Locale): Promise<{ slug: string; title:
     .map((page) => ({ slug: placeOf(page.id).slug, title: page.data.title }));
 }
 
+export type GaPage = {
+  /** "" is the home page of the structure. */
+  slug: string;
+  path: string;
+  /** Its name in the navigation and the breadcrumbs. */
+  label: string;
+  entry: CollectionEntry<"ga">;
+};
+
+/**
+ * The pages of Gaiane's structure in a language (/ga/, docs/decisions.md 16),
+ * those in the navigation first and in its order. `index` is /ga/ itself.
+ */
+export async function gaPages(locale: Locale): Promise<GaPage[]> {
+  // The loader names a folder's index by the folder: "en" is en/index.md.
+  const place = (id: string) => (isLocale(id) ? { locale: id, slug: "" } : placeOf(id));
+  return (await getCollection("ga"))
+    .filter((entry) => place(entry.id).locale === locale)
+    .sort((a, b) => (a.data.nav ?? Infinity) - (b.data.nav ?? Infinity))
+    .map((entry) => {
+      const { slug } = place(entry.id);
+      return {
+        slug,
+        path: pathOf(locale, slug === "" ? "ga" : `ga/${slug}`),
+        label: entry.data.label ?? entry.data.title,
+        entry,
+      };
+    });
+}
+
 /**
  * The legal texts as the legal page lists them: one item per text, with the
  * languages it exists in. The title and the description are those of the

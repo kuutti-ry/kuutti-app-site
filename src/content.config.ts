@@ -106,4 +106,22 @@ const consents = defineCollection({
   }),
 });
 
-export const collections = { pages, legal, consents };
+/**
+ * Gaiane's structure of the site, beside it at /ga/ (docs/decisions.md, 16).
+ * `index` is its home page. A paragraph that says only `@reuse /app/#research`
+ * shows that part of the site's own page (src/lib/reuse.ts), so that a text
+ * has one copy.
+ */
+const ga = defineCollection({
+  loader: glob({ pattern: "*/*.md", base: "./src/content/ga" }),
+  schema: z.object({
+    title: z.string().min(1),
+    description: z.string().min(1).max(200),
+    /** The page's name in the navigation and the breadcrumbs, where it is shorter than the title. */
+    label: z.string().min(1).optional(),
+    /** Where the page stands in the navigation; a page without it is reached by links only. */
+    nav: z.number().int().positive().optional(),
+  }),
+});
+
+export const collections = { pages, legal, consents, ga };

@@ -1,0 +1,44 @@
+/*
+ * Saiga, Kuutti's typeface, for the pages of Gaiane's structure (/ga/,
+ * docs/decisions.md 16 and 18). A page links this file only when the build
+ * has the files (src/lib/saiga.ts): they are never in the repository, and
+ * without them the page stays in Inter. Every weight here is a file of
+ * SAIGA_FILES, and a test holds the two together.
+ */
+
+@font-face {
+  font-family: Saiga;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/saiga/Saiga-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Saiga;
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/saiga/Saiga-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Saiga;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/saiga/Saiga-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Saiga;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/saiga/Saiga-Bold.woff2") format("woff2");
+}
+
+/* Saiga first, then the site's own stack: Inter, then the system's. */
+body {
+  font-family: Saiga, var(--font);
+}

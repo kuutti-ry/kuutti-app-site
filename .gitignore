@@ -7,6 +7,9 @@
 credentials*.json
 *.secret
 
+# --- Saiga, Kuutti's typeface: never in this public repository (docs/decisions.md, 18) ---
+public/fonts/saiga/
+
 # --- Dependencies ---
 node_modules/
 .pnpm-store/

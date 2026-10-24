@@ -1,0 +1,109 @@
+---
+import { isLocale, type Locale, pathOf } from "../i18n/locales.ts";
+import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
+import { gaPages } from "../lib/content.ts";
+
+interface Props {
+  locale: Locale;
+  /** The page's slug in the structure ("" is its home page), for "you are here". */
+  here: string;
+}
+const { locale, here } = Astro.props;
+
+// Gaiane's header (docs/decisions.md, 16): it stays at the top as the page
+// scrolls. The logo and the name lead home; the pages that carry `nav`, a
+// download button and the language follow. On a narrow screen the pages fold
+// into a menu, a <details>, so that nothing needs a script. The language menu
+// names Finnish and Swedish as coming: the site speaks English only for now
+// (decision 8), and a link to a page that is not there would lead nowhere.
+const links = (await gaPages(locale)).filter((page) => page.entry.data.nav !== undefined);
+const download = pathOf(locale, "ga/download");
+const languages = (["fi", "en", "sv"] as const).map((language) => ({
+  language,
+  name: LANGUAGE_NAME[language],
+  current: language === locale,
+  soon: !isLocale(language),
+}));
+---
+
+<header class="ga-header">
+  <div>
+    <a class="ga-brand" href={pathOf(locale, "ga")}>
+      <img src="/logo.png" alt="" width="59" height="40" />
+      <span>{t(locale, "site.name")}</span>
+    </a>
+    <nav class="ga-nav ga-wide" aria-label={t(locale, "nav.label")}>
+      <ul>
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.path} aria-current={link.slug === here ? "page" : undefined}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a
+      class="ga-button ga-wide"
+      href={download}
+      aria-current={here === "download" ? "page" : undefined}>{t(locale, "ga.download")}</a
+    >
+    <details class="ga-lang">
+      <summary>
+        <span aria-hidden="true">{locale.toUpperCase()}</span>
+        <span class="visually-hidden">{t(locale, "ga.language")}: {LANGUAGE_NAME[locale]}</span>
+        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="m6 9 6 6 6-6"></path>
+        </svg>
+      </summary>
+      <ul>
+        {
+          languages.map((entry) => (
+            <li aria-current={entry.current ? "true" : undefined}>
+              <span lang={entry.language}>{entry.name}</span>
+              {
+                entry.soon && (
+                  <span class="ga-soon">
+                    <span class="visually-hidden">, </span>
+                    {t(locale, "ga.languageSoon")}
+                  </span>
+                )
+              }
+            </li>
+          ))
+        }
+      </ul>
+    </details>
+    <details class="ga-menu">
+      <summary>
+        <svg class="open" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg class="close" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+        <span class="visually-hidden">{t(locale, "ga.menu")}</span>
+      </summary>
+      <nav class="ga-nav" aria-label={t(locale, "nav.label")}>
+        <ul>
+          {
+            links.map((link) => (
+              <li>
+                <a href={link.path} aria-current={link.slug === here ? "page" : undefined}>
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a href={download} aria-current={here === "download" ? "page" : undefined}>
+              {t(locale, "ga.download")}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

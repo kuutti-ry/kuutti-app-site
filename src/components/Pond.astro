@@ -1,0 +1,96 @@
+---
+import type { Locale } from "../i18n/locales.ts";
+import { t, type UiKey } from "../i18n/ui.ts";
+
+interface Props {
+  locale: Locale;
+  /** What the demo is, as the page's description says it. */
+  description: string;
+}
+const { locale, description } = Astro.props;
+
+// The pond demo of 14/10/2026 (docs/decisions.md, 17): its controls here, and
+// the water itself fixed along the bottom of the window, over the page, which
+// scrolls behind it. public/ga/pond/pond.js runs it, the one script of the
+// site, and the content security policy allows that file and no other
+// (customHttp.yml). Until the script starts, the controls and the water are
+// hidden and a line says the pond needs it: without the script the page is
+// the filler alone.
+const COLOURS: [name: string, value: string, key: UiKey][] = [
+  ["water", "#b5d4f4", "pond.colour.water"],
+  ["line", "#2c2c2a", "pond.colour.line"],
+  ["airHead", "#d3d1c7", "pond.colour.airHead"],
+  ["airBody", "#b4b2a9", "pond.colour.airBody"],
+  ["waterHead", "#85b7eb", "pond.colour.waterHead"],
+  ["waterBody", "#378add", "pond.colour.waterBody"],
+  ["fish", "#f0997b", "pond.colour.fish"],
+];
+// What the script says as the demo goes on, in the page's language.
+const words = Object.fromEntries(
+  (
+    [
+      "running",
+      "over",
+      "restart",
+      "again",
+      "phoneOn",
+      "tiltHint",
+      "noTilt",
+      "tiltRefused",
+      "left",
+      "caught",
+    ] as const
+  ).map((key) => [key, t(locale, `pond.${key}`)]),
+);
+---
+
+<p class="lead">{description}</p>
+<p class="notice" id="pond-off">{t(locale, "pond.noScript")}</p>
+<div class="pond-panel" id="pond-panel" data-words={JSON.stringify(words)} hidden>
+  <div class="pond-row">
+    <label for="pond-tilt">{t(locale, "pond.tilt")}</label>
+    <input type="range" id="pond-tilt" min="-40" max="40" value="0" step="1" />
+    <output id="pond-tilt-out" for="pond-tilt">0°</output>
+  </div>
+  <div class="pond-row">
+    <button type="button" class="ga-button ga-button-quiet" id="pond-phone">
+      {t(locale, "pond.phone")}
+    </button>
+    <button type="button" class="ga-button" id="pond-start">{t(locale, "pond.start")}</button>
+  </div>
+  <dl class="pond-stats">
+    <div>
+      <dt>{t(locale, "pond.left")}</dt>
+      <dd id="pond-timer">30</dd>
+    </div>
+    <div>
+      <dt>{t(locale, "pond.caught")}</dt>
+      <dd id="pond-score">0</dd>
+    </div>
+  </dl>
+  <p id="pond-status" aria-live="polite">{t(locale, "pond.free")}</p>
+  <fieldset class="pond-colours">
+    <legend>{t(locale, "pond.colours")}</legend>
+    {
+      COLOURS.map(([name, value, key]) => (
+        <label>
+          <input type="color" value={value} data-colour={name} />
+          {t(locale, key)}
+        </label>
+      ))
+    }
+  </fieldset>
+</div>
+<div class="pond" id="pond" hidden>
+  <svg id="pond-svg" viewBox="0 0 400 160" role="img" aria-label={t(locale, "pond.label")}>
+    <defs><clipPath id="pond-clip"><path id="pond-clip-path" d=""></path></clipPath></defs>
+    <path id="pond-water" class="pond-water" d=""></path>
+    <g id="pond-fish"></g>
+    <g id="pond-pup-air"></g>
+    <g clip-path="url(#pond-clip)"><g id="pond-pup-water"></g></g>
+    <path id="pond-surface" class="pond-surface" d=""></path>
+    <g id="pond-bubbles"></g>
+  </svg>
+  <p class="pond-hud" id="pond-hud" aria-hidden="true" hidden></p>
+</div>
+<script is:inline src="/ga/pond/pond.js" defer></script>

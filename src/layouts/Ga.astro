@@ -1,0 +1,55 @@
+---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import GaFooter from "../components/GaFooter.astro";
+import GaHeader from "../components/GaHeader.astro";
+import { type Locale, pathOf } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
+import type { GaPage } from "../lib/content.ts";
+import { SAIGA_DIR, SAIGA_FILES } from "../lib/saiga.ts";
+import Base from "./Base.astro";
+
+interface Props {
+  locale: Locale;
+  page: GaPage;
+}
+const { locale, page } = Astro.props;
+
+// A page of Gaiane's structure (docs/decisions.md, 16): the site's head, her
+// header and footer, and breadcrumbs back to the structure's home page. Search
+// engines leave the structure alone: it shows the site's own texts again, and
+// it is a proposal, not the site.
+const home = page.slug === "";
+// In Saiga where the build has its files (src/lib/saiga.ts, decision 18), in
+// Inter where it has not: a CI build, a fork, a laptop without them.
+const saiga = SAIGA_FILES.every(({ file }) => existsSync(join(process.cwd(), SAIGA_DIR, file)));
+---
+
+<Base
+  locale={locale}
+  slug={home ? "" : `ga/${page.slug}`}
+  title={page.entry.data.title}
+  description={page.entry.data.description}
+  alternates={{ [locale]: page.path }}
+  noindex
+>
+  {saiga && <link slot="head" rel="stylesheet" href="/fonts/saiga.css" />}
+  <GaHeader slot="header" locale={locale} here={page.slug} />
+  {
+    !home && (
+      <nav class="ga-crumbs" aria-label={t(locale, "ga.crumbs")}>
+        <ol>
+          <li>
+            <a href={pathOf(locale, "ga")}>{t(locale, "site.name")}</a>
+          </li>
+          <li>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">{page.label}</span>
+          </li>
+        </ol>
+      </nav>
+    )
+  }
+  <slot />
+  <GaFooter slot="footer" locale={locale} />
+</Base>
