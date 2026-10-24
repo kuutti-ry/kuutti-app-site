@@ -1,0 +1,18 @@
+---
+import type { Locale } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
+import { externalMark } from "../lib/external.ts";
+
+interface Props {
+  locale: Locale;
+  href: string;
+  class?: string;
+}
+const { locale, href, class: className } = Astro.props;
+// A link that leaves the site, in Gaiane's structure: a new tab, said by an
+// arrow and in words (src/lib/external.ts, which marks the texts' links alike).
+---
+
+<a href={href} class={className} target="_blank" rel="noopener"
+  ><slot /><Fragment set:html={externalMark(t(locale, "ga.newTab"))} /></a
+>

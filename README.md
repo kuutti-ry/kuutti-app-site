@@ -2,7 +2,7 @@
 
 The website of Kuutti ry at [kuutti.app](https://kuutti.app): what Kuutti is, who is behind it, and the texts that bind the association and the people who use the app. The app itself is at [kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app).
 
-A static site. It runs no script, sets no cookie and loads nothing from anybody else, and a check holds it to that on every build. Its typeface, Inter, is its own file, under the SIL Open Font License 1.1 (`public/fonts/LICENSE-Inter.txt`).
+A static site. It sets no cookie and loads nothing from anybody else, and it runs no script but one demo's, the pond at `/ga/pond/`; a check holds it to that on every build. Its typeface, Inter, is its own file, under the SIL Open Font License 1.1 (`public/fonts/LICENSE-Inter.txt`). Gaiane's proposed structure of the site lives beside it at `/ga/`, in Saiga, Kuutti's typeface, whose files are never in this repository: the build fetches them (`docs/decisions.md`, 16 to 18).
 
 ## Run it
 
@@ -32,14 +32,17 @@ pnpm dev          # http://127.0.0.1:4321
 src/content/pages/<language>/<slug>.md    the pages: the app, the association, support us, help, deleting an account
 src/content/legal/<language>/<slug>.md    the legal texts: bylaws, terms of use, privacy policy
 src/content/consents/<language>/<kind>.md the app's research and sensitive-answers consents, read on the privacy page
+src/content/ga/<language>/<slug>.md       Gaiane's structure at /ga/, reusing the pages' texts by `@reuse /path/#heading`
 src/consent-versions.ts                   every version of each text a person agrees to, with its fingerprint
 src/i18n/                                 the languages, and the site's own words (navigation, notices)
-src/site.ts                               what the site knows: addresses, channels, store links
-src/pages/[...path].astro                 the one template every page is made from
-src/lib/                                  which pages there are, and how a text is listed
+src/site.ts                               what the site knows: addresses, channels, store links, the one scripted page
+src/pages/[...path].astro                 the template the site's pages are made from
+src/pages/ga/[...path].astro              the template of Gaiane's structure
+src/lib/                                  which pages there are, how a text is listed, Saiga's files and their sums
 src/styles/global.css                     the look, on the app's design tokens
-public/                                   the logo, the icon, and Inter (public/fonts/, SIL Open Font License 1.1)
-scripts/                                  the checks and the tests
+public/                                   the logo, the icon, Inter (public/fonts/, SIL Open Font License 1.1), the pond's script
+public/fonts/saiga/                       Saiga, put there by the build or by hand; git ignores it
+scripts/                                  the checks, the tests, and the fetch of Saiga
 docs/                                     decisions, open questions, what waits for a native reader
 ```
 

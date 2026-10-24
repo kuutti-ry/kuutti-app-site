@@ -77,6 +77,8 @@ function read(collection: string, languages: readonly string[]): Text[] {
 const pages = read("pages", LOCALES);
 const legal = read("legal", TEXT_LANGUAGES);
 const consents = read("consents", TEXT_LANGUAGES);
+// Gaiane's structure, at /ga/ (docs/decisions.md, 16): pages too, Markdown only.
+const ga = read("ga", LOCALES);
 
 for (const slug of new Set(pages.map((page) => page.slug))) {
   for (const locale of LOCALES) {
@@ -152,7 +154,7 @@ for (const text of consents) {
   }
 }
 
-for (const text of [...pages, ...legal, ...consents]) {
+for (const text of [...pages, ...legal, ...consents, ...ga]) {
   if (/<[a-z!/][^>]*>/i.test(text.body)) {
     problems.push(`${text.file}: HTML in the text; Markdown only`);
   }
@@ -169,5 +171,5 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `content holds: ${pages.length} pages in ${LOCALES.length} languages, ${legal.length} legal texts, ${consents.length} consent wordings`,
+  `content holds: ${pages.length} pages in ${LOCALES.length} languages, ${legal.length} legal texts, ${consents.length} consent wordings, ${ga.length} pages of Gaiane's structure`,
 );

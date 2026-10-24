@@ -38,3 +38,12 @@ export const SITE = {
    */
   stores: { apple: null as string | null, google: null as string | null },
 } as const;
+
+/**
+ * The pages that run a script, by their address, each with the one file it
+ * runs: the pond demo alone, on the maintainer's word of 24/10/2026
+ * (docs/decisions.md, 17). The content security policy (customHttp.yml)
+ * allows these files and nothing else, and scripts/check-site.ts holds that
+ * no other page has a script.
+ */
+export const SCRIPTED: Readonly<Record<string, string>> = { "/ga/pond/": "/ga/pond/pond.js" };

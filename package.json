@@ -14,7 +14,7 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview --host 127.0.0.1",
     "typecheck": "ASTRO_TELEMETRY_DISABLED=1 astro check",
-    "lint": "biome check . && node scripts/check-content.ts",
+    "lint": "biome check . && node scripts/check-content.ts && node scripts/check-fonts.ts",
     "format": "biome check --write .",
     "test": "node --test scripts/*.test.ts",
     "check:site": "node scripts/check-site.ts",

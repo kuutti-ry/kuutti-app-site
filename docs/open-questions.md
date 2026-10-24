@@ -10,7 +10,7 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 
 | question | what the site says meanwhile |
 |---|---|
-| **A contact address.** `kuutti.app` has a null MX record: the domain receives no mail. A privacy policy needs an address that answers | nothing on the site names an address; `contactEmail` is `null` in `src/site.ts` |
+| **A contact address.** `kuutti.app` receives mail since the association's Google Workspace (its MX was `smtp.google.com` on 24/10/2026); which address the site gives, and who answers it, is still open. A privacy policy needs an address that answers | nothing on the site names an address; `contactEmail` is `null` in `src/site.ts` |
 | **A privacy contact**, by name or by role | "has not named a data protection officer" |
 | **Social channels**: YouTube | LinkedIn, GitHub, TikTok and Instagram are in the footer (`social` in `src/site.ts`); YouTube is not shown until it exists |
 | **The team**: who wants to be named, and with which title | "listed here once they have chosen"; nobody is named |
@@ -52,6 +52,9 @@ Drafting it meant reading what the app keeps. These are for the app's repository
 | **The repository's name**, and when it is published | published 28/09/2026 as `kuutti-fi/kuutti-app-site` (`kuutti-ry/kuutti-app-site` since the organisation was renamed on 03/10/2026), public like the app's, on the maintainer's word after he had looked at the site |
 | **The move of Amplify Hosting** to the new repository | done 28/09/2026: a new app, `kuutti-app-site`, created in the console and connected to this repository, `kuutti.app` moved to it, the old app deleted; `amplify.yml` and `customHttp.yml` work as written. The setup is in the app repository's `infra/README.md`, "The website" |
 | **Removing `site/`** from the app's repository, with its `amplify.yml` and the mentions in `CLAUDE.md` and ADR-001 | kuutti-ry/kuutti-app#109 |
-| **The waitlist's numbers on the home page.** The API has a public `GET /waitlist` and allows the site's origin | not shown: it needs a script in the browser, and the site has none |
+| **The waitlist's numbers on the home page.** The API has a public `GET /waitlist` and allows the site's origin | not shown: it needs a script in the browser, and the site runs none but the pond demo's (decision 17) |
+| **Gaiane's structure** at `/ga/`: whether, and when, it becomes the site's | beside the site, left alone by search engines, linked from nowhere on the site (decision 16) |
+| **Saiga on kuutti.app**: the read-only token for `kuutti-ry/kuutti-app-fonts`, set as `FONTS_TOKEN` in the Amplify app; previews of pull requests kept off there | `/ga/` is in Saiga where the build has the files, in Inter until then (decision 18) |
+| **Crediting Spoke Type**, Saiga's foundry: whether, and how | "the foundry is named here once it has said how it wants to be credited" (rule 5) |
 | **The wording about collecting money** on "Support us" ("a notification to the police or a permit") | written from the founding notes; to be confirmed by somebody who knows the law on money collections |
 | **The store links** | the stores' badges dimmed, and "Not in the stores yet." under them (decisions 13 and 15); `stores` is `null` in `src/site.ts` |

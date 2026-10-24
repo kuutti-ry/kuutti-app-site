@@ -1,0 +1,85 @@
+---
+import Pond from "../../components/Pond.astro";
+import StoreBadges from "../../components/StoreBadges.astro";
+import { DEFAULT_LOCALE, pathOf } from "../../i18n/locales.ts";
+import { t } from "../../i18n/ui.ts";
+import Ga from "../../layouts/Ga.astro";
+import { allPages, type GaPage, gaPages, placeOf } from "../../lib/content.ts";
+import { markExternal } from "../../lib/external.ts";
+import { drawFlags } from "../../lib/flag.ts";
+import { reuse } from "../../lib/reuse.ts";
+
+// Every page of Gaiane's structure (docs/decisions.md, 16) is made here, from
+// src/content/ga: English only, as the site is (decision 8).
+type Props = { page: GaPage };
+
+export async function getStaticPaths() {
+  return (await gaPages(DEFAULT_LOCALE)).map((page) => ({
+    params: { path: page.slug || undefined },
+    props: { page },
+  }));
+}
+
+const locale = DEFAULT_LOCALE;
+const { page } = Astro.props;
+const { title, description } = page.entry.data;
+
+// The text as the content layer rendered it, with the parts it takes from the
+// site's own pages put in (src/lib/reuse.ts), the flag drawn where its emoji
+// is (src/lib/flag.ts), and every link that leaves the site marked as such.
+const rendered = (entry: { id: string; rendered?: { html: string } }): string => {
+  if (entry.rendered === undefined) throw new Error(`${entry.id} was not rendered`);
+  return entry.rendered.html;
+};
+const sources = new Map(
+  (await allPages())
+    .filter((entry) => placeOf(entry.id).locale === locale)
+    .map((entry) => [pathOf(locale, placeOf(entry.id).slug), rendered(entry)]),
+);
+const html = markExternal(drawFlags(reuse(rendered(page.entry), sources)), t(locale, "ga.newTab"));
+---
+
+<Ga locale={locale} page={page}>
+  {
+    page.slug === "" ? (
+      <>
+        {/* Her sketch: the slogan, a download button, and the pup above the water. */}
+        <section class="ga-hero">
+          <div>
+            <h1>{title}</h1>
+            <p>
+              <a class="ga-button ga-button-large" href={pathOf(locale, "ga/download")}>
+                {t(locale, "ga.download")}
+              </a>
+            </p>
+            <p class="meta">{t(locale, "home.soon")}</p>
+          </div>
+          <img src="/logo.png" alt="" width="840" height="572" />
+        </section>
+        <div class="prose ga-page">
+          <Fragment set:html={html} />
+        </div>
+      </>
+    ) : (
+      <article class="prose ga-page">
+        <h1>{title}</h1>
+        {page.slug === "pond" && <Pond locale={locale} description={description} />}
+        <Fragment set:html={html} />
+        {page.slug === "download" && (
+          <>
+            <div class="ga-stores">
+              <StoreBadges locale={locale} />
+            </div>
+            {/* A computer has no store of its own: the code opens this page on a phone. */}
+            <div class="ga-qr">
+              <img src="/ga/download-qr.svg" width="132" height="132" alt={t(locale, "ga.qr.alt")} />
+              <p>
+                <strong>{t(locale, "ga.qr.title")}</strong> {t(locale, "ga.qr.body")}
+              </p>
+            </div>
+          </>
+        )}
+      </article>
+    )
+  }
+</Ga>

@@ -524,6 +524,641 @@ hr {
   fill: currentColor;
 }
 
+/* --- Gaiane's structure (/ga/, docs/decisions.md 16) --------------------- */
+
+/* Words for a screen reader alone. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Her header stays at the top as the page scrolls, where the window is tall enough to spare it. */
+.ga-header {
+  position: relative;
+  z-index: 5;
+  border-bottom: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+}
+
+@media (min-height: 30rem) {
+  .ga-header {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.ga-header > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 0.5rem var(--gap);
+}
+
+/* The logo and the name: home. */
+.ga-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  margin-inline-end: auto;
+  color: inherit;
+  font-size: var(--step-1);
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+
+.ga-brand img {
+  width: auto;
+  height: 2.5rem;
+}
+
+.ga-nav ul {
+  display: flex;
+  gap: 0 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ga-nav li,
+.ga-lang li,
+.ga-crumbs li,
+.ga-footer li {
+  margin: 0;
+}
+
+.ga-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.6rem;
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ga-nav a:hover {
+  background: hsl(var(--muted));
+}
+
+/* Where you are is a line and a weight, never colour alone. */
+.ga-nav a[aria-current="page"] {
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.35em;
+}
+
+/* A button is a stroke that fills: her "stroke, flat colours". */
+.ga-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border: 2px solid hsl(var(--primary));
+  border-radius: 999px;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ga-button:hover,
+.ga-button[aria-current="page"],
+.ga-button-quiet {
+  background: hsl(var(--background));
+  color: hsl(var(--primary));
+}
+
+.ga-button-quiet:hover {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.ga-button-large {
+  min-height: 3.25rem;
+  padding: 0 1.75rem;
+  font-size: var(--step-1);
+}
+
+/* On a wide screen the pages stand in the header; on a narrow one they fold into the menu. */
+.ga-wide {
+  display: none;
+}
+
+@media (min-width: 60rem) {
+  .ga-nav.ga-wide {
+    display: block;
+  }
+
+  .ga-button.ga-wide {
+    display: inline-flex;
+  }
+
+  .ga-menu {
+    display: none;
+  }
+}
+
+.ga-lang {
+  position: relative;
+}
+
+.ga-lang > summary,
+.ga-menu > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+
+.ga-lang > summary::-webkit-details-marker,
+.ga-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ga-lang > summary:hover,
+.ga-menu > summary:hover,
+.ga-lang[open] > summary,
+.ga-menu[open] > summary {
+  background: hsl(var(--muted));
+}
+
+.ga-header :where(summary) svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ga-lang .chevron {
+  width: 1rem;
+  height: 1rem;
+}
+
+.ga-lang[open] .chevron {
+  transform: rotate(180deg);
+}
+
+/* The languages, named in their own words; the ones to come say so in words. */
+.ga-lang ul {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 0.25rem);
+  z-index: 6;
+  min-width: 13rem;
+  margin: 0;
+  padding: 0.5rem 0;
+  list-style: none;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px hsl(var(--foreground) / 0.12);
+}
+
+.ga-lang li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.ga-lang li[aria-current] {
+  font-weight: 650;
+}
+
+.ga-soon {
+  font-size: var(--step--1);
+  font-weight: 400;
+  color: hsl(var(--muted-foreground));
+}
+
+.ga-menu .close,
+.ga-menu[open] .open {
+  display: none;
+}
+
+.ga-menu[open] .close {
+  display: block;
+}
+
+/* The menu opens under the header, as wide as the window. */
+.ga-menu > nav {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  max-height: calc(100dvh - 4rem);
+  overflow-y: auto;
+  padding: 0.5rem var(--gap) 1rem;
+  background: hsl(var(--background));
+  border-bottom: 1px solid hsl(var(--border));
+  box-shadow: 0 12px 24px hsl(var(--foreground) / 0.08);
+}
+
+.ga-menu ul {
+  flex-direction: column;
+}
+
+/* Breadcrumbs: back to the structure's home from wherever a link led. */
+.ga-crumbs {
+  max-width: var(--column);
+  margin: 0 auto 0.5rem;
+  font-size: var(--step--1);
+  color: hsl(var(--muted-foreground));
+}
+
+.ga-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ga-crumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ga-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Her sketch: the slogan and the button, and the pup above the water beside them. */
+.ga-hero {
+  display: grid;
+  align-items: center;
+  gap: 1.5rem 3rem;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: clamp(1rem, 4vw, 3rem) 0 clamp(1.5rem, 4vw, 3rem);
+}
+
+@media (min-width: 48rem) {
+  .ga-hero {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+.ga-hero h1 {
+  margin: 0 0 1.25rem;
+  font-size: clamp(2.25rem, 1.5rem + 3.5vw, 4rem);
+  letter-spacing: -0.02em;
+}
+
+.ga-hero p {
+  margin: 0 0 0.5rem;
+}
+
+.ga-hero img {
+  justify-self: center;
+  width: min(80%, 360px);
+  height: auto;
+}
+
+/* The pages: the site's column, the first paragraph a lead. */
+:where(.ga-page > h1 + p, .ga-page > p:first-child) {
+  font-size: var(--step-1);
+  color: hsl(var(--muted-foreground));
+}
+
+/* A numbered list is steps: each a stroked card, its number in a ring. */
+.ga-page ol {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.ga-page ol > li {
+  position: relative;
+  margin: 0;
+  padding: 0.9rem 1rem 0.9rem 3.5rem;
+  border: 1.5px solid hsl(var(--border));
+  border-radius: calc(var(--radius) * 2);
+  counter-increment: step;
+}
+
+.ga-page ol > li::before {
+  content: counter(step);
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: 0.85rem;
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1.5px solid hsl(var(--foreground));
+  border-radius: 50%;
+  font-size: var(--step--1);
+  font-weight: 650;
+}
+
+.ga-stores {
+  margin: 1.5rem 0 2rem;
+}
+
+.ga-stores .stores {
+  justify-content: flex-start;
+}
+
+.ga-stores p {
+  margin: 0.75rem 0 0;
+}
+
+/* A computer has no store: the code opens the page on a phone, and a phone does not see it. */
+.ga-qr {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 30rem;
+  padding: 1rem;
+  border: 1.5px solid hsl(var(--border));
+  border-radius: calc(var(--radius) * 2);
+}
+
+.ga-qr img {
+  flex: none;
+  width: 132px;
+  height: 132px;
+}
+
+.ga-qr p {
+  margin: 0;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .ga-qr {
+    display: none;
+  }
+}
+
+/* A link that leaves the site: an arrow after its words (src/lib/external.ts). */
+.external {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  margin-inline-start: 0.15em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ga-footer {
+  margin-top: 3rem;
+  border-top: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  font-size: var(--step--1);
+  color: hsl(var(--muted-foreground));
+}
+
+.ga-footer > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1.5rem 2rem;
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 2rem var(--gap);
+}
+
+.ga-footer h2 {
+  margin: 0 0 0.25rem;
+  font-size: var(--step-0);
+  color: hsl(var(--foreground));
+}
+
+.ga-footer ul {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ga-footer p {
+  margin: 0 0 0.5rem;
+}
+
+/* A link of a line or two, its arrow after the last word; padded to a 44 px target. */
+.ga-footer a {
+  display: inline-block;
+  padding: 0.7rem 0;
+  color: inherit;
+}
+
+.ga-footer .ga-brand,
+.ga-footer .ga-channel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0;
+}
+
+.ga-channel .external {
+  margin-inline-start: 0;
+}
+
+.ga-footer a:hover {
+  color: hsl(var(--foreground));
+}
+
+.ga-footer .ga-brand {
+  color: hsl(var(--foreground));
+  font-size: var(--step-1);
+}
+
+.ga-channel > svg:first-child {
+  fill: currentColor;
+}
+
+/* --- The pond (/ga/pond/, docs/decisions.md 17) ------------------------- */
+
+.pond-panel {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 2rem;
+  padding: 1rem 1.25rem;
+  border: 1.5px solid hsl(var(--border));
+  border-radius: calc(var(--radius) * 2);
+}
+
+.pond-panel[hidden],
+.pond[hidden],
+.pond-hud[hidden] {
+  display: none;
+}
+
+.pond-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pond-row input[type="range"] {
+  flex: 1;
+  min-width: 8rem;
+  min-height: 44px;
+}
+
+.pond-row output,
+.pond-stats dd,
+.pond-hud {
+  font-variant-numeric: tabular-nums;
+}
+
+.pond-row output {
+  min-width: 3ch;
+  font-weight: 600;
+}
+
+.pond-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.pond-stats div {
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius);
+  background: hsl(var(--muted));
+}
+
+.pond-stats dt {
+  margin: 0;
+  font-size: var(--step--1);
+  font-weight: 400;
+  color: hsl(var(--muted-foreground));
+}
+
+.pond-stats dd {
+  margin: 0;
+  font-size: var(--step-2);
+  font-weight: 650;
+}
+
+#pond-status {
+  min-height: 1.6em;
+  margin: 0;
+}
+
+.pond-colours {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0 1rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.pond-colours legend {
+  margin-bottom: 0.25rem;
+  padding: 0;
+}
+
+.pond-colours label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-size: var(--step--1);
+}
+
+.pond-colours input {
+  width: 2.25rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+  background: none;
+}
+
+/*
+ * The water lies along the bottom of the window, over the page, and the page
+ * scrolls behind it; the page leaves room at its end, so that its last lines
+ * can be read above the water. Only the water takes a tap: above it, a tap is
+ * the page's.
+ */
+body:has(.pond) {
+  --pond: clamp(9rem, 30vh, 15rem);
+  padding-bottom: var(--pond);
+}
+
+.pond {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 4;
+  height: var(--pond);
+  pointer-events: none;
+}
+
+.pond svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pond-water {
+  fill-opacity: 0.8;
+  pointer-events: visiblePainted;
+  cursor: pointer;
+}
+
+.pond-surface {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The round's time and catch, while a round runs, above the water. */
+.pond-hud {
+  position: absolute;
+  top: 0.25rem;
+  inset-inline-end: var(--gap);
+  margin: 0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: hsl(var(--background) / 0.9);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -533,6 +1168,9 @@ hr {
 @media print {
   .site-header,
   .site-footer,
+  .ga-header,
+  .ga-footer,
+  .pond,
   .skip {
     display: none;
   }
