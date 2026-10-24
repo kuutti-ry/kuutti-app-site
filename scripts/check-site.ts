@@ -96,6 +96,15 @@ for (const path of pages) {
     }
   }
 
+  // The share image, which a messenger fetches for a link's preview: a file of the site.
+  const share = /<meta property="og:image" content="([^"]*)"/.exec(html)?.[1];
+  if (share !== undefined) {
+    const at = new URL(share);
+    if (at.origin !== ORIGIN || !fileOf(at.pathname)) {
+      problems.push(`${page}: the share image ${share} is not a file of the site`);
+    }
+  }
+
   // Where a reader can go inside the site.
   for (const [tag] of html.matchAll(/<a\b[^>]*>/gi)) {
     const href = attribute(tag, "href");

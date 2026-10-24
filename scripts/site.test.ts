@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 import { DEFAULT_LOCALE, isLocale, LOCALES, pathOf } from "../src/i18n/locales.ts";
 import { formatDate, LANGUAGE_IN, t, UI } from "../src/i18n/ui.ts";
+import { fingerprinted } from "../src/lib/fingerprint.ts";
 import { MARKS } from "../src/lib/marks.ts";
 import { SCRIPTED, SITE } from "../src/site.ts";
 
@@ -98,5 +100,28 @@ test("the content security policy lets nothing run but the files of SCRIPTED, ea
   for (const [page, file] of Object.entries(SCRIPTED)) {
     assert.match(page, /^\/.*\/$/, `${page} is a page's address`);
     assert.match(file, /^\/[\w/-]+\.js$/, `${file} is a file of the site`);
+  }
+});
+
+test("a file kept elsewhere by its address carries a fingerprint that changes with it, and only then", () => {
+  const root = mkdtempSync(join(tmpdir(), "fingerprint-"));
+  try {
+    mkdirSync(join(root, "public"));
+    const write = (text: string) => writeFileSync(join(root, "public", "logo.png"), text);
+    write("the tail");
+    const tail = fingerprinted("/logo.png", root);
+    assert.match(tail, /^\/logo\.png\?v=[0-9a-f]{8}$/);
+    assert.equal(fingerprinted("/logo.png", root), tail);
+    write("the seal pup's face");
+    assert.notEqual(fingerprinted("/logo.png", root), tail);
+    assert.throws(() => fingerprinted("/missing.png", root), /ENOENT/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("the share image and the icon are named by their fingerprints", () => {
+  for (const file of ["/kuutti.png", "/favicon.png"]) {
+    assert.match(fingerprinted(file, join(import.meta.dirname, "..")), /\?v=[0-9a-f]{8}$/, file);
   }
 });
