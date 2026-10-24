@@ -13,6 +13,13 @@ allowBuilds:
 # (pnpm's default, stated explicitly), as in the app's repository.
 minimumReleaseAge: 1440
 
+# Security floors, as in the app's repository. undici under unifont (Astro's
+# font provider, which this site does not use: Inter and Saiga are its own
+# files): GHSA-xjj6-f33q-929c, failing the audit gate since 2026-10-24.
+# Patched within its major; drop the floor once unifont asks for it itself.
+overrides:
+  "undici@8": ">=8.12.2 <9"
+
 # pnpm audit: one advisory set aside, with its reason. GHSA-ch52-4w7c-c8xp
 # (http-cache-semantics <= 4.2.0, high, no patched version yet) is about a
 # shared cache that serves many users. Astro uses the package only to cache
