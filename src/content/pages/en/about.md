@@ -65,9 +65,3 @@ A kuutti is a seal pup, in Finnish. The logo is its face.
 ### When does it open?
 
 The app is being built. There is no date yet.
-
-### What happens if I send someone a dick pic?
-
-We'll find your mom and forward it to her.
-
-Joking, in our setup, it's technically impossible and also illegal, we'd never do that... or would we? 😉
