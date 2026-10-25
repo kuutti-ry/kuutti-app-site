@@ -57,6 +57,8 @@ With each photo Kuutti keeps its state (waiting, approved, waiting for a person,
 
 For each device you are signed in on: whether it is an iPhone, an Android phone or a browser; the beginning of the text by which the app names itself and the system to the server; when you signed in and when the session was last used. The keys of a session are kept only as codes computed from them.
 
+If you let Kuutti send notifications to a phone, Kuutti also keeps, for that session, the phone's push token, the code by which Expo, Apple and Google deliver notifications to the app on that phone, and the language the notifications are written in. The token says nothing about you to them. It is deleted when you sign out on that phone, when the session ends in any other way, and when your account is deleted. Your copy of your data says which of your devices has one, but not the token.
+
 Kuutti keeps **no IP address** in its database. The server uses the address of a request, in its memory only, to refuse a sender that asks too much too fast.
 
 ### What you did
@@ -107,8 +109,8 @@ The association uses these others to run the service. They handle the data on th
 | **Amazon Web Services** | The servers, the database, the photos and their delivery, the server's logs, the automatic check of photos | The European Union (Frankfurt). Photos are delivered through Amazon's delivery network, which has nodes outside the EU as well |
 | **Telia Finland Oyj** | Identification with your bank. Telia and your bank act in their own name here, under the law on strong electronic identification | Not yet confirmed by Telia |
 | **Sentry** (Functional Software, Inc.) | Reports of errors in the app and on the server | The European Union (Germany) |
-| **Expo** (650 Industries, Inc.) | Updates of the app: at every start the app asks Expo's servers whether there is a newer version | Not stated by Expo in what the association has |
-| **Apple and Google** | Delivering the app to your phone | By their own terms |
+| **Expo** (650 Industries, Inc.) | Updates of the app: at every start the app asks Expo's servers whether there is a newer version. Notifications: for each one, the phone's push token, the one line the phone shows ("You have a new message", "You have a new match" or "Today's round is ready") and which conversation it is about, never what a message says or who sent it | Not stated by Expo in what the association has |
+| **Apple and Google** | Delivering the app to your phone, and delivering Kuutti's notifications to it, which Expo hands to them | By their own terms |
 
 **The automatic check of photos.** One of the three sizes of a photo, without any data of the original file, is sent to Amazon's image recognition service in Frankfurt, which answers with labels of what it sees and with the number of faces. Kuutti keeps the answer with the photo; the labels are never shown to you or to anybody but moderators. The service answers and keeps nothing for the association. Amazon's terms allow it to use what is sent to such services to improve them unless its customer refuses; the association refuses before the app opens.
 
@@ -122,6 +124,7 @@ Kuutti keeps your data in the European Union. These are the cases in which data 
 
 - A photo is delivered to the phone that asks for it through a delivery network, from the node nearest to that phone. If somebody opens the app outside Europe, the photos they are allowed to see reach them through a node outside Europe.
 - When the app asks for updates, Expo's servers see the phone's address on the network. The app sends nothing about your account there.
+- A notification goes through Expo's servers and then Apple's or Google's, which can be outside the EU: the phone's push token, the line the phone shows and which conversation it is about. Never what a message says, who sent it, or anything else about you.
 - Apple and Google learn that you installed the app.
 
 Where a transfer needs a safeguard under the data protection regulation, the association relies on the standard contractual clauses of the European Commission or on a decision of the Commission that the receiving country protects data adequately.
@@ -134,6 +137,7 @@ Where a transfer needs a safeguard under the data protection regulation, the ass
 | The record of photos you were given, and of cards you were shown | Until you delete your account |
 | A session you signed out of | 30 days |
 | A session you do not use | 90 days |
+| A phone's push token | Until the session it belongs to ends, or the phone tells Expo it no longer takes Kuutti's notifications |
 | Research events | At most 90 days |
 | The server's log | 30 days |
 | Backups of the database | 35 days |
@@ -151,6 +155,7 @@ If the association is dissolved, the personal data of the people who used the se
 - **Correct it.** You can change your profile, your photos and your preferences in the app.
 - **Delete it.** *Delete my account* deletes at once; see above for what stays.
 - **Withdraw a consent.** You can take back your consent to research in the app at any time. It does not undo what was done before.
+- **Stop notifications.** In the app, under *Notifications*, each kind can be switched off for all your phones; in a phone's own settings, all of Kuutti's for that phone.
 - **Object, or ask for the handling to be restricted**, where the ground is the association's legitimate interest.
 - **Complain.** If you think your data is handled against the law, you can complain to the Office of the Data Protection Ombudsman, [tietosuoja.fi](https://tietosuoja.fi/en/home).
 
