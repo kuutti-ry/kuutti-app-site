@@ -209,11 +209,10 @@ if (typeof versions !== "object" || versions === null) {
   }
 }
 
-// shortcut: a page shows one version of each text, the newest, and today
-// each kind has one row. The first new version fails here until the text of
-// the one before it stays on the page under its own anchor (an earlier
-// versions section, or a page per version), since production records
-// consents to it until the next release of the API and the stores.
+// A version people agreed to keeps its text on its page under its own anchor,
+// since production records consents to it until the next release of the API
+// and the stores: the newest on the text's own line, each earlier one in the
+// page's earlier versions, from src/content/earlier (docs/decisions.md, 14).
 for (const kind of CONSENT_KINDS) {
   const path = pathOf(DEFAULT_LOCALE, `legal/${TEXT_OF[kind]}`);
   const file = fileOf(path);

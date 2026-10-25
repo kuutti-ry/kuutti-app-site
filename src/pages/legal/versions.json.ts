@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { PINNED } from "../../consent-versions.ts";
-import { versionsDocument } from "../../lib/consent.ts";
-import { wordings } from "../../lib/content.ts";
+import { earlierProblems, versionsDocument } from "../../lib/consent.ts";
+import { earlierTexts, wordings } from "../../lib/content.ts";
 
 const ORIGIN = new URL(import.meta.env.SITE ?? "https://kuutti.app");
 
@@ -10,8 +10,11 @@ const ORIGIN = new URL(import.meta.env.SITE ?? "https://kuutti.app");
 // (kuutti-ry/kuutti-app#208). The app's CI reads this file and fails when its
 // CONSENT_VERSIONS differs. The build fails here when a text changed without
 // its version (src/consent-versions.ts), so a moved text is never published
-// under the version people agreed to.
+// under the version people agreed to. It fails as well when a version people
+// agreed to is not kept as it was (src/content/earlier, docs/decisions.md 14).
 export const GET: APIRoute = async () => {
+  const kept = earlierProblems(await earlierTexts(), PINNED);
+  if (kept.length > 0) throw new Error(`the earlier versions:\n${kept.join("\n")}`);
   const document = versionsDocument(await wordings(), PINNED, ORIGIN);
   return new Response(`${JSON.stringify(document, null, 2)}\n`, {
     headers: { "Content-Type": "application/json; charset=utf-8" },

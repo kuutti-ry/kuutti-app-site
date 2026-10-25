@@ -163,6 +163,47 @@ export function pinProblems(wordings: readonly Wording[], pinned: Pinned): strin
 }
 
 /**
+ * What keeps the earlier versions from standing on the site as people agreed
+ * to them (docs/decisions.md, 14): every row but a kind's newest has its text
+ * kept, whose fingerprint is its row's, and a kept text names a row that is
+ * not the newest. `earlier` holds one wording per kept language, each with
+ * its version.
+ */
+export function earlierProblems(earlier: readonly Wording[], pinned: Pinned): string[] {
+  const problems: string[] = [];
+  for (const kind of CONSENT_KINDS) {
+    const rows = pinned[kind];
+    const versions = Object.keys(rows);
+    const newest = versions.at(-1);
+    const own = earlier.filter((wording) => wording.kind === kind);
+    for (const version of new Set(own.map((wording) => wording.version ?? ""))) {
+      if (!Object.hasOwn(rows, version)) {
+        problems.push(`${kind}: the kept text of ${version} has no row in src/consent-versions.ts`);
+      } else if (version === newest) {
+        problems.push(
+          `${kind}: ${version} is the newest row; its text is the page's own, not a kept one`,
+        );
+      }
+    }
+    for (const version of versions.slice(0, -1)) {
+      const counted = countedWording(own.filter((wording) => wording.version === version));
+      if (counted === null) {
+        problems.push(
+          `${kind}: version ${version} has no kept text; people agreed to it, so its file stays ` +
+            `in src/content/earlier/<language>/${kind}/${version}.md`,
+        );
+      } else if (fingerprintOf(counted) !== rows[version]) {
+        problems.push(
+          `${kind}: the kept ${counted.language} text of version ${version} is not the one its row ` +
+            `pins (${rows[version]}, kept ${fingerprintOf(counted)}); it is copied whole and never edited`,
+        );
+      }
+    }
+  }
+  return problems;
+}
+
+/**
  * src/consent-versions.ts against the base branch's: a row is added at the
  * end and never changed or removed, so every row of the base is in the head,
  * in its place, with its fingerprint. A kind the base has no table for, or no

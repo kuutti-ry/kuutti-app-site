@@ -20,7 +20,7 @@ import type { Pinned } from "./lib/consent.ts";
  */
 export const PINNED: Pinned = {
   terms: { "2026-09-draft-1": "65b7fa7d00ed9290" },
-  privacy: { "2026-09-draft-1": "422ac16a1df3d859" },
+  privacy: { "2026-09-draft-1": "422ac16a1df3d859", "2026-10-draft-2": "9231ba2d5b6e0f69" },
   research: { "2026-09-draft-1": "0cd317fd8cc2d703" },
   special_category: { "2026-10-draft-2": "bb0b1aa5f3054f7e" },
 };

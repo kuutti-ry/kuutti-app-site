@@ -10,6 +10,9 @@ import { CONSENT_VERSION } from "./lib/consent.ts";
 //   src/content/legal/<language>/<slug>.md     what binds: bylaws, terms, privacy
 //   src/content/consents/<language>/<kind>.md  a consent the app asks apart, read
 //                                              on the privacy page (lib/consent.ts)
+//   src/content/earlier/<language>/<kind>/<version>.md
+//                                              a version people agreed to, kept as
+//                                              it was once a newer one replaced it
 //
 // A page exists in every language of the site (src/i18n/locales.ts). A legal
 // text exists in the languages it was written in by people, and in no other:
@@ -107,6 +110,27 @@ const consents = defineCollection({
 });
 
 /**
+ * A version of a text a person agrees to in the app, kept once a newer one
+ * replaced it (docs/decisions.md, 14): the file as it was when that version
+ * was the newest, copied whole, never edited. People agreed to it, and the
+ * app's builds in their hands link to its anchor until they are updated, so
+ * its page keeps it, and the build holds it to its row of
+ * src/consent-versions.ts as it held it then. The folder is the language and
+ * the kind, the file the version.
+ */
+const earlier = defineCollection({
+  loader: glob({ pattern: "*/*/*.md", base: "./src/content/earlier" }),
+  schema: z.object({
+    title: z.string().min(1),
+    consent_version: consentVersion,
+    dated: z.coerce.date(),
+    /** A legal text of its own (the terms, the privacy policy): as its standing was; absent for a consent. */
+    status: z.enum(["draft", "filed", "in_force"]).optional(),
+    binding: z.boolean().optional(),
+  }),
+});
+
+/**
  * Gaiane's structure of the site, beside it at /ga/ (docs/decisions.md, 16).
  * `index` is its home page. A paragraph that says only `@reuse /app/#research`
  * shows that part of the site's own page (src/lib/reuse.ts), so that a text
@@ -124,4 +148,4 @@ const ga = defineCollection({
   }),
 });
 
-export const collections = { pages, legal, consents, ga };
+export const collections = { pages, legal, consents, earlier, ga };

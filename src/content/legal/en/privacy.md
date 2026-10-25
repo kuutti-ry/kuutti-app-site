@@ -3,8 +3,8 @@ title: Privacy policy
 description: What Kuutti keeps about the people who use it, why, for how long, who else handles it, and what you can do about it.
 order: 3
 status: draft
-consent_version: "2026-09-draft-1"
-dated: 2026-10-06
+consent_version: "2026-10-draft-2"
+dated: 2026-10-25
 binding: false
 ---
 
