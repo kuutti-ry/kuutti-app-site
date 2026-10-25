@@ -3,8 +3,8 @@ import Notice from "../components/Notice.astro";
 import StoreBadges from "../components/StoreBadges.astro";
 import { formatDate, LANGUAGE_IN, STATUS_KEY, t } from "../i18n/ui.ts";
 import Base from "../layouts/Base.astro";
-import { anchorOf, isConsentKind } from "../lib/consent.ts";
-import { consentsOn, legalShelf, writtenIn } from "../lib/content.ts";
+import { anchorOf, isConsentKind, TEXT_OF } from "../lib/consent.ts";
+import { consentsOn, earlierTexts, legalShelf, writtenIn } from "../lib/content.ts";
 import { drawFlags } from "../lib/flag.ts";
 import { type RouteProps, routes } from "../lib/routes.ts";
 import { SITE } from "../site.ts";
@@ -53,6 +53,14 @@ const consents = view.kind === "text" ? await consentsOn(locale, textSlug) : [];
 // A draft's version is the one the app records for the draft; the text in
 // force will be given its own (the drafts say so), so the line says which.
 const versionKey = draft ? "doc.draftVersion" : "doc.version";
+// The versions people agreed to before the newest, of this text and of the
+// consents it carries, each kept as it was under its own anchor, newest first
+// (docs/decisions.md, 14). Closed until opened: the app's link to one lands
+// on its line.
+const earlier =
+  view.kind === "text"
+    ? (await earlierTexts()).filter((text) => TEXT_OF[text.kind] === textSlug)
+    : [];
 ---
 
 <Base
@@ -176,6 +184,25 @@ const versionKey = draft ? "doc.draftVersion" : "doc.version";
                   </>
                 ))}
               </>
+            ))}
+          </>
+        )}
+        {earlier.length > 0 && (
+          <>
+            <h2>{t(locale, "earlier.title")}</h2>
+            <p>{t(locale, "earlier.intro")}</p>
+            {earlier.map((text) => (
+              <details
+                id={anchorOf(text.kind, text.version)}
+                lang={text.language === textLanguage ? undefined : text.language}
+              >
+                <summary>
+                  {text.title}
+                  {` · ${t(locale, "doc.dated", { date: formatDate(locale, text.dated) })}`}
+                  {` · ${t(locale, (text.standing ? text.standing.status === "draft" : draft) ? "doc.draftVersion" : "doc.version", { version: text.version })}`}
+                </summary>
+                <Fragment set:html={drawFlags(text.html)} />
+              </details>
             ))}
           </>
         )}

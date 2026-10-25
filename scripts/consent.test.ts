@@ -10,6 +10,7 @@ import {
   CONSENT_VERSION,
   type ConsentKind,
   countedWording,
+  earlierProblems,
   fetchAppVersions,
   fingerprint,
   fingerprintOf,
@@ -236,6 +237,59 @@ test("a new version of an unchanged text says so with the row it offers", () => 
   ]);
 });
 
+test("every version before a kind's newest keeps its text as its row pins it", () => {
+  const wordings = content();
+  const pinned = pinnedFor(wordings);
+  // Nothing to keep while each kind has one row.
+  assert.deepEqual(earlierProblems([], pinned), []);
+  const v2 = fingerprintOf({ title: "privacy", body: "uusi teksti" });
+  const bumped: Pinned = { ...pinned, privacy: { ...pinned.privacy, v2 } };
+  assert.deepEqual(earlierProblems([], bumped), [
+    "privacy: version v1 has no kept text; people agreed to it, so its file stays in src/content/earlier/<language>/privacy/v1.md",
+  ]);
+  const kept = wordings.filter((w) => w.kind === "privacy");
+  assert.deepEqual(earlierProblems(kept, bumped), []);
+  // An English copy beside the Finnish one changes nothing: the Finnish is counted.
+  assert.deepEqual(
+    earlierProblems([...kept, wording("privacy", "en", "translated, edited")], bumped),
+    [],
+  );
+});
+
+test("a kept text that was edited, that is the newest, or that has no row is refused", () => {
+  const wordings = content();
+  const pinned = pinnedFor(wordings);
+  const v2 = fingerprintOf({ title: "privacy", body: "uusi teksti" });
+  const bumped: Pinned = { ...pinned, privacy: { ...pinned.privacy, v2 } };
+  const edited = wording("privacy", "fi", "privacy teksti.");
+  assert.deepEqual(earlierProblems([edited], bumped), [
+    `privacy: the kept fi text of version v1 is not the one its row pins (${pinned.privacy.v1}, kept ${fingerprintOf(edited)}); it is copied whole and never edited`,
+  ]);
+  const original = wording("privacy", "fi", "privacy teksti");
+  assert.deepEqual(
+    earlierProblems([original, wording("privacy", "fi", "uusi teksti", "v2")], bumped),
+    ["privacy: v2 is the newest row; its text is the page's own, not a kept one"],
+  );
+  assert.deepEqual(earlierProblems([original, wording("privacy", "fi", "x", "v0")], bumped), [
+    "privacy: the kept text of v0 has no row in src/consent-versions.ts",
+  ]);
+  // A draft's status is pinned too: a kept draft shown as in force is not the text agreed to.
+  const draft = {
+    ...wording("terms", "en", "DRAFT"),
+    standing: { status: "draft", binding: false },
+  };
+  const terms: Pinned = {
+    ...pinned,
+    terms: { v1: fingerprintOf(draft), v2: "0000000000000000" },
+  };
+  assert.deepEqual(earlierProblems([draft], terms), []);
+  assert.match(
+    earlierProblems([{ ...draft, standing: { status: "in_force", binding: false } }], terms)[0] ??
+      "",
+    /^terms: the kept en text of version v1 is not the one its row pins/,
+  );
+});
+
 test("a row stays as the base has it: never changed, removed or moved, and new ones at the end", () => {
   const base: Pinned = { ...PINNED, research: { a: "1111111111111111", b: "2222222222222222" } };
   assert.deepEqual(historyProblems(base, base), []);
@@ -395,7 +449,7 @@ test("the app ahead of the site, without a kind, or with a kind of its own, disa
   const ahead = mirror(PINNED, { ...APP_TODAY, privacy: "2026-11-1" });
   assert.deepEqual(ahead.behind, []);
   assert.deepEqual(ahead.problems, [
-    "privacy: the app is at 2026-11-1, a version the site never published (the site is at 2026-09-draft-1). The site's text and its version come first; the app follows",
+    `privacy: the app is at 2026-11-1, a version the site never published (the site is at ${Object.keys(PINNED.privacy).at(-1)}). The site's text and its version come first; the app follows`,
   ]);
   const { research: _, ...withoutResearch } = APP_TODAY;
   assert.deepEqual(mirror(PINNED, withoutResearch).problems, [

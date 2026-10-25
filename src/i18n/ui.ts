@@ -48,6 +48,9 @@ export const UI = {
     "doc.version": "Version {version}",
     "doc.draftVersion": "Draft version {version}",
     "doc.registered": "Registered {date}",
+    "earlier.title": "Earlier versions",
+    "earlier.intro":
+      "Whoever agreed to an earlier version in the app agreed to its text as it stood then. Each is kept here, as it was, under its version.",
     "doc.businessId": "Business ID {businessId}",
     "footer.line": "Kuutti ry, {address}, Finland. Business ID {businessId}.",
     "footer.channels": "Kuutti ry elsewhere",
