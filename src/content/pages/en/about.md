@@ -13,6 +13,7 @@ Kuutti ry is a non-profit association in Espoo, founded on 1 October 2026 and en
 - **Form:** registered non-profit association (aatteellinen yhdistys)
 - **Domicile:** Espoo
 - **Postal address:** Tontunmäentie 22&nbsp;E, 02200&nbsp;Espoo, Finland
+- **Postal address:** Tontunmäentie 22E, 02200&nbsp;Espoo, Finland
 
 The [association's entry](https://tietopalvelu.ytj.fi/yritys/3659478-7) in the Finnish Business Information System (YTJ) shows the same.
 
