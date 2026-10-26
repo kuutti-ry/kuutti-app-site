@@ -18,6 +18,7 @@ export const SITE = {
    * No-break spaces keep the house letter and the postcode with their numbers.
    */
   postalAddress: "Tontunmäentie 22\u00a0E, 02200\u00a0Espoo",
+  postalAddress2: "Tontunmäentie 22E, 02200\u00a0Espoo",
   /** Where the app's source is published (AGPL-3.0). */
   appSource: "https://github.com/kuutti-ry/kuutti-app",
   /** Where this site's source is published (AGPL-3.0). */
