@@ -14,7 +14,7 @@ const { locale } = Astro.props;
 
 <footer class="site-footer">
   <div>
-    <p>{t(locale, "footer.line", { address: SITE.postalAddress, address: SITE.postalAddress2, businessId: SITE.businessId })}</p>
+    <p>{t(locale, "footer.line", { address: SITE.postalAddress, address2: SITE.postalAddress2, businessId: SITE.businessId })}</p>
     {
       SITE.social.length > 0 && (
         <ul class="channels" aria-label={t(locale, "footer.channels")}>
