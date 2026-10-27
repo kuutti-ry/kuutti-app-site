@@ -48,7 +48,9 @@ const sitePages = (await allPages())
           ))
         }
       </ul>
-      <p>{t(locale, "footer.line", { address: SITE.postalAddress, businessId: SITE.businessId })}</p>
+      <p>{t(locale, "footer.address", { address: SITE.postalAddress })}</p>
+      <p>{t(locale, "footer.address", { address: SITE.postalAddressJoined })}</p>
+      <p>{t(locale, "footer.businessId", { businessId: SITE.businessId })}</p>
       <p>
         <ExternalLink locale={locale} href={`https://tietopalvelu.ytj.fi/yritys/${SITE.businessId}`}
           >{t(locale, "ga.footer.register")}</ExternalLink

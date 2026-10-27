@@ -10,6 +10,9 @@ interface Props {
 }
 const { locale, slug } = Astro.props;
 // The pages that carry `nav` in their front matter, in that order, and nothing else.
+// On a wide screen they stand in the header; on a narrow one they fold into a
+// menu, a <details>, as Gaiane's do (docs/decisions.md, 16 and 19), so that
+// nothing needs a script.
 const links = await navigation(locale);
 const here = (link: string) => slug === link || slug.startsWith(`${link}/`);
 ---
@@ -19,7 +22,7 @@ const here = (link: string) => slug === link || slug.startsWith(`${link}/`);
     <a class="brand" href={pathOf(locale, "")} aria-current={slug === "" ? "page" : undefined}>
       <img src="/logo.png" alt={t(locale, "site.name")} width="59" height="40" />
     </a>
-    <nav class="site-nav" aria-label={t(locale, "nav.label")}>
+    <nav class="site-nav site-wide" aria-label={t(locale, "nav.label")}>
       <ul class="links">
         {
           links.map((link) => (
@@ -32,5 +35,29 @@ const here = (link: string) => slug === link || slug.startsWith(`${link}/`);
         }
       </ul>
     </nav>
+    <details class="site-menu">
+      <summary>
+        <svg class="open" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg class="close" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+        <span class="visually-hidden">{t(locale, "nav.menu")}</span>
+      </summary>
+      <nav class="site-nav" aria-label={t(locale, "nav.label")}>
+        <ul class="links">
+          {
+            links.map((link) => (
+              <li>
+                <a href={pathOf(locale, link.slug)} aria-current={here(link.slug) ? "page" : undefined}>
+                  {link.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </details>
   </div>
 </header>

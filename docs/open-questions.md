@@ -10,13 +10,14 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 
 | question | what the site says meanwhile |
 |---|---|
-| **A contact address.** `kuutti.app` receives mail since the association's Google Workspace (its MX was `smtp.google.com` on 24/10/2026); which address the site gives, and who answers it, is still open. A privacy policy needs an address that answers | nothing on the site names an address; `contactEmail` is `null` in `src/site.ts` |
+| **A contact address.** `hello@kuutti.app` since decision 19, an alias at the association's Google Workspace; who reads it is the board's to arrange. The privacy policy and the terms do not name it yet: that is a new version of each, the maintainer's | the footer, "Contact", "Help", "Deleting your account" and "Membership" give it (`contactEmail` in `src/site.ts`) |
 | **A privacy contact**, by name or by role | "has not named a data protection officer" |
 | **Social channels**: YouTube | LinkedIn, GitHub, TikTok and Instagram are in the footer (`social` in `src/site.ts`); YouTube is not shown until it exists |
-| **The team**: who wants to be named, and with which title | "listed here once they have chosen"; nobody is named |
+| **The team**: which volunteers and board members want to be named, and with which title | "About Us" names the chair alone and says the board has three members (decision 19); volunteers as "mostly alumni of Aalto University" |
 | **Those who help**: whether Telia, Väestöliitto or anybody else has agreed to be named | "nobody is listed yet" |
 | **The story of the name and of the logo**, and the questions about marketing | the name's meaning only: a seal pup, and the logo its face. To be confirmed, and told properly |
-| **When the app opens** | "there is no date yet" |
+| **When the app opens** | "in development, in public", and first as a beta in the stores; no date |
+| **The membership fees**, which the annual meeting sets for each kind of member | "Membership" says who sets them and names no amount |
 
 ## About the texts
 
@@ -57,4 +58,4 @@ Drafting it meant reading what the app keeps. These are for the app's repository
 | **Saiga on kuutti.app**: the read-only token for `kuutti-ry/kuutti-app-fonts`, set as `FONTS_TOKEN` in the Amplify app; previews of pull requests kept off there | `/ga/` is in Saiga where the build has the files, in Inter until then (decision 18) |
 | **Crediting Spoke Type**, Saiga's foundry: whether, and how | "the foundry is named here once it has said how it wants to be credited" (rule 5) |
 | **The wording about collecting money** on "Support us" ("a notification to the police or a permit") | written from the founding notes; to be confirmed by somebody who knows the law on money collections |
-| **The store links** | the stores' badges dimmed, and "Not in the stores yet." under them (decisions 13 and 15); `stores` is `null` in `src/site.ts` |
+| **The store links** | no badge on the home page (decision 19); on `/ga/download/` the stores' badges dimmed, and "Not in the stores yet." under them (decision 13); `stores` is `null` in `src/site.ts` |

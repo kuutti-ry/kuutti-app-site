@@ -68,16 +68,25 @@ test("every channel of the association is an https address with a mark the foote
   }
 });
 
-test("the home page says what Kuutti is, and the footer names the association as the register does", () => {
+test("the home page says what Kuutti is, and the footer names the association as the register does, with an address to write to", () => {
   assert.equal(
     t("en", "home.description"),
     "A free app for meeting people in Finland, made by Kuutti ry, a non-profit association.",
   );
   assert.equal(t("en", "home.soon"), "Not in the stores yet.");
   assert.equal(
-    t("en", "footer.line", { address: SITE.postalAddress, businessId: SITE.businessId }),
-    "Kuutti ry, Tontunmäentie 22\u00a0E, 02200\u00a0Espoo, Finland. Business ID 3659478-7.",
+    t("en", "footer.address", { address: SITE.postalAddress }),
+    "Kuutti ry, Tontunmäentie 22\u00a0E, 02200\u00a0Espoo, Finland.",
   );
+  assert.equal(
+    t("en", "footer.address", { address: SITE.postalAddressJoined }),
+    "Kuutti ry, Tontunmäentie 22E, 02200 Espoo, Finland.",
+  );
+  assert.equal(
+    t("en", "footer.businessId", { businessId: SITE.businessId }),
+    "Business ID 3659478-7.",
+  );
+  assert.match(SITE.contactEmail ?? "", /^[a-z]+@kuutti\.app$/);
 });
 
 test("the content security policy lets nothing run but the files of SCRIPTED, each named in full", () => {

@@ -3,7 +3,7 @@ title: Help
 description: Where to turn when something in Kuutti does not work, and how to report a problem or a person.
 ---
 
-The app is being built and is not in the stores yet. This page grows as it opens.
+Answers to the questions about signing in, your data and safety in Kuutti. For anything else, [write to us](/contact/).
 
 ## Signing in
 
@@ -21,8 +21,8 @@ In the app, under **Your account**, you can download everything Kuutti holds abo
 
 ## Reporting a security problem
 
-Please do not report a security problem in public. Use the private form at [github.com/kuutti-ry/kuutti-app/security](https://github.com/kuutti-ry/kuutti-app/security/advisories/new). You get an answer within seven days.
+Please do not report a security problem in public. Write to [security@kuutti.app](mailto:security@kuutti.app), or use the private form at [github.com/kuutti-ry/kuutti-app/security](https://github.com/kuutti-ry/kuutti-app/security/advisories/new). You get an answer within seven days.
 
 ## Contact
 
-An address for questions, and for requests about your personal data, will be here before the app opens.
+For questions, and for requests about your personal data, write to [hello@kuutti.app](mailto:hello@kuutti.app). [Other ways to reach the association](/contact/).

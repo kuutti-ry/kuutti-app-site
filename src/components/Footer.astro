@@ -8,13 +8,25 @@ interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-// One line, the association as the register has it, and its channels beside
-// it by their marks (docs/decisions.md, 8 and 15; the marks are src/lib/marks.ts).
+// The association as the register has it, its address in both the forms it is
+// written in, the address to write to, and its channels beside them by their
+// marks (docs/decisions.md, 8, 15 and 19; the marks are src/lib/marks.ts).
 ---
 
 <footer class="site-footer">
   <div>
-    <p>{t(locale, "footer.line", { address: SITE.postalAddress, address2: SITE.postalAddress2, businessId: SITE.businessId })}</p>
+    <address>
+      <p>{t(locale, "footer.address", { address: SITE.postalAddress })}</p>
+      <p>{t(locale, "footer.address", { address: SITE.postalAddressJoined })}</p>
+      <p>{t(locale, "footer.businessId", { businessId: SITE.businessId })}</p>
+      {
+        SITE.contactEmail !== null && (
+          <p>
+            <a class="mail-us" href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+          </p>
+        )
+      }
+    </address>
     {
       SITE.social.length > 0 && (
         <ul class="channels" aria-label={t(locale, "footer.channels")}>

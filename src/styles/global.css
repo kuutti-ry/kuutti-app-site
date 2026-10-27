@@ -33,6 +33,15 @@
   --ring: 224 76% 48%;
   --notice: 40 96% 94%;
   --notice-border: 35 85% 38%;
+  /*
+   * Gaiane's concept: light, calm, spacious, flat colours, "(gradient?)". Two
+   * partial washes from her pictures (docs/decisions.md, 20): the Antarctic
+   * dawn over the sea at the top of a page, the water under the ice at its foot.
+   */
+  --dawn: 340 60% 95%;
+  --sea: 250 60% 96%;
+  --water-surface: 205 60% 97%;
+  --water-deep: 205 65% 88%;
 
   --radius: 8px;
   --column: 68ch;
@@ -62,6 +71,10 @@
     --ring: 224 90% 25%;
     --notice: 0 0% 100%;
     --notice-border: 0 0% 0%;
+    --dawn: 0 0% 100%;
+    --sea: 0 0% 100%;
+    --water-surface: 0 0% 100%;
+    --water-deep: 0 0% 100%;
   }
 }
 
@@ -181,9 +194,48 @@ hr {
 
 /* --- Header ------------------------------------------------------------- */
 
+/*
+ * The dawn: a wash at the top of each of the site's pages, behind the header,
+ * gone into white by the end of the first screen. Gaiane's structure (/ga/)
+ * has a header of its own, and no wash.
+ */
+body:has(> .site-header) {
+  background-image: linear-gradient(
+    180deg,
+    hsl(var(--dawn)) 0,
+    hsl(var(--sea)) 9rem,
+    hsl(var(--background) / 0) 26rem
+  );
+  background-repeat: no-repeat;
+}
+
 .site-header {
+  position: relative;
+  z-index: 5;
   border-bottom: 1px solid hsl(var(--border));
-  background: hsl(var(--background));
+}
+
+/*
+ * On a wide screen the pages stand in the header; on a narrow one they fold
+ * into the menu, as Gaiane's do (docs/decisions.md, 16 and 19). The width is
+ * in rem, so that larger text folds them sooner.
+ */
+.site-wide {
+  display: none;
+}
+
+.site-menu {
+  margin-inline-start: auto;
+}
+
+@media (min-width: 40rem) {
+  .site-nav.site-wide {
+    display: block;
+  }
+
+  .site-menu {
+    display: none;
+  }
 }
 
 .site-header > div {
@@ -277,6 +329,12 @@ hr {
   margin: 0;
   font-size: var(--step-1);
   color: hsl(var(--muted-foreground));
+}
+
+/* What the bylaws hold Kuutti to and where the work is, under the lead. */
+.hero .more {
+  max-width: 38rem;
+  font-size: var(--step-0);
 }
 
 /*
@@ -474,10 +532,11 @@ hr {
 
 /* --- Footer ------------------------------------------------------------- */
 
+/* The water under the ice: the footer deepens towards its foot. */
 .site-footer {
   margin-top: 3rem;
   border-top: 1px solid hsl(var(--border));
-  background: hsl(var(--card));
+  background: linear-gradient(180deg, hsl(var(--water-surface)), hsl(var(--water-deep)));
   font-size: var(--step--1);
   color: hsl(var(--muted-foreground));
 }
@@ -495,6 +554,17 @@ hr {
 
 .site-footer p {
   margin: 0;
+}
+
+.site-footer address {
+  font-style: normal;
+}
+
+/* The address to write to, a target's height under the register's line. */
+.mail-us {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .channels {
@@ -680,7 +750,8 @@ hr {
 }
 
 .ga-lang > summary,
-.ga-menu > summary {
+.ga-menu > summary,
+.site-menu > summary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -695,18 +766,22 @@ hr {
 }
 
 .ga-lang > summary::-webkit-details-marker,
-.ga-menu > summary::-webkit-details-marker {
+.ga-menu > summary::-webkit-details-marker,
+.site-menu > summary::-webkit-details-marker {
   display: none;
 }
 
 .ga-lang > summary:hover,
 .ga-menu > summary:hover,
+.site-menu > summary:hover,
 .ga-lang[open] > summary,
-.ga-menu[open] > summary {
+.ga-menu[open] > summary,
+.site-menu[open] > summary {
   background: hsl(var(--muted));
 }
 
-.ga-header :where(summary) svg {
+.ga-header :where(summary) svg,
+.site-header :where(summary) svg {
   width: 1.5rem;
   height: 1.5rem;
   fill: none;
@@ -760,16 +835,20 @@ hr {
 }
 
 .ga-menu .close,
-.ga-menu[open] .open {
+.ga-menu[open] .open,
+.site-menu .close,
+.site-menu[open] .open {
   display: none;
 }
 
-.ga-menu[open] .close {
+.ga-menu[open] .close,
+.site-menu[open] .close {
   display: block;
 }
 
 /* The menu opens under the header, as wide as the window. */
-.ga-menu > nav {
+.ga-menu > nav,
+.site-menu > nav {
   position: absolute;
   inset-inline: 0;
   top: 100%;
@@ -781,7 +860,8 @@ hr {
   box-shadow: 0 12px 24px hsl(var(--foreground) / 0.08);
 }
 
-.ga-menu ul {
+.ga-menu ul,
+.site-menu ul {
   flex-direction: column;
 }
 

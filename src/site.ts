@@ -18,13 +18,24 @@ export const SITE = {
    * No-break spaces keep the house letter and the postcode with their numbers.
    */
   postalAddress: "Tontunmäentie 22\u00a0E, 02200\u00a0Espoo",
-  postalAddress2: "Tontunmäentie 22E, 02200\u00a0Espoo",
+  /**
+   * The same address as forms and parsers often have it: the house letter
+   * against the number, and plain spaces. The footer, About Us and Contact
+   * give both, each on a line of its own, so a check that compares the text
+   * finds either (the maintainer's word of 27/10/2026, docs/decisions.md, 19).
+   */
+  postalAddressJoined: "Tontunmäentie 22E, 02200 Espoo",
   /** Where the app's source is published (AGPL-3.0). */
   appSource: "https://github.com/kuutti-ry/kuutti-app",
+  /**
+   * Where anybody proposes a feature: the app repository's Proposal form, open
+   * to every GitHub account (the maintainer's word of 27/10/2026).
+   */
+  proposals: "https://github.com/kuutti-ry/kuutti-app/issues/new?template=proposal.yml",
   /** Where this site's source is published (AGPL-3.0). */
   siteSource: "https://github.com/kuutti-ry/kuutti-app-site" as string | null,
-  /** The address people write to; the domain receives no mail yet. */
-  contactEmail: null as string | null,
+  /** The address people write to, an alias at the association's Google Workspace (docs/decisions.md, 19). */
+  contactEmail: "hello@kuutti.app" as string | null,
   /** The association's channels, as full addresses; the footer links to each by its mark. */
   social: [
     { name: "LinkedIn", href: "https://www.linkedin.com/company/145260967/", mark: "linkedin" },
@@ -34,8 +45,9 @@ export const SITE = {
   ] as { name: string; href: string; mark: Mark }[],
   /**
    * The app's listings in the stores. Null until the app is published: the
-   * home page then shows that store's badge dimmed, not as a link, and says
-   * the app is coming (src/components/StoreBadges.astro).
+   * download page of Gaiane's structure then shows that store's badge dimmed,
+   * not as a link (src/components/StoreBadges.astro). The home page shows no
+   * badge until there is a listing (docs/decisions.md, 19).
    */
   stores: { apple: null as string | null, google: null as string | null },
 } as const;
