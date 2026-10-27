@@ -6,7 +6,7 @@ A static site. It sets no cookie and loads nothing from anybody else, and it run
 
 ## Run it
 
-Node 22.18 or newer; pnpm comes from Corepack at the version `package.json` pins (`corepack enable` once).
+Node 22.23.4 or newer (Astro asks for it); pnpm comes from Corepack at the version `package.json` pins (`corepack enable` once).
 
 ```bash
 pnpm install --frozen-lockfile
