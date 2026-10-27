@@ -1,10 +1,20 @@
 ---
 title: About Us
-description: Kuutti ry - why it was founded, what its bylaws forbid it to do, who is behind it, and the association as the register has it.
-nav: 2
+description: Kuutti ry - what it does, why it was founded, what its bylaws forbid it to do, who runs it, and the association as the register has it.
+nav: 1
 ---
 
-Kuutti ry is a non-profit association in Espoo, founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. This site, kuutti.app, is its official website. Its [bylaws](/legal/bylaws/), in Finnish, are public.
+Kuutti ry is a registered non-profit association in Espoo, Finland. It was founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. This site, kuutti.app, is its official website. Its [bylaws](/legal/bylaws/), in Finnish, are public.
+
+## What it does
+
+Kuutti ry develops Kuutti, a free app for meeting people in Finland, and will run it itself: the bylaws forbid handing the service to anybody else. The work is done by volunteers and in public: the code, the decisions behind it and the work in progress are at [github.com/kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app).
+
+The board runs the association: its members, its meetings and its books. Anybody who shares its purpose can [apply to become a member](/membership/).
+
+## Beyond the app
+
+What the association builds for Kuutti, it shares. [tunnistus-oidc](https://github.com/kuutti-ry/tunnistus-oidc) is a free toolkit that lets other Finnish online services sign people in with strong identification, a bank or mobile ID, through Telia's identification service. It is published under the MIT licence, so a public body, a non-profit or a company may use it without paying and without having to publish its own code. The association wrote it for Kuutti; it is not an official Telia product.
 
 ## In the register
 
@@ -13,7 +23,7 @@ Kuutti ry is a non-profit association in Espoo, founded on 1 October 2026 and en
 - **Form:** registered non-profit association (aatteellinen yhdistys)
 - **Domicile:** Espoo
 - **Postal address:** Tontunmäentie 22&nbsp;E, 02200&nbsp;Espoo, Finland
-- **Postal address:** Tontunmäentie 22E, 02200&nbsp;Espoo, Finland
+- **Postal address:** Tontunmäentie 22E, 02200 Espoo, Finland
 
 The [association's entry](https://tietopalvelu.ytj.fi/yritys/3659478-7) in the Finnish Business Information System (YTJ) shows the same.
 
@@ -41,9 +51,11 @@ Changing these needs a unanimous decision in two meetings, at least thirty days 
 
 ## Who we are
 
+**The board** was elected at the founding meeting on 1 October 2026 and has three members. Its chair is Nikolai Denissov.
+
 **Volunteers:** mostly alumni of Aalto University, and some who study there now.
 
-The people who want to be named are listed here with the titles they chose for themselves, once they have chosen.
+To reach any of us, write to [hello@kuutti.app](mailto:hello@kuutti.app), or see [Contact](/contact/).
 
 ## Questions
 
@@ -59,10 +71,10 @@ The association may receive membership fees, grants, donations and bequests. Its
 
 So that every account is one real adult, and so that somebody who was banned stays banned. The bank confirms who you are and nothing else: Kuutti sees nothing of your account or your money.
 
+### Can I join the association?
+
+Yes. A private person who accepts its purpose can apply to be a voting member, and a person or an organisation to be a supporting member; the board decides. [How to join](/membership/).
+
 ### What does the name mean?
 
 A kuutti is a seal pup, in Finnish. The logo is its face.
-
-### When does it open?
-
-The app is being built. There is no date yet.

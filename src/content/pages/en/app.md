@@ -1,10 +1,12 @@
 ---
 title: App
 description: What Kuutti is and is not - free, without ads, every account a real person, and built in the open.
-nav: 1
+nav: 2
 ---
 
 Kuutti is an app made in Finland 🇫🇮 for Finland 🇫🇮. It is made by an association, not a company, and it is built so that it works best when you stop needing it.
+
+Kuutti is in development, in public: the source code and the work in progress are at [github.com/kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app). It comes to the App Store and Google Play first as a beta.
 
 ## What it is
 
@@ -24,7 +26,7 @@ Kuutti is an app made in Finland 🇫🇮 for Finland 🇫🇮. It is made by an
 
 Kuutti never stores your personal identity code, your name, your legal sex or your date of birth. It keeps the year and month of your birth, a code computed from your identity code that cannot be turned back into it, a record of your identification (which bank, and when), what you tell about yourself, and your photos, from which the location and the camera's data are removed before they are saved.
 
-The whole of it is in the [privacy policy](/legal/privacy/), which is a draft until the app opens.
+The whole of it is in the [privacy policy](/legal/privacy/).
 
 ## Research
 

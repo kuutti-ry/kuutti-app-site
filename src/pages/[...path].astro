@@ -1,6 +1,5 @@
 ---
 import Notice from "../components/Notice.astro";
-import StoreBadges from "../components/StoreBadges.astro";
 import { formatDate, LANGUAGE_IN, STATUS_KEY, t } from "../i18n/ui.ts";
 import Base from "../layouts/Base.astro";
 import { anchorOf, isConsentKind, TEXT_OF } from "../lib/consent.ts";
@@ -28,8 +27,10 @@ const html =
   view.kind === "page" ? htmlOf(view.page) : view.kind === "text" ? htmlOf(view.text) : null;
 
 // The home page: the logo, the name, in a sentence what Kuutti is and who
-// makes it, and that the app is coming (docs/decisions.md, 8, 13 and 15).
-// No button. The sentence is also the page's description.
+// makes it, what the bylaws hold it to, where the work is public, and where
+// anybody proposes a feature (docs/decisions.md, 8, 15 and 19). No button, and no store badge until
+// there is a listing; the header leads to every page. The first sentence is
+// also the page's description.
 const head =
   view.kind === "home"
     ? { title: t(locale, "site.name"), description: t(locale, "home.description") }
@@ -77,7 +78,13 @@ const earlier =
         <img src="/logo.png" alt="" width="840" height="572" />
         <h1>{t(locale, "site.name")}</h1>
         <p class="lead">{t(locale, "home.description")}</p>
-        <StoreBadges locale={locale} />
+        <p class="more">{t(locale, "home.what")}</p>
+        <p class="more">
+          {t(locale, "home.source")} <a href={SITE.appSource}>{SITE.appSource.replace("https://", "")}</a>
+        </p>
+        <p class="more">
+          {t(locale, "home.ideas")} <a href={SITE.proposals}>{t(locale, "home.propose")}</a>.
+        </p>
       </section>
     )
   }

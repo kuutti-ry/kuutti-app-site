@@ -14,7 +14,7 @@ You can delete your account yourself, in the app, at any time. Nobody has to app
 
 ## Without the app
 
-If you cannot sign in any more, you can ask for the deletion. An address for such requests will be here before the app opens. We have to be sure that the request comes from the person whose account it is, so the answer may ask you to identify yourself.
+If you cannot sign in any more, you can ask for the deletion by writing to [hello@kuutti.app](mailto:hello@kuutti.app). We have to be sure that the request comes from the person whose account it is, so the answer may ask you to identify yourself.
 
 ## What goes at once
 
