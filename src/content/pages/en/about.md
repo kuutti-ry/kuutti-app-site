@@ -12,6 +12,10 @@ Kuutti ry develops Kuutti, a free app for meeting people in Finland, and will ru
 
 The board runs the association: its members, its meetings and its books. Anybody who shares its purpose can [apply to become a member](/membership/).
 
+## Beyond the app
+
+What the association builds for Kuutti, it shares. [tunnistus-oidc](https://github.com/kuutti-ry/tunnistus-oidc) is a free toolkit that lets other Finnish online services sign people in with strong identification, a bank or mobile ID, through Telia's identification service. It is published under the MIT licence, so a public body, a non-profit or a company may use it without paying and without having to publish its own code. The association wrote it for Kuutti; it is not an official Telia product.
+
 ## In the register
 
 - **Name:** Kuutti ry
