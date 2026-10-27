@@ -17,10 +17,14 @@ runs:
       shell: bash
       run: corepack enable
 
+    # The newest Node 22, as Amplify's nvm install 22 takes, not the one the
+    # runner image has cached: Astro asks for a patch release (package.json's
+    # engines) days before the image carries it.
     - name: Set up Node
       uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
       with:
         node-version: 22
+        check-latest: true
         cache: ${{ inputs.install == 'true' && 'pnpm' || '' }}
 
     - name: Install

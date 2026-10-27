@@ -8,7 +8,7 @@ The site's issues live in the app's repository (`kuutti-ry/kuutti-app#53` is the
 
 `package.json` is the source of truth; keep this list in sync with it.
 
-- `pnpm install --frozen-lockfile`. Node 22.18+ and pnpm come from `package.json`; `corepack enable` once.
+- `pnpm install --frozen-lockfile`. Node 22.23.4+ and pnpm come from `package.json`; `corepack enable` once.
 - `pnpm dev` serves the site at http://127.0.0.1:4321. `pnpm build` writes `dist/`; `pnpm preview` serves it.
 - `pnpm typecheck` (`astro check`), `pnpm lint` (Biome, then `scripts/check-content.ts`, then `scripts/check-fonts.ts`: no font file in git but Inter's), `pnpm test` (node's test runner), `pnpm format`.
 - `node scripts/fetch-saiga.ts` puts Saiga's files into `public/fonts/saiga/` (git ignores it) from the association's private repository, with a read-only token in `FONTS_TOKEN`; Amplify's build runs it, and without the token the site is built in Inter (`docs/decisions.md`, 18). On a laptop, `FONTS_TOKEN="$(gh auth token)" node scripts/fetch-saiga.ts` does the same with your own login.
