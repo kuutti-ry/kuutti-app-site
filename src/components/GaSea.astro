@@ -1,0 +1,64 @@
+---
+import { radius, SWELL, scallops } from "../lib/sea.ts";
+
+// The water under the slogan in Gaiane's sketch of 28/10/2026 (docs/decisions.md,
+// 21): a line of scallops across the window, the pup's face rising out of it
+// and a fish below. The pup is the logo itself, whose own wave is three
+// scallops of the line; the line goes on from the ends of that wave, so the
+// two are one. The drawing is in the logo's units and is scaled by its
+// height, so the scallops keep their size at every width and only more or
+// fewer of them show. Nothing here is read by a screen reader: the slogan is.
+const LOGO = { x: -420, width: 840, height: 572 };
+const CREST = 462;
+// The logo's wave as its file has it: from the tip of its left end, three
+// arcs, each to the crest [x, y] after it and dipping `sag` on the way.
+const TIP = 12;
+const WAVE: [x: number, y: number, sag: number][] = [
+  [270, 470, 61.5],
+  [565, 471, 84],
+  [828, 462, 61],
+];
+const LEFT = LOGO.x + TIP;
+const RIGHT = LOGO.x + 828;
+const REACH = 8000;
+const before = Math.ceil((REACH + LEFT) / SWELL.width);
+const after = Math.ceil((REACH - RIGHT) / SWELL.width);
+const start = LEFT - before * SWELL.width;
+const BOTTOM = 900;
+
+const wave = WAVE.map(([x, y, sag], i) => {
+  const r = radius({ width: x - (WAVE[i - 1]?.[0] ?? TIP), sag });
+  return ` A${r} ${r} 0 0 0 ${LOGO.x + x} ${y}`;
+}).join("");
+const lineLeft = `M${start} ${CREST}${scallops(before)}`;
+const lineRight = `M${RIGHT} ${CREST}${scallops(after)}`;
+const water = `${lineLeft}${wave}${scallops(after)} V${BOTTOM} H${start} Z`;
+---
+
+<svg
+  class="ga-sea"
+  viewBox={`${-REACH} 0 ${2 * REACH} ${BOTTOM}`}
+  preserveAspectRatio="xMidYMin slice"
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <linearGradient id="ga-sea-depth" x1="0" y1="0" x2="0" y2="1">
+      <stop class="ga-water-top" offset="0"></stop>
+      <stop class="ga-water-clear" offset="1"></stop>
+    </linearGradient>
+  </defs>
+  <g class="ga-sea-scene">
+    <path d={water} fill="url(#ga-sea-depth)"></path>
+    <image href="/logo.png" x={LOGO.x} y="0" width={LOGO.width} height={LOGO.height}></image>
+    <path class="ga-art-line" d={lineLeft}></path>
+    <path class="ga-art-line" d={lineRight}></path>
+    <g class="ga-art-line ga-art-thin" transform="translate(-820 740)">
+      <path d="M0 0c40-46 128-52 182 0-54 52-142 46-182 0z"></path>
+      <path d="M0 0-46-34v68z"></path>
+      <circle class="ga-art-ink" cx="138" cy="-8" r="10"></circle>
+      <circle cx="232" cy="-62" r="13"></circle>
+      <circle cx="262" cy="-112" r="8"></circle>
+    </g>
+  </g>
+</svg>

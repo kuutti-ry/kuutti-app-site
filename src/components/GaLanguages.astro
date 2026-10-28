@@ -1,0 +1,38 @@
+---
+import { isLocale, type Locale } from "../i18n/locales.ts";
+import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+// Gaiane's language switch (docs/decisions.md, 21): the three codes in a row,
+// a smile under the one the page is in and a dotted one under the others. The
+// site speaks English only for now (decision 8), so Finnish and Swedish say
+// that they are coming, and are not links: a link to a page that is not there
+// would lead nowhere.
+const languages = (["fi", "en", "sv"] as const).map((language) => ({
+  language,
+  name: LANGUAGE_NAME[language],
+  current: language === locale,
+  soon: !isLocale(language),
+}));
+---
+
+<ul class="ga-langs" aria-label={t(locale, "ga.language")}>
+  {
+    languages.map((entry) => (
+      <li
+        aria-current={entry.current ? "true" : undefined}
+        title={entry.soon ? `${entry.name}: ${t(locale, "ga.languageSoon")}` : undefined}
+      >
+        <span aria-hidden="true">{entry.language.toUpperCase()}</span>
+        <span class="visually-hidden" lang={entry.language}>
+          {entry.name}
+        </span>
+        {entry.soon && <span class="visually-hidden">, {t(locale, "ga.languageSoon")}</span>}
+      </li>
+    ))
+  }
+</ul>

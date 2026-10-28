@@ -5,6 +5,7 @@ import { allPages, gaPages, legalShelf, placeOf } from "../lib/content.ts";
 import { MARKS } from "../lib/marks.ts";
 import { SITE } from "../site.ts";
 import ExternalLink from "./ExternalLink.astro";
+import GaShore from "./GaShore.astro";
 
 interface Props {
   locale: Locale;
@@ -16,7 +17,8 @@ const { locale } = Astro.props;
 // them, as she asked; how to reach the association; and the pages, those of
 // the site that the structure has no page of its own for among them. The
 // legal texts stay where they are, one copy each. No theme switch: the site
-// is light only (decision 9).
+// is light only (decision 9). It is the water under the ice, with the pup at
+// its edge that dives as the page reaches its foot (decision 21).
 const legal = (await legalShelf(locale)).flatMap((text) => {
   const version = text.versions.find((v) => v.language === locale) ?? text.versions[0];
   return version ? [{ title: text.title, href: version.href }] : [];
@@ -30,81 +32,84 @@ const sitePages = (await allPages())
 ---
 
 <footer class="ga-footer">
-  <div>
-    <div class="ga-footer-brand">
-      <a class="ga-brand" href={pathOf(locale, "ga")}>
-        <img src="/logo.png" alt="" width="59" height="40" />
-        <span>{t(locale, "ga.footer.name")}</span>
-      </a>
-    </div>
-    <section aria-labelledby="ga-footer-legal">
-      <h2 id="ga-footer-legal">{t(locale, "ga.footer.legal")}</h2>
-      <ul>
-        {
-          legal.map((text) => (
-            <li>
-              <a href={text.href}>{text.title}</a>
-            </li>
-          ))
-        }
-      </ul>
-      <p>{t(locale, "footer.address", { address: SITE.postalAddress })}</p>
-      <p>{t(locale, "footer.address", { address: SITE.postalAddressJoined })}</p>
-      <p>{t(locale, "footer.businessId", { businessId: SITE.businessId })}</p>
-      <p>
-        <ExternalLink locale={locale} href={`https://tietopalvelu.ytj.fi/yritys/${SITE.businessId}`}
-          >{t(locale, "ga.footer.register")}</ExternalLink
-        >
-      </p>
-    </section>
-    <section aria-labelledby="ga-footer-contact">
-      <h2 id="ga-footer-contact">{t(locale, "ga.footer.contact")}</h2>
-      <ul>
-        <li><a href={pathOf(locale, "ga/contact")}>{t(locale, "ga.footer.write")}</a></li>
-        <li>
+  <div class="ga-dive-range"><GaShore /></div>
+  <div class="ga-footer-water">
+    <div>
+      <div class="ga-footer-brand">
+        <a class="ga-brand" href={pathOf(locale, "ga")}>
+          <img src="/logo.png" alt="" width="59" height="40" />
+          <span>{t(locale, "ga.footer.name")}</span>
+        </a>
+      </div>
+      <section aria-labelledby="ga-footer-legal">
+        <h2 id="ga-footer-legal">{t(locale, "ga.footer.legal")}</h2>
+        <ul>
           {
-            SITE.contactEmail === null ? (
-              <span class="ga-pending">{t(locale, "ga.footer.noEmail")}</span>
-            ) : (
-              <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
-            )
+            legal.map((text) => (
+              <li>
+                <a href={text.href}>{text.title}</a>
+              </li>
+            ))
           }
-        </li>
-        {
-          SITE.social.map((channel) => (
-            <li>
-              <ExternalLink locale={locale} href={channel.href} class="ga-channel">
-                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-                  <path d={MARKS[channel.mark]} />
-                </svg>
-                {channel.name}
-              </ExternalLink>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-    <section aria-labelledby="ga-footer-pages">
-      <h2 id="ga-footer-pages">{t(locale, "ga.footer.pages")}</h2>
-      <ul>
-        {
-          ownPages.map((page) => (
-            <li>
-              <a href={page.path}>{page.label}</a>
-            </li>
-          ))
-        }
-        {
-          sitePages.map((page) => (
-            <li>
-              <a href={page.href}>{page.title}</a>
-            </li>
-          ))
-        }
-        <li>
-          <ExternalLink locale={locale} href={SITE.appSource}>{t(locale, "ga.footer.source")}</ExternalLink>
-        </li>
-      </ul>
-    </section>
+        </ul>
+        <p>{t(locale, "footer.address", { address: SITE.postalAddress })}</p>
+        <p>{t(locale, "footer.address", { address: SITE.postalAddressJoined })}</p>
+        <p>{t(locale, "footer.businessId", { businessId: SITE.businessId })}</p>
+        <p>
+          <ExternalLink locale={locale} href={`https://tietopalvelu.ytj.fi/yritys/${SITE.businessId}`}
+            >{t(locale, "ga.footer.register")}</ExternalLink
+          >
+        </p>
+      </section>
+      <section aria-labelledby="ga-footer-contact">
+        <h2 id="ga-footer-contact">{t(locale, "ga.footer.contact")}</h2>
+        <ul>
+          <li><a href={pathOf(locale, "ga/contact")}>{t(locale, "ga.footer.write")}</a></li>
+          <li>
+            {
+              SITE.contactEmail === null ? (
+                <span class="ga-pending">{t(locale, "ga.footer.noEmail")}</span>
+              ) : (
+                <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+              )
+            }
+          </li>
+          {
+            SITE.social.map((channel) => (
+              <li>
+                <ExternalLink locale={locale} href={channel.href} class="ga-channel">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                    <path d={MARKS[channel.mark]} />
+                  </svg>
+                  {channel.name}
+                </ExternalLink>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+      <section aria-labelledby="ga-footer-pages">
+        <h2 id="ga-footer-pages">{t(locale, "ga.footer.pages")}</h2>
+        <ul>
+          {
+            ownPages.map((page) => (
+              <li>
+                <a href={page.path}>{page.label}</a>
+              </li>
+            ))
+          }
+          {
+            sitePages.map((page) => (
+              <li>
+                <a href={page.href}>{page.title}</a>
+              </li>
+            ))
+          }
+          <li>
+            <ExternalLink locale={locale} href={SITE.appSource}>{t(locale, "ga.footer.source")}</ExternalLink>
+          </li>
+        </ul>
+      </section>
+    </div>
   </div>
 </footer>

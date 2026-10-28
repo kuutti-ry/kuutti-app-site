@@ -1,7 +1,8 @@
 ---
-import { isLocale, type Locale, pathOf } from "../i18n/locales.ts";
-import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
+import { type Locale, pathOf } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
 import { gaPages } from "../lib/content.ts";
+import GaLanguages from "./GaLanguages.astro";
 
 interface Props {
   locale: Locale;
@@ -10,82 +11,24 @@ interface Props {
 }
 const { locale, here } = Astro.props;
 
-// Gaiane's header (docs/decisions.md, 16): it stays at the top as the page
-// scrolls. The logo and the name lead home; the pages that carry `nav`, a
-// download button and the language follow. On a narrow screen the pages fold
-// into a menu, a <details>, so that nothing needs a script. The language menu
-// names Finnish and Swedish as coming: the site speaks English only for now
-// (decision 8), and a link to a page that is not there would lead nowhere.
+// Gaiane's header (docs/decisions.md, 16 and 21), as pills on the page rather
+// than a bar: the logo and the name lead home; the languages and the pages
+// that carry `nav` share one pill; the download button stands on its own. It
+// stays at the top as the page scrolls. On a narrow screen the logo is a round
+// button, the download button stays, and the languages and the pages fold into
+// a card under a round menu button, a <details>, so that nothing needs a script.
 const links = (await gaPages(locale)).filter((page) => page.entry.data.nav !== undefined);
 const download = pathOf(locale, "ga/download");
-const languages = (["fi", "en", "sv"] as const).map((language) => ({
-  language,
-  name: LANGUAGE_NAME[language],
-  current: language === locale,
-  soon: !isLocale(language),
-}));
 ---
 
 <header class="ga-header">
   <div>
-    <a class="ga-brand" href={pathOf(locale, "ga")}>
+    <a class="ga-pill ga-brand ga-home" href={pathOf(locale, "ga")}>
       <img src="/logo.png" alt="" width="59" height="40" />
       <span>{t(locale, "site.name")}</span>
     </a>
-    <nav class="ga-nav ga-wide" aria-label={t(locale, "nav.label")}>
-      <ul>
-        {
-          links.map((link) => (
-            <li>
-              <a href={link.path} aria-current={link.slug === here ? "page" : undefined}>
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-    <a
-      class="ga-button ga-wide"
-      href={download}
-      aria-current={here === "download" ? "page" : undefined}>{t(locale, "ga.download")}</a
-    >
-    <details class="ga-lang">
-      <summary>
-        <span aria-hidden="true">{locale.toUpperCase()}</span>
-        <span class="visually-hidden">{t(locale, "ga.language")}: {LANGUAGE_NAME[locale]}</span>
-        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="m6 9 6 6 6-6"></path>
-        </svg>
-      </summary>
-      <ul>
-        {
-          languages.map((entry) => (
-            <li aria-current={entry.current ? "true" : undefined}>
-              <span lang={entry.language}>{entry.name}</span>
-              {
-                entry.soon && (
-                  <span class="ga-soon">
-                    <span class="visually-hidden">, </span>
-                    {t(locale, "ga.languageSoon")}
-                  </span>
-                )
-              }
-            </li>
-          ))
-        }
-      </ul>
-    </details>
-    <details class="ga-menu">
-      <summary>
-        <svg class="open" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M4 7h16M4 12h16M4 17h16"></path>
-        </svg>
-        <svg class="close" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M6 6l12 12M18 6 6 18"></path>
-        </svg>
-        <span class="visually-hidden">{t(locale, "ga.menu")}</span>
-      </summary>
+    <div class="ga-pill ga-bar ga-wide">
+      <GaLanguages locale={locale} />
       <nav class="ga-nav" aria-label={t(locale, "nav.label")}>
         <ul>
           {
@@ -97,13 +40,51 @@ const languages = (["fi", "en", "sv"] as const).map((language) => ({
               </li>
             ))
           }
-          <li>
-            <a href={download} aria-current={here === "download" ? "page" : undefined}>
-              {t(locale, "ga.download")}
-            </a>
-          </li>
         </ul>
       </nav>
+    </div>
+    <a
+      class="ga-button ga-download"
+      href={download}
+      aria-current={here === "download" ? "page" : undefined}
+    >
+      {t(locale, "ga.download")}
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 3v11m-4.5-4.5L12 14l4.5-4.5M3 19.5q2.25-2 4.5 0t4.5 0 4.5 0 4.5 0"></path>
+      </svg>
+    </a>
+    <details class="ga-menu">
+      <summary class="ga-pill">
+        <svg class="open" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M5 7h14M5 12h14M5 17h14"></path>
+        </svg>
+        <svg class="close" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+        <span class="visually-hidden">{t(locale, "ga.menu")}</span>
+      </summary>
+      <div class="ga-menu-card">
+        <div class="ga-menu-langs">
+          <GaLanguages locale={locale} />
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18M12 3c-3 3-3 15 0 18m0-18c3 3 3 15 0 18"></path>
+          </svg>
+        </div>
+        <nav class="ga-nav ga-nav-menu" aria-label={t(locale, "nav.label")}>
+          <ul>
+            {
+              links.map((link) => (
+                <li>
+                  <a href={link.path} aria-current={link.slug === here ? "page" : undefined}>
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
     </details>
   </div>
 </header>

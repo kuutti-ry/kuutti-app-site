@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { markExternal } from "../src/lib/external.ts";
 import { reuse } from "../src/lib/reuse.ts";
+import { radius, scallops } from "../src/lib/sea.ts";
 
 // Gaiane's structure, at /ga/ (docs/decisions.md, 16).
 
@@ -80,4 +81,12 @@ test("a link inside the site, an anchor or an e-mail address stays as it is", ()
   const html =
     '<p><a href="/ga/about/">About</a> <a href="#top">Top</a> <a href="mailto:a@b.fi">Mail</a></p>';
   assert.equal(markExternal(html, "opens in a new tab"), html);
+});
+
+test("a scallop dips by its sag between crests its width apart, as the logo's do", () => {
+  // The logo's outer scallops: 258 wide, 62 deep.
+  const r = radius({ width: 258, sag: 62 });
+  assert.equal(Math.round(r - Math.sqrt(r * r - 129 * 129)), 62);
+  assert.equal(scallops(0), "");
+  assert.equal(scallops(2, { width: 10, sag: 5 }), " a5 5 0 0 0 10 0 a5 5 0 0 0 10 0");
 });
