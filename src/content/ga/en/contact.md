@@ -13,7 +13,7 @@ Kuutti is made by volunteers, and we like hearing from people: a question, an id
 - **TikTok:** [@kuutti_ry](https://www.tiktok.com/@kuutti_ry)
 - **LinkedIn:** [Kuutti ry](https://www.linkedin.com/company/145260967/)
 - **GitHub:** [kuutti-ry](https://github.com/kuutti-ry), where Kuutti is built in the open
-- **E-mail:** an address will be here before the app opens.
+- **E-mail:** [hello@kuutti.app](mailto:hello@kuutti.app)
 - **Post:** Kuutti ry, Tontunmäentie 22&nbsp;E, 02200&nbsp;Espoo, Finland
 
 ## Who might want to write
@@ -23,10 +23,6 @@ Kuutti is made by volunteers, and we like hearing from people: a question, an id
 - **You study relationships or loneliness**, and you want to work with data that people gave knowingly.
 - **You write about Kuutti**, for a paper, a programme or a thesis.
 - **You meet lonely people in your work**, in an association, a congregation, a city or a school, and you want to know more.
-
-## A security problem
-
-@reuse /help/#reporting-a-security-problem
 
 ## Why there is no form
 

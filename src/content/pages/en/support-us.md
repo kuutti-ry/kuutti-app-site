@@ -5,7 +5,7 @@ description: How to help Kuutti - as a member, with your time, and why the assoc
 
 ## As a member
 
-The association's members carry it: voting members decide at its meetings, and supporting members, people or organisations, back its purpose and work. [How to join](/membership/).
+The association's members carry it: voting members decide at its meetings, and supporting members, people or organisations, back its purpose and work. [How to join](/#how-to-join).
 
 ## Donations
 

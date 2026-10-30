@@ -10,6 +10,8 @@
  * - Every link inside the site leads to a page or a file that exists, and an
  *   anchor to an id that is there.
  * - Every page says its language, has a title, a description and one h1.
+ * - The home page, made of several pages' texts, has no id twice, so that an
+ *   anchor leads to one place.
  * - The sitemap names every page search engines may index and no other, and
  *   robots.txt names the sitemap.
  * - /legal/versions.json names every kind of the app's, and each address
@@ -146,6 +148,13 @@ for (const path of pages) {
     problems.push(`${page}: no description`);
   const h1 = html.match(/<h1[\s>]/g)?.length ?? 0;
   if (h1 !== 1) problems.push(`${page}: ${h1} h1 headings, and a page has one`);
+  // The home page is made of several pages' texts (docs/decisions.md, 22): an anchor leads to one place.
+  if (LOCALES.some((locale) => here === pathOf(locale, ""))) {
+    const ids = [...html.matchAll(/\sid="([^"]*)"/g)].map(([, id = ""]) => id);
+    for (const id of new Set(ids.filter((id, at) => ids.indexOf(id) !== at))) {
+      problems.push(`${page}: the id "${id}" is there more than once`);
+    }
+  }
   if (!/<meta name="viewport" content="width=device-width, initial-scale=1"/.test(html)) {
     problems.push(`${page}: no viewport for a phone`);
   }

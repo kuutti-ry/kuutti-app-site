@@ -39,7 +39,11 @@ const pages = defineCollection({
     title: z.string().min(1),
     /** One or two sentences: the page's description for search engines and the home page's card. */
     description: z.string().min(1).max(200),
-    /** Where the page stands in the navigation; a page without it is reached by links only. */
+    /**
+     * Where the page stands in the navigation, which leads to it as a section
+     * of the home page (docs/decisions.md, 22); a page without it is reached
+     * by links only.
+     */
     nav: z.number().int().positive().optional(),
     /**
      * Written or translated by a machine, an agent included, and not yet read
