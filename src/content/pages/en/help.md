@@ -3,7 +3,7 @@ title: Help
 description: Where to turn when something in Kuutti does not work, and how to report a problem or a person.
 ---
 
-Answers to the questions about signing in, your data and safety in Kuutti. For anything else, [write to us](/contact/).
+Answers to the questions about signing in and your data in Kuutti. For anything else, [write to us](/#contact).
 
 ## Signing in
 
@@ -19,10 +19,6 @@ If the bank's own page fails, the problem is usually at the bank: try again in a
 
 In the app, under **Your account**, you can download everything Kuutti holds about you and delete your account. [How deletion works, and what is left afterwards](/delete-account/).
 
-## Reporting a security problem
-
-Please do not report a security problem in public. Write to [security@kuutti.app](mailto:security@kuutti.app), or use the private form at [github.com/kuutti-ry/kuutti-app/security](https://github.com/kuutti-ry/kuutti-app/security/advisories/new). You get an answer within seven days.
-
 ## Contact
 
-For questions, and for requests about your personal data, write to [hello@kuutti.app](mailto:hello@kuutti.app). [Other ways to reach the association](/contact/).
+For questions, and for requests about your personal data, write to [hello@kuutti.app](mailto:hello@kuutti.app). [Other ways to reach the association](/#contact).

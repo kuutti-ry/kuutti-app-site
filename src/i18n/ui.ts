@@ -15,9 +15,8 @@ export const UI = {
     "home.soon": "Not in the stores yet.",
     "home.description":
       "A free app for meeting people in Finland, made by Kuutti ry, a non-profit association.",
-    "home.what":
-      "No ads, nothing to pay for, and no sale of anybody's data: the association's bylaws forbid them. Every account is one real adult, identified through a Finnish bank.",
-    "home.source": "The development is public:",
+    "home.purpose": "Our purpose",
+    "home.more": "More",
     "home.ideas": "Anybody can propose a feature, and help build it:",
     "home.propose": "open a proposal on GitHub",
     "store.label": "Kuutti in the app stores",

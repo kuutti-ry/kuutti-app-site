@@ -46,7 +46,7 @@ scripts/                                  the checks, the tests, and the fetch o
 docs/                                     decisions, open questions, what waits for a native reader
 ```
 
-A page is a Markdown file. To add a page, add it in every language of the site under the same name. The navigation is the pages that carry `nav` in their front matter, in that order: for now App and About Us.
+A page is a Markdown file. To add a page, add it in every language of the site under the same name. The navigation is the pages that carry `nav` in their front matter, in that order; each is also a section of the home page, which is the whole site in one, and the navigation leads there (`docs/decisions.md`, 22).
 
 ## Languages
 

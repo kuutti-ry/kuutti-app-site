@@ -119,6 +119,8 @@ Google for Nonprofits could not confirm that kuutti.app is Kuutti ry's (23/10/20
 
 The privacy policy and the terms are unchanged. They are drafts pinned to their versions (14), so the controller's address in them would be a new version, and a new version is the maintainer's to make.
 
+Set aside in part by 22 (30/10/2026): the home page is the whole site in one, and no longer fits a window with its footer.
+
 ## 16. Gaiane's structure, at /ga/ beside the site (2026-10-24)
 
 Gaiane, the designer, proposed a structure for the site: a fixed navigation bar (the logo and the name, the language, the app's page, About us, Contact, perhaps Q&A), a footer of legal texts, contact details and links, and pages for the app, the association, contact, questions and download. The maintainer's word the same day: build it at `kuutti.app/ga/`, beside the site, with the site's texts where it has them and the rest inferred, as a proposal to look at. The site itself is unchanged.
@@ -158,6 +160,8 @@ Google for Nonprofits refused kuutti.app a second time (26/10/2026): its reviewe
 - **The navigation** is "About Us", "App", "Membership" and "Contact", in that order: the association first. Under 40rem the pages fold into a menu behind a button with three lines, a `<details>` as in Gaiane's structure (16), so nothing needs a script; the width is in rem, so larger text folds them sooner.
 - **What did not change.** The terms and the privacy policy are drafts and say so on their own pages (rule 3); a draft coming into force is a new version, the maintainer's (14). Only the app's page stopped calling the policy a draft in passing.
 
+Set aside in part by 22 (30/10/2026): `security@kuutti.app` is off the site, `hello@kuutti.app` is a user, the home page is the whole site in one, and the navigation leads to its sections.
+
 ## 20. Two partial washes, from Gaiane's concept (2026-10-27)
 
 Gaiane's concept (`Kuutti_concept.pdf`, in the association's Drive) asks for a style that is spacious, light, calm and soft, with strokes, flat colours and much negative space, and asks "(gradient?)". Her pictures have the Antarctic dawn, pink over a lavender sea; the seals' world under the ice, "colored in blue and green"; and screens with soft pastel washes. The maintainer's word of 27/10/2026: partial gradients on the site, as in her idea, so that it reads as finished.
@@ -167,3 +171,13 @@ Gaiane's concept (`Kuutti_concept.pdf`, in the association's Drive) asks for a s
 - **Contrast holds.** On `--water-deep`, the darkest point under text, the footer's muted text has 5.6:1 and a link 5.0:1; on `--dawn`, 6.4:1 and 5.7:1: AA for small text. In high contrast the four tokens are white, so the washes go.
 - **Only the site's pages.** The dawn is on a page with the site's header, and the water is the site's footer; Gaiane's structure (16) keeps its own.
 - The four colours are the site's, not the app's tokens (3). If the app takes them up, they move into its tokens and come back from there.
+
+## 22. One long home page, and no address that is not a user (2026-10-30)
+
+Google for Nonprofits' support told the maintainer on 30/10/2026 how its review reads a site: an e-mail address the site names must be a user of the organisation's Google Workspace, not an alias, and the reviewer reads the home page alone, not "About Us" or "Contact". The maintainer's word the same day: remove the security address, put the association's purpose at the top of the home page, and put everything on the home page, in sections with anchors.
+
+- **One address.** `hello@kuutti.app` is a user since 30/10/2026, no longer an alias (`contactEmail` in `src/site.ts`). `security@kuutti.app` is an alias and is off the site: "Contact" and "Help" have no section about a security problem any more, and neither has the contact page of Gaiane's structure (16), which gives `hello@kuutti.app` instead of saying that an address is coming. The repositories' `SECURITY.md` still names the private reporting form on GitHub.
+- **The purpose at the top.** Under the logo, the name and the sentence of 15, the home page's first section is "Our purpose": what "About Us" says before its first heading, which is now the association and its purpose in the words of its bylaws, then its founding and that kuutti.app is its official website. The purpose moved there from "Why", so that it is said once.
+- **Everything on the home page.** Every page of the navigation follows as a section of the home page, in its order, under its title and at its slug (`/#about`, `/#app`, `/#membership`, `/#contact`), its headings a level lower (`src/lib/home.ts`); "About Us" without its opening, which is already above. Last comes "More": the Proposal form (19), and the rest of the site by its links, the legal texts, "Help", "Deleting your account" and "Support us". "Support us" stays a link and not a section: its donors "named here once they agree" is the kind of line the reviewer of 19 read as unfinished. The lines under the lead that said what the bylaws hold Kuutti to and where the work is public (19) are gone: the sections say both.
+- **The navigation leads to the sections**, not to the pages, and so do the site's own links to "Contact" and "Membership". The four pages stay at their addresses, each text in one copy shown in two places, and `/ga/` takes its parts from them as before (16). Nothing on the site links to them any more; whether they go is the maintainer's.
+- **A guard.** `pnpm check:site` holds that the home page has no id twice, since its sections come from several texts.
