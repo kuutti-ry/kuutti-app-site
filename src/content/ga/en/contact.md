@@ -1,5 +1,6 @@
 ---
 title: Get in touch
+label: Contact
 description: How to reach Kuutti ry, the association behind Kuutti, and who we would like to hear from.
 nav: 4
 ---

@@ -1,6 +1,6 @@
 ---
-title: Meet your love on Kuutti
-label: Dating app
+title: Find your love on Kuutti
+label: App
 description: Kuutti is a free dating app for Finland, made by Kuutti ry, a non-profit association. No ads, nothing to buy, and one real person behind every account.
 nav: 1
 ---

@@ -1,0 +1,73 @@
+---
+import { SWELL, scallops } from "../lib/sea.ts";
+
+// The top of Gaiane's footer (docs/decisions.md, 21): the water's edge, and a
+// pup floating at it, as the pup of her sketches lies on the ice, with a
+// crown: the king seal, the maintainer's wish of 28/10/2026. When the page is
+// scrolled down to its foot, the pup dives: nose first, under the line, and
+// away into the water, leaving bubbles. The dive follows the
+// scroll, so scrolling back up brings the pup back, and it turns round to
+// swim up head first. The style sheet does both, and nothing runs: the dive
+// is a scroll-driven animation of `.ga-dive`, and the turn is `.ga-heading`
+// mirrored while the page was last scrolled up. Where the browser has no
+// such animations, or reduced motion is asked for, the pup floats. Drawn in
+// the logo's units, as the water under the slogan is (GaSea.astro).
+const REACH = 8000;
+// Room above the water for the crown; the style sheet makes the drawing that
+// much taller, so the scallops keep the size of those under the slogan.
+const ROOM = 80;
+const CREST = 280;
+const BOTTOM = 900;
+const count = Math.ceil((2 * REACH) / SWELL.width) + 1;
+const line = `M${-REACH} ${CREST}${scallops(count)}`;
+const water = `${line} V${BOTTOM} H${-REACH} Z`;
+---
+
+<svg
+  class="ga-shore"
+  viewBox={`${-REACH} ${-ROOM} ${2 * REACH} ${BOTTOM + ROOM}`}
+  preserveAspectRatio="xMidYMin slice"
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <linearGradient id="ga-shore-depth" x1="0" y1="0" x2="0" y2="1">
+      <stop class="ga-shore-surface" offset="0"></stop>
+      <stop class="ga-shore-deep" offset="1"></stop>
+    </linearGradient>
+    <linearGradient id="ga-shore-veil" x1="0" y1="0" x2="0" y2="1">
+      <stop class="ga-shore-surface ga-shore-thin" offset="0"></stop>
+      <stop class="ga-shore-deep" offset="0.85"></stop>
+    </linearGradient>
+  </defs>
+  <path d={water} fill="url(#ga-shore-depth)"></path>
+  <g transform="translate(-560 15)">
+    <g class="ga-dive">
+      <g class="ga-heading ga-art-line">
+        <path class="ga-art-body" d="M126 226c-30 -26 -62 -38 -86 -32c14 22 46 38 82 44M122 238c-30 8 -60 24 -72 46c30 2 60 -16 80 -32"></path>
+        <path class="ga-art-body" d="M560 296c12 34 -4 56 -38 62c10 -24 16 -44 14 -58"></path>
+        <path class="ga-art-body" d="M120 232c50 -72 140 -104 250 -112c100 -8 190 -56 270 -56c60 0 98 56 108 108c6 24 -4 42 -26 48c-32 10 -62 26 -92 42c-70 38 -250 56 -390 34c-60 -10 -108 -34 -120 -64z"></path>
+        <ellipse class="ga-art-ink" cx="662" cy="136" rx="27" ry="31"></ellipse>
+        <circle class="ga-art-body" cx="672" cy="124" r="9" stroke="none"></circle>
+        <ellipse class="ga-art-ink" cx="746" cy="186" rx="14" ry="11" stroke="none"></ellipse>
+        <path class="ga-art-thin" d="M742 202c-4 12 -14 18 -28 16"></path>
+        <path class="ga-art-thin" d="M728 196c36 -8 68 -4 94 8M724 210c36 4 66 16 88 34"></path>
+        <g class="ga-art-thin" transform="translate(645 72) rotate(6)">
+          <path class="ga-art-gold" d="M-80 0-90-64-42-32 0-77 42-32 90-64 80 0z"></path>
+          <path d="M-83 -19H83"></path>
+          <circle class="ga-art-gold" cx="-90" cy="-64" r="12"></circle>
+          <circle class="ga-art-gold" cx="0" cy="-77" r="12"></circle>
+          <circle class="ga-art-gold" cx="90" cy="-64" r="12"></circle>
+          <path class="ga-art-ink" d="M0 -44c-4-7-15-7-15 2 0 7 9 12 15 16 6-4 15-9 15-16 0-9-11-9-15-2z" stroke="none"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+  <path d={water} fill="url(#ga-shore-veil)"></path>
+  <path class="ga-art-line" d={line}></path>
+  <g class="ga-bubbles ga-art-line ga-art-thin">
+    <circle cx="190" cy="420" r="16"></circle>
+    <circle cx="240" cy="480" r="11"></circle>
+    <circle cx="282" cy="410" r="8"></circle>
+  </g>
+</svg>

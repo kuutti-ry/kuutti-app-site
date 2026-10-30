@@ -33,6 +33,10 @@
   --ring: 224 76% 48%;
   --notice: 40 96% 94%;
   --notice-border: 35 85% 38%;
+  /* The ink of the drawings: the logo's own #232323 (decision 7). */
+  --ink: 0 0% 14%;
+  /* The king seal's crown, the one colour of the drawings. */
+  --gold: 45 93% 58%;
   /*
    * Gaiane's concept: light, calm, spacious, flat colours, "(gradient?)". Two
    * partial washes from her pictures (docs/decisions.md, 20): the Antarctic
@@ -71,6 +75,8 @@
     --ring: 224 90% 25%;
     --notice: 0 0% 100%;
     --notice-border: 0 0% 0%;
+    --ink: 0 0% 0%;
+    --gold: 0 0% 100%;
     --dawn: 0 0% 100%;
     --sea: 0 0% 100%;
     --water-surface: 0 0% 100%;
@@ -625,12 +631,15 @@ body:has(> .site-header) {
   border: 0;
 }
 
-/* Her header stays at the top as the page scrolls, where the window is tall enough to spare it. */
+/*
+ * Her header (docs/decisions.md, 16 and 21): pills drawn on the page, not a
+ * bar. It stays at the top as the page scrolls, where the window is tall
+ * enough to spare it, on a white that fades into the page behind the pills.
+ */
 .ga-header {
   position: relative;
   z-index: 5;
-  border-bottom: 1px solid hsl(var(--border));
-  background: hsl(var(--background));
+  background: linear-gradient(hsl(var(--background)) 60%, hsl(var(--background) / 0));
 }
 
 @media (min-height: 30rem) {
@@ -641,12 +650,24 @@ body:has(> .site-header) {
 }
 
 .ga-header > div {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.5rem 1rem;
+  justify-content: space-between;
+  gap: 0.5rem;
   max-width: var(--wide);
   margin: 0 auto;
-  padding: 0.5rem var(--gap);
+  padding: 0.75rem var(--gap) 1rem;
+}
+
+/* A pill is a stroke round what it holds, as in her drawing. */
+.ga-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  border: 1.5px solid hsl(var(--foreground));
+  border-radius: 999px;
+  background: hsl(var(--background));
 }
 
 /* The logo and the name: home. */
@@ -655,7 +676,6 @@ body:has(> .site-header) {
   align-items: center;
   gap: 0.5rem;
   min-height: 44px;
-  margin-inline-end: auto;
   color: inherit;
   font-size: var(--step-1);
   font-weight: 650;
@@ -668,7 +688,21 @@ body:has(> .site-header) {
   height: 2.5rem;
 }
 
-.ga-nav ul {
+.ga-home {
+  padding: 0 1.1rem 0 0.7rem;
+}
+
+.ga-home img {
+  height: 1.9rem;
+}
+
+.ga-bar {
+  gap: 1rem;
+  padding: 0 0.5rem 0 1rem;
+}
+
+.ga-nav ul,
+.ga-langs {
   display: flex;
   gap: 0 0.25rem;
   margin: 0;
@@ -677,18 +711,19 @@ body:has(> .site-header) {
 }
 
 .ga-nav li,
-.ga-lang li,
+.ga-langs li,
 .ga-crumbs li,
 .ga-footer li {
   margin: 0;
 }
 
 .ga-nav a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   padding: 0 0.6rem;
-  border-radius: var(--radius);
+  border-radius: 999px;
   color: inherit;
   text-decoration: none;
   white-space: nowrap;
@@ -698,12 +733,48 @@ body:has(> .site-header) {
   background: hsl(var(--muted));
 }
 
-/* Where you are is a line and a weight, never colour alone. */
+/* The languages: their codes, the one of the page in full weight. */
+.ga-langs li {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  min-height: 44px;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+  cursor: default;
+}
+
+.ga-langs li[aria-current] {
+  color: hsl(var(--foreground));
+  font-weight: 750;
+}
+
+/*
+ * Where you are is her smile, a line and a weight, never colour alone: under
+ * the language of the page, and under the page in the navigation. The other
+ * languages have a dotted one.
+ */
+.ga-langs li::after,
+.ga-nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  bottom: 0.2rem;
+  left: 50%;
+  width: 1.6em;
+  height: 0.45em;
+  translate: -50% 0;
+  border-bottom: 2px solid currentColor;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+.ga-langs li:not([aria-current])::after {
+  border-bottom-style: dotted;
+}
+
 .ga-nav a[aria-current="page"] {
   font-weight: 650;
-  text-decoration: underline;
-  text-decoration-thickness: 0.14em;
-  text-underline-offset: 0.35em;
 }
 
 /* A button is a stroke that fills: her "stroke, flat colours". */
@@ -736,23 +807,56 @@ body:has(> .site-header) {
   color: hsl(var(--primary-foreground));
 }
 
-.ga-button-large {
-  min-height: 3.25rem;
-  padding: 0 1.75rem;
-  font-size: var(--step-1);
+/* Her download button: the word and an arrow into the water. */
+.ga-download {
+  gap: 0.45rem;
+  min-height: 3rem;
+  padding: 0 1rem 0 1.25rem;
 }
 
-/* On a wide screen the pages stand in the header; on a narrow one they fold into the menu. */
+.ga-download svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/*
+ * On a wide screen the languages and the pages stand in the header; on a
+ * narrow one the logo is a round button and they fold into the menu's card.
+ * The width is in rem, so that larger text folds them sooner.
+ */
 .ga-wide {
   display: none;
 }
 
-@media (min-width: 60rem) {
-  .ga-nav.ga-wide {
-    display: block;
+@media (max-width: 59.99rem) {
+  .ga-home {
+    justify-content: center;
+    width: 3rem;
+    padding: 0;
   }
 
-  .ga-button.ga-wide {
+  .ga-home img {
+    width: 2.1rem;
+    height: auto;
+  }
+
+  .ga-home span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 60rem) {
+  .ga-bar.ga-wide {
     display: inline-flex;
   }
 
@@ -761,12 +865,6 @@ body:has(> .site-header) {
   }
 }
 
-.ga-lang {
-  position: relative;
-}
-
-.ga-lang > summary,
-.ga-menu > summary,
 .site-menu > summary {
   display: inline-flex;
   align-items: center;
@@ -781,22 +879,27 @@ body:has(> .site-header) {
   cursor: pointer;
 }
 
-.ga-lang > summary::-webkit-details-marker,
+.ga-menu > summary {
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  list-style: none;
+  cursor: pointer;
+}
+
 .ga-menu > summary::-webkit-details-marker,
 .site-menu > summary::-webkit-details-marker {
   display: none;
 }
 
-.ga-lang > summary:hover,
 .ga-menu > summary:hover,
 .site-menu > summary:hover,
-.ga-lang[open] > summary,
 .ga-menu[open] > summary,
 .site-menu[open] > summary {
   background: hsl(var(--muted));
 }
 
-.ga-header :where(summary) svg,
+.ga-header :where(summary, .ga-menu-langs) svg,
 .site-header :where(summary) svg {
   width: 1.5rem;
   height: 1.5rem;
@@ -805,49 +908,6 @@ body:has(> .site-header) {
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-
-.ga-lang .chevron {
-  width: 1rem;
-  height: 1rem;
-}
-
-.ga-lang[open] .chevron {
-  transform: rotate(180deg);
-}
-
-/* The languages, named in their own words; the ones to come say so in words. */
-.ga-lang ul {
-  position: absolute;
-  inset-inline-end: 0;
-  top: calc(100% + 0.25rem);
-  z-index: 6;
-  min-width: 13rem;
-  margin: 0;
-  padding: 0.5rem 0;
-  list-style: none;
-  background: hsl(var(--background));
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
-  box-shadow: 0 8px 24px hsl(var(--foreground) / 0.12);
-}
-
-.ga-lang li {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-}
-
-.ga-lang li[aria-current] {
-  font-weight: 650;
-}
-
-.ga-soon {
-  font-size: var(--step--1);
-  font-weight: 400;
-  color: hsl(var(--muted-foreground));
 }
 
 .ga-menu .close,
@@ -862,8 +922,52 @@ body:has(> .site-header) {
   display: block;
 }
 
-/* The menu opens under the header, as wide as the window. */
-.ga-menu > nav,
+/* Her menu: a card under the header, the languages and the pages in large type. */
+.ga-menu-card {
+  position: absolute;
+  inset-inline: var(--gap);
+  top: calc(100% - 0.5rem);
+  max-height: calc(100dvh - 5rem);
+  overflow-y: auto;
+  padding: 1rem 1.5rem 1.5rem;
+  border: 2px solid hsl(var(--foreground));
+  border-radius: 1.75rem;
+  background: hsl(var(--background));
+  box-shadow: 0 12px 32px hsl(var(--foreground) / 0.12);
+}
+
+.ga-menu-langs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: var(--step-1);
+}
+
+.ga-menu-langs svg {
+  color: hsl(var(--muted-foreground));
+}
+
+.ga-nav-menu ul {
+  flex-direction: column;
+  margin-top: 0.75rem;
+}
+
+.ga-nav-menu a {
+  padding: 0.15rem 0 0.35rem;
+  font-size: var(--step-2);
+}
+
+.ga-nav-menu a:hover {
+  background: none;
+  text-decoration: underline;
+}
+
+.ga-nav-menu a[aria-current="page"]::after {
+  left: 0;
+  translate: none;
+}
+
+/* The menu of the site's own pages opens under its header, as wide as the window. */
 .site-menu > nav {
   position: absolute;
   inset-inline: 0;
@@ -876,7 +980,6 @@ body:has(> .site-header) {
   box-shadow: 0 12px 24px hsl(var(--foreground) / 0.08);
 }
 
-.ga-menu ul,
 .site-menu ul {
   flex-direction: column;
 }
@@ -911,36 +1014,82 @@ body:has(> .site-header) {
   min-height: 44px;
 }
 
-/* Her sketch: the slogan and the button, and the pup above the water beside them. */
+/*
+ * Her sketch of 28/10/2026 (docs/decisions.md, 21): the slogan, and under it
+ * the water across the window with the pup's face rising out of it.
+ */
 .ga-hero {
-  display: grid;
-  align-items: center;
-  gap: 1.5rem 3rem;
-  max-width: 60rem;
-  margin: 0 auto;
-  padding: clamp(1rem, 4vw, 3rem) 0 clamp(1.5rem, 4vw, 3rem);
-}
-
-@media (min-width: 48rem) {
-  .ga-hero {
-    grid-template-columns: 1.1fr 1fr;
-  }
+  padding-top: clamp(0.5rem, 3vw, 2.5rem);
 }
 
 .ga-hero h1 {
-  margin: 0 0 1.25rem;
-  font-size: clamp(2.25rem, 1.5rem + 3.5vw, 4rem);
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(2.5rem, 1.4rem + 4.6vw, 4.75rem);
   letter-spacing: -0.02em;
 }
 
-.ga-hero p {
-  margin: 0 0 0.5rem;
+/* The water is as wide as the window; the window clips it, and nothing else on the page is wider. */
+.ga-sea {
+  display: block;
+  width: 100vw;
+  height: clamp(10rem, 6rem + 12vw, 15rem);
+  margin: 1rem calc(50% - 50vw) 0;
 }
 
-.ga-hero img {
-  justify-self: center;
-  width: min(80%, 360px);
-  height: auto;
+html:has(.ga-sea) {
+  overflow-x: clip;
+}
+
+/* The pup keeps to the right of the slogan as the window widens (the drawing's units). */
+@media (min-width: 40rem) {
+  .ga-sea-scene {
+    transform: translateX(600px);
+  }
+}
+
+@media (min-width: 60rem) {
+  .ga-sea {
+    margin-top: -3rem;
+  }
+
+  .ga-sea-scene {
+    transform: translateX(1100px);
+  }
+}
+
+/* The drawings: the logo's ink, its stroke in the logo's units, and white inside. */
+.ga-art-line {
+  fill: none;
+  stroke: hsl(var(--ink));
+  stroke-width: 17;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ga-art-thin {
+  stroke-width: 13;
+}
+
+.ga-art-ink {
+  fill: hsl(var(--ink));
+}
+
+.ga-art-body {
+  fill: hsl(var(--background));
+}
+
+.ga-art-gold {
+  fill: hsl(var(--gold));
+}
+
+.ga-water-top {
+  stop-color: hsl(var(--water-deep));
+}
+
+.ga-water-clear {
+  stop-color: hsl(var(--water-surface));
+  stop-opacity: 0;
 }
 
 /* The pages: the site's column, the first paragraph a lead. */
@@ -1034,15 +1183,39 @@ body:has(> .site-header) {
   stroke-linejoin: round;
 }
 
+/*
+ * Her footer is the water under the ice (docs/decisions.md, 20 and 21): the
+ * water's edge with the pup at the top, the deep under it. Its muted text has
+ * 5.6:1 on the deep, AA for small text; in high contrast the water is white.
+ */
 .ga-footer {
+  /* The scale of the water under the slogan, and room above it for the crown (GaShore.astro). */
+  --shore: calc(clamp(10rem, 6rem + 12vw, 15rem) * 980 / 900);
+  position: relative;
   margin-top: 3rem;
-  border-top: 1px solid hsl(var(--border));
-  background: hsl(var(--card));
+  padding-top: var(--shore);
   font-size: var(--step--1);
   color: hsl(var(--muted-foreground));
 }
 
-.ga-footer > div {
+/*
+ * What the dive follows: the footer from its top, but never taller than most
+ * of the window. It has come into view when the page reaches its foot, or,
+ * where the footer is taller than that, while the pup is still on the screen.
+ */
+.ga-dive-range {
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(100%, 75svh);
+  view-timeline: --ga-dive block;
+}
+
+.ga-footer-water {
+  margin-top: -1px;
+  background: hsl(var(--water-deep));
+}
+
+.ga-footer-water > div {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: 1.5rem 2rem;
@@ -1098,6 +1271,115 @@ body:has(> .site-header) {
 
 .ga-channel > svg:first-child {
   fill: currentColor;
+}
+
+/* The water's edge over the footer, drawn as the water under the slogan is, at its scale. */
+.ga-shore {
+  display: block;
+  width: 100%;
+  height: var(--shore);
+}
+
+.ga-shore-surface {
+  stop-color: hsl(var(--water-surface));
+}
+
+.ga-shore-thin {
+  stop-opacity: 0.35;
+}
+
+.ga-shore-deep {
+  stop-color: hsl(var(--water-deep));
+}
+
+/*
+ * The dive (decision 21): over the last part of the scroll, as the footer
+ * comes into view, the pup tips nose first under the line and swims down
+ * into the deep, which hides it; the bubbles it leaves rise. It follows the
+ * scroll both ways. Without scroll-driven animations, or with reduced motion
+ * asked for, the pup floats and there are no bubbles.
+ */
+.ga-dive,
+.ga-heading {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ga-bubbles {
+  opacity: 0;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Longhands: the build's minifier folds a shorthand and a timeline into "none". */
+    .ga-dive,
+    .ga-bubbles {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --ga-dive;
+      animation-range: entry 30% entry 100%;
+    }
+
+    .ga-dive {
+      animation-name: ga-dive;
+    }
+
+    .ga-bubbles {
+      animation-name: ga-bubbles;
+    }
+
+    /*
+     * Played backwards, the dive would bring the pup up tail first. So while
+     * the page was last scrolled up, the pup faces the other way and swims up
+     * head first; it turns round in half a second. The browser says which
+     * way the page was last scrolled (a scroll-state query); where it cannot,
+     * the pup keeps facing the way it dived.
+     */
+    html:has(.ga-shore) {
+      container-type: scroll-state;
+    }
+
+    .ga-heading {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    @container scroll-state(scrolled: top) {
+      .ga-heading {
+        transform: scaleX(-1);
+      }
+    }
+  }
+}
+
+@keyframes ga-dive {
+  30% {
+    transform: translate(40px, 30px) rotate(20deg);
+  }
+
+  65% {
+    transform: translate(220px, 260px) rotate(52deg);
+  }
+
+  to {
+    transform: translate(440px, 480px) rotate(22deg);
+  }
+}
+
+@keyframes ga-bubbles {
+  from,
+  45% {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
 }
 
 /* --- The pond (/ga/pond/, docs/decisions.md 17) ------------------------- */
