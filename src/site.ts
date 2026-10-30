@@ -34,7 +34,12 @@ export const SITE = {
   proposals: "https://github.com/kuutti-ry/kuutti-app/issues/new?template=proposal.yml",
   /** Where this site's source is published (AGPL-3.0). */
   siteSource: "https://github.com/kuutti-ry/kuutti-app-site" as string | null,
-  /** The address people write to, an alias at the association's Google Workspace (docs/decisions.md, 19). */
+  /**
+   * The address people write to, the only one on the site: a user of the
+   * association's Google Workspace since 30/10/2026, not an alias, because
+   * Google for Nonprofits checks that every address on the site is a user
+   * (docs/decisions.md, 19 and 22).
+   */
   contactEmail: "hello@kuutti.app" as string | null,
   /** The association's channels, as full addresses; the footer links to each by its mark. */
   social: [

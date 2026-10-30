@@ -9,17 +9,20 @@ interface Props {
   slug: string;
 }
 const { locale, slug } = Astro.props;
-// The pages that carry `nav` in their front matter, in that order, and nothing else.
-// On a wide screen they stand in the header; on a narrow one they fold into a
-// menu, a <details>, as Gaiane's do (docs/decisions.md, 16 and 19), so that
-// nothing needs a script.
+// The pages that carry `nav` in their front matter, in that order, and nothing else,
+// each leading to its section of the home page (docs/decisions.md, 22); on its
+// own page, the link to its section says that you are there. On a wide screen
+// they stand in the header; on a narrow one they fold into a menu, a
+// <details>, as Gaiane's do (docs/decisions.md, 16 and 19), so that nothing
+// needs a script.
 const links = await navigation(locale);
+const home = pathOf(locale, "");
 const here = (link: string) => slug === link || slug.startsWith(`${link}/`);
 ---
 
 <header class="site-header">
   <div>
-    <a class="brand" href={pathOf(locale, "")} aria-current={slug === "" ? "page" : undefined}>
+    <a class="brand" href={home} aria-current={slug === "" ? "page" : undefined}>
       <img src="/logo.png" alt={t(locale, "site.name")} width="59" height="40" />
     </a>
     <nav class="site-nav site-wide" aria-label={t(locale, "nav.label")}>
@@ -27,7 +30,7 @@ const here = (link: string) => slug === link || slug.startsWith(`${link}/`);
         {
           links.map((link) => (
             <li>
-              <a href={pathOf(locale, link.slug)} aria-current={here(link.slug) ? "page" : undefined}>
+              <a href={`${home}#${link.slug}`} aria-current={here(link.slug) ? "page" : undefined}>
                 {link.title}
               </a>
             </li>
@@ -50,7 +53,7 @@ const here = (link: string) => slug === link || slug.startsWith(`${link}/`);
           {
             links.map((link) => (
               <li>
-                <a href={pathOf(locale, link.slug)} aria-current={here(link.slug) ? "page" : undefined}>
+                <a href={`${home}#${link.slug}`} aria-current={here(link.slug) ? "page" : undefined}>
                   {link.title}
                 </a>
               </li>

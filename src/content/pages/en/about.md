@@ -4,13 +4,15 @@ description: Kuutti ry - what it does, why it was founded, what its bylaws forbi
 nav: 1
 ---
 
-Kuutti ry is a registered non-profit association in Espoo, Finland. It was founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. This site, kuutti.app, is its official website. Its [bylaws](/legal/bylaws/), in Finnish, are public.
+Kuutti ry is a registered non-profit association in Espoo, Finland. Its purpose, in the words of its bylaws, is to promote safe, free and equal opportunities for everyone to meet other people and form relationships in Finland; to reduce loneliness; to support research into relationships and loneliness; and to keep an open community in which volunteers develop the service.
+
+It was founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. This site, kuutti.app, is its official website. Its [bylaws](/legal/bylaws/), in Finnish, are public.
 
 ## What it does
 
 Kuutti ry develops Kuutti, a free app for meeting people in Finland, and will run it itself: the bylaws forbid handing the service to anybody else. The work is done by volunteers and in public: the code, the decisions behind it and the work in progress are at [github.com/kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app).
 
-The board runs the association: its members, its meetings and its books. Anybody who shares its purpose can [apply to become a member](/membership/).
+The board runs the association: its members, its meetings and its books. Anybody who shares its purpose can [apply to become a member](/#membership).
 
 ## Beyond the app
 
@@ -31,9 +33,7 @@ The [association's entry](https://tietopalvelu.ytj.fi/yritys/3659478-7) in the F
 
 Services for meeting people are mostly sold in a way that pays the provider for the time you spend in the service, and not for the relationships that come of it. The longer you look, the better for the seller.
 
-Kuutti ry is founded to offer such a service without that conflict of interest. Its purpose, in the words of its bylaws, is to promote safe, free and equal opportunities for everyone to meet other people and form relationships in Finland; to reduce loneliness; to support research into relationships and loneliness; and to keep an open community in which volunteers develop the service.
-
-The association measures its success by how many people find what they were looking for and no longer need the service.
+Kuutti ry is founded to offer such a service without that conflict of interest. It measures its success by how many people find what they were looking for and no longer need the service.
 
 ## What the association may not do
 
@@ -55,7 +55,7 @@ Changing these needs a unanimous decision in two meetings, at least thirty days 
 
 **Volunteers:** mostly alumni of Aalto University, and some who study there now.
 
-To reach any of us, write to [hello@kuutti.app](mailto:hello@kuutti.app), or see [Contact](/contact/).
+To reach any of us, write to [hello@kuutti.app](mailto:hello@kuutti.app), or see [Contact](/#contact).
 
 ## Questions
 
@@ -73,7 +73,7 @@ So that every account is one real adult, and so that somebody who was banned sta
 
 ### Can I join the association?
 
-Yes. A private person who accepts its purpose can apply to be a voting member, and a person or an organisation to be a supporting member; the board decides. [How to join](/membership/).
+Yes. A private person who accepts its purpose can apply to be a voting member, and a person or an organisation to be a supporting member; the board decides. [How to join](/#how-to-join).
 
 ### What does the name mean?
 

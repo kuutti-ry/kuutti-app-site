@@ -10,7 +10,7 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 
 | question | what the site says meanwhile |
 |---|---|
-| **A contact address.** `hello@kuutti.app` since decision 19, an alias at the association's Google Workspace; who reads it is the board's to arrange. The privacy policy and the terms do not name it yet: that is a new version of each, the maintainer's | the footer, "Contact", "Help", "Deleting your account" and "Membership" give it (`contactEmail` in `src/site.ts`) |
+| **A contact address.** `hello@kuutti.app` since decision 19, a user at the association's Google Workspace since 30/10/2026 and the only address on the site (decision 22); who reads it is the board's to arrange. The privacy policy and the terms do not name it yet: that is a new version of each, the maintainer's | the footer, the home page ("About Us", "Membership" and "Contact" in it), "Help" and "Deleting your account" give it (`contactEmail` in `src/site.ts`) |
 | **A privacy contact**, by name or by role | "has not named a data protection officer" |
 | **Social channels**: YouTube | LinkedIn, GitHub, TikTok and Instagram are in the footer (`social` in `src/site.ts`); YouTube is not shown until it exists |
 | **The team**: which volunteers and board members want to be named, and with which title | "About Us" names the chair alone and says the board has three members (decision 19); volunteers as "mostly alumni of Aalto University" |
@@ -54,6 +54,7 @@ Drafting it meant reading what the app keeps. These are for the app's repository
 | **The move of Amplify Hosting** to the new repository | done 28/09/2026: a new app, `kuutti-app-site`, created in the console and connected to this repository, `kuutti.app` moved to it, the old app deleted; `amplify.yml` and `customHttp.yml` work as written. The setup is in the app repository's `infra/README.md`, "The website" |
 | **Removing `site/`** from the app's repository, with its `amplify.yml` and the mentions in `CLAUDE.md` and ADR-001 | kuutti-ry/kuutti-app#109 |
 | **The waitlist's numbers on the home page.** The API has a public `GET /waitlist` and allows the site's origin | not shown: it needs a script in the browser, and the site runs none but the pond demo's (decision 17) |
+| **The pages "About Us", "App", "Membership" and "Contact"** at their own addresses, now that the home page shows them and the navigation leads there: whether they stay | kept, linked from nowhere on the site, and `/ga/` takes its parts from them (decision 22) |
 | **Gaiane's structure** at `/ga/`: whether, and when, it becomes the site's | beside the site, left alone by search engines, linked from nowhere on the site (decision 16) |
 | **Saiga on kuutti.app**: the read-only token for `kuutti-ry/kuutti-app-fonts`, set as `FONTS_TOKEN` in the Amplify app; previews of pull requests kept off there | `/ga/` is in Saiga where the build has the files, in Inter until then (decision 18) |
 | **Crediting Spoke Type**, Saiga's foundry: whether, and how | "the foundry is named here once it has said how it wants to be credited" (rule 5) |

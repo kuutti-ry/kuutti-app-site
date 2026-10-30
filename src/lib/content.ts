@@ -65,12 +65,17 @@ export async function allLegal(): Promise<LegalText[]> {
   return texts.sort((a, b) => a.data.order - b.data.order);
 }
 
-/** The pages of the navigation in a language, in their order. */
-export async function navigation(locale: Locale): Promise<{ slug: string; title: string }[]> {
+/**
+ * The pages of the navigation in a language, in their order: each is also a
+ * section of the home page, and the navigation leads there (docs/decisions.md, 22).
+ */
+export async function navigation(
+  locale: Locale,
+): Promise<{ slug: string; title: string; page: Page }[]> {
   return (await allPages())
     .filter((page) => placeOf(page.id).locale === locale && page.data.nav !== undefined)
     .sort((a, b) => (a.data.nav ?? 0) - (b.data.nav ?? 0))
-    .map((page) => ({ slug: placeOf(page.id).slug, title: page.data.title }));
+    .map((page) => ({ slug: placeOf(page.id).slug, title: page.data.title, page }));
 }
 
 export type GaPage = {
