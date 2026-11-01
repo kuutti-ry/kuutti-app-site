@@ -3,8 +3,8 @@ title: Privacy policy
 description: What Kuutti keeps about the people who use it, why, for how long, who else handles it, and what you can do about it.
 order: 3
 status: draft
-consent_version: "2026-10-draft-2"
-dated: 2026-10-25
+consent_version: "2026-10-draft-3"
+dated: 2026-11-01
 binding: false
 ---
 
@@ -41,9 +41,14 @@ With every new sign-in the record of the identification is replaced by the newes
 
 - your gender, as you state it yourself: woman, man or non-binary;
 - whom you seek and the ages you seek;
-- the area you chose, such as a city or a campus;
-- the name you want to be called by, what you write about yourself, and your answers to the questions of the profile: languages, what you are looking for, the kind of relationship, children, smoking, alcohol, education, field, and campus;
+- where you live, as one place and no more exactly: your postal area if enough people live there and enough are left in the rest of your municipality, otherwise your municipality, or the nearest municipality with enough people. You give your postal code and Kuutti keeps that place, and when you last changed it. You can change it at any time, and the earlier place is not kept;
+- which name your card shows: the nearest town, or your postal area's name if you chose it and enough people live there;
+- the name you want to be called by, what you write about yourself, and your answers to the questions of the profile: languages, what you are looking for, the kind of relationship, children, smoking, alcohol, education and field;
+- your e-mail address, if you give one. It is optional: a way for Kuutti to reach you, confirmed with a code, shown to nobody and never used to sign in;
+- the contacts you store to share in a conversation, if you store any: a phone number, WhatsApp, Telegram, Instagram or Snapchat. Nobody sees one until you share it, and then only the other person of that conversation;
 - when the account was made and its state.
+
+People you are shown to see that name, and how far you are from them as a word (nearby, close, around or far), counted between your two places when the card is added to a round. They never see a postal code or kilometres. Each card of a round keeps its word as it stood that day, also after one of you has moved.
 
 Your gender together with whom you seek tells something about your sexual orientation. That is data the law protects specially, and Kuutti asks for your explicit consent before it uses it.
 
@@ -69,13 +74,13 @@ Kuutti keeps **no IP address** in its database. The server uses the address of a
 
 ### Research, if you said yes
 
-If you consent to research, events about how you use Kuutti are recorded under a separate research identifier that is not your account's. An event holds: what happened, the hour in which it happened (not the minute), your area, your age as a band of years, your gender and the answers of your profile that come from fixed lists. It never holds anything you wrote yourself, your name, your photos or whom you seek.
+If you consent to research, events about how you use Kuutti are recorded under a separate research identifier that is not your account's. An event holds: what happened, the hour in which it happened (not the minute), the area of the service, which is the same for everybody, your age as a band of years, your gender and the answers of your profile that come from fixed lists. It never holds anything you wrote yourself, your name, your photos, where you live or whom you seek.
 
 ### What the server writes down
 
-For each request the server's log has a line with the account's number, the kind of request, the outcome and how long it took. The log never holds a personal identity code, the code computed from it, what somebody wrote, gender, or whom somebody seeks.
+For each request the server's log has a line with the account's number, the kind of request, the outcome and how long it took. The log never holds a personal identity code, the code computed from it, what somebody wrote, gender, where somebody lives, or whom somebody seeks.
 
-If the app or the server fails, a report of the error is sent to an error service. The server's report carries the account's number and nothing of the request; the app's report carries nothing that names you or your phone. An error's own message can quote what was typed into the field that failed.
+If the app or the server fails, a report of the error is sent to an error service. The server's report carries the request's number and its route, and nothing else of the request or of you; the app's report carries nothing that names you or your phone. An error's own message can quote what was typed into the field that failed.
 
 ## 4. What Kuutti never keeps
 
@@ -83,8 +88,7 @@ If the app or the server fails, a report of the error is sent to an error servic
 - your name, as the bank gives it
 - your date of birth: only the year and the month
 - your legal sex
-- your email address or your phone number: the app never asks for them
-- your location
+- your address, or where your phone is: the app never asks for them
 - the original of a photo, and anything a photo file carried besides the picture
 
 ## 5. Why, and on what ground
@@ -98,7 +102,7 @@ If the app or the server fails, a report of the error is sent to an error servic
 | Research | Your consent, given separately, which you can withdraw at any time |
 | To be able to answer a lawful request of an authority | A legal obligation |
 
-Kuutti makes no decision about you by machine alone that has legal effects for you. A photo can be held back by the automatic check; it is rejected only by a person.
+Kuutti makes no decision about you by machine alone that has legal effects for you. The automatic check rejects a photo it is sure of and tells you why, and sends what it is unsure of to a person. A photo nobody has decided on within 14 days is rejected as not reviewed.
 
 ## 6. Who else handles your data
 
@@ -106,10 +110,10 @@ The association uses these others to run the service. They handle the data on th
 
 | Who | What | Where |
 |---|---|---|
-| **Amazon Web Services** | The servers, the database, the photos and their delivery, the server's logs, the automatic check of photos | The European Union (Frankfurt). Photos are delivered through Amazon's delivery network, which has nodes outside the EU as well |
+| **Amazon Web Services** | The servers, the database, the photos and their delivery, the server's logs, the automatic check of photos, the e-mail Kuutti sends | The European Union (Frankfurt). Photos are delivered through Amazon's delivery network, which has nodes outside the EU as well |
 | **Telia Finland Oyj** | Identification with your bank. Telia and your bank act in their own name here, under the law on strong electronic identification | Not yet confirmed by Telia |
 | **Sentry** (Functional Software, Inc.) | Reports of errors in the app and on the server | The European Union (Germany) |
-| **Expo** (650 Industries, Inc.) | Updates of the app: at every start the app asks Expo's servers whether there is a newer version. Notifications: for each one, the phone's push token, the one line the phone shows ("You have a new message", "You have a new match" or "Today's round is ready") and which conversation it is about, never what a message says or who sent it | Not stated by Expo in what the association has |
+| **Expo** (650 Industries, Inc.) | Updates of the app: at every start the app asks Expo's servers whether there is a newer version. Notifications: for each one, the phone's push token, the one line the phone shows ("You have a new message", "You have a new match" or "Today's round is ready") and which of those it is, never what a message says, who sent it or which conversation it is about | Not stated by Expo in what the association has |
 | **Apple and Google** | Delivering the app to your phone, and delivering Kuutti's notifications to it, which Expo hands to them | By their own terms |
 
 **The automatic check of photos.** One of the three sizes of a photo, without any data of the original file, is sent to Amazon's image recognition service in Frankfurt, which answers with labels of what it sees and with the number of faces. Kuutti keeps the answer with the photo; the labels are never shown to you or to anybody but moderators. The service answers and keeps nothing for the association. Amazon's terms allow it to use what is sent to such services to improve them unless its customer refuses; the association refuses before the app opens.
@@ -124,7 +128,7 @@ Kuutti keeps your data in the European Union. These are the cases in which data 
 
 - A photo is delivered to the phone that asks for it through a delivery network, from the node nearest to that phone. If somebody opens the app outside Europe, the photos they are allowed to see reach them through a node outside Europe.
 - When the app asks for updates, Expo's servers see the phone's address on the network. The app sends nothing about your account there.
-- A notification goes through Expo's servers and then Apple's or Google's, which can be outside the EU: the phone's push token, the line the phone shows and which conversation it is about. Never what a message says, who sent it, or anything else about you.
+- A notification goes through Expo's servers and then Apple's or Google's, which can be outside the EU: the phone's push token, the line the phone shows and which kind it is. Never what a message says, who sent it, which conversation it is about, or anything else about you.
 - Apple and Google learn that you installed the app.
 
 Where a transfer needs a safeguard under the data protection regulation, the association relies on the standard contractual clauses of the European Commission or on a decision of the Commission that the receiving country protects data adequately.
@@ -134,6 +138,9 @@ Where a transfer needs a safeguard under the data protection regulation, the ass
 | What | How long |
 |---|---|
 | Your profile, photos, preferences and sessions | Until you delete them or your account |
+| Where you live | Until you change it or delete your account |
+| Your e-mail address and your contacts | Until you remove them or delete your account |
+| The distance word on a card of a round | Until you or the other person deletes an account; a shorter period is not decided yet |
 | The record of photos you were given, and of cards you were shown | Until you delete your account |
 | A session you signed out of | 30 days |
 | A session you do not use | 90 days |
@@ -142,7 +149,7 @@ Where a transfer needs a safeguard under the data protection regulation, the ass
 | The server's log | 30 days |
 | Backups of the database | 35 days |
 | The log of what moderators did and saw | 5 years |
-| Your consents | Kept after the account is deleted, as proof; the period is not decided yet |
+| Your consents | Until you delete your account |
 | The code computed from your identity code, the record of your identification, and whether the person is banned | For as long as the service exists. It is what keeps one person to one account and a ban in force |
 
 When you delete your account, what goes and what stays is described in [Deleting your account](/delete-account/).
@@ -152,7 +159,7 @@ If the association is dissolved, the personal data of the people who used the se
 ## 9. What you can do
 
 - **See and take with you what is kept about you.** In the app, under *Your account*, *Download my data* gives you a file with what Kuutti holds about you.
-- **Correct it.** You can change your profile, your photos and your preferences in the app.
+- **Correct it.** You can change your profile, your photos, your preferences and where you live in the app.
 - **Delete it.** *Delete my account* deletes at once; see above for what stays.
 - **Withdraw a consent.** You can take back your consent to research in the app at any time. It does not undo what was done before.
 - **Stop notifications.** In the app, under *Notifications*, each kind can be switched off for all your phones; in a phone's own settings, all of Kuutti's for that phone.
