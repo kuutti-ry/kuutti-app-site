@@ -21,6 +21,9 @@ If you cannot sign in any more, you can ask for the deletion by writing to [hell
 - your profile and everything you wrote in it
 - your photos, in every size they were kept in
 - whom you seek, your age range and your other preferences
+- where you live
+- your e-mail address and the contacts you stored, if you had any
+- the consents you gave
 - the devices you were signed in on
 - the link between you and the research events, if you took part in research
 
@@ -30,7 +33,6 @@ This cannot be undone.
 
 - **That this person once had an account.** Kuutti keeps a code computed from your personal identity code, which cannot be turned back into it; the record of your last identification (which bank, when, and the identification service's own references for it); whether the person is banned; how many times an account was deleted, and the day from which a new one is possible. It is what makes one person one account, and what makes a ban hold.
 - **An empty account row.** Without your age, your gender or your area: it only says that an account existed and was deleted.
-- **The consents you gave**, as proof of what was agreed to and when.
 - **The log of staff actions**, for five years. It records what moderators did and saw, not what you did.
 
 Research events that were recorded while you took part stay, but nothing connects them to you any more. Where somebody else was shown one of your photos, the record of that stays with them; it names the photo by a number, and the photo is gone.
