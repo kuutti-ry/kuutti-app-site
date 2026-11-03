@@ -103,6 +103,10 @@ const earlier =
   view.kind === "text"
     ? (await earlierTexts()).filter((text) => TEXT_OF[text.kind] === textSlug)
     : [];
+// A consent is kept in each language it is written in, and a version has one
+// anchor: on the first of them, the Finnish that counts.
+const holdsAnchor = (text: (typeof earlier)[number]) =>
+  earlier.find((kept) => kept.kind === text.kind && kept.version === text.version) === text;
 ---
 
 <Base
@@ -273,7 +277,7 @@ const earlier =
             <p>{t(locale, "earlier.intro")}</p>
             {earlier.map((text) => (
               <details
-                id={anchorOf(text.kind, text.version)}
+                id={holdsAnchor(text) ? anchorOf(text.kind, text.version) : undefined}
                 lang={text.language === textLanguage ? undefined : text.language}
               >
                 <summary>

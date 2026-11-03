@@ -190,13 +190,13 @@ function keptAt(id: string): { language: TextLanguage; kind: ConsentKind; versio
 
 /**
  * Every kept earlier version of the texts a person agrees to (docs/decisions.md,
- * 14), newest first, each with its rendered text. The file's name is its
- * version, and its own consent_version says the same.
+ * 14), newest first and a version's Finnish first, each with its rendered text.
+ * The file's name is its version, and its own consent_version says the same.
  */
 export async function earlierTexts(): Promise<EarlierText[]> {
   const entries = await getCollection("earlier");
-  return entries
-    .map((entry): EarlierText => {
+  return byLanguage(
+    entries.map((entry): EarlierText => {
       const { language, kind, version } = keptAt(entry.id);
       const { consent_version, dated, title, status, binding } = entry.data;
       if (consent_version !== version) {
@@ -213,8 +213,8 @@ export async function earlierTexts(): Promise<EarlierText[]> {
         body: bodyOf(entry),
         html: entry.rendered.html,
       };
-    })
-    .sort((a, b) => b.dated.getTime() - a.dated.getTime());
+    }),
+  ).sort((a, b) => b.dated.getTime() - a.dated.getTime());
 }
 
 /**
