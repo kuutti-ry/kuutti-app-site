@@ -1,7 +1,7 @@
 ---
 title: Membership
 description: How to join Kuutti ry as a voting or a supporting member, what each may do, and what membership does not change.
-nav: 3
+nav: 5
 ---
 
 Kuutti ry has members of two kinds, as its [bylaws](/legal/bylaws/) set out (sections 3, 4 and 8).

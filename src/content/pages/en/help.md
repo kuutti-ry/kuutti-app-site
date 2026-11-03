@@ -3,7 +3,7 @@ title: Help
 description: Where to turn when something in Kuutti does not work, and how to report a problem or a person.
 ---
 
-Answers to the questions about signing in and your data in Kuutti. For anything else, [write to us](/#contact).
+Answers to the questions about signing in and your data in Kuutti. For anything else, [write to us](/contact/).
 
 ## Signing in
 
@@ -21,4 +21,4 @@ In the app, under **Your account**, you can download everything Kuutti holds abo
 
 ## Contact
 
-For questions, and for requests about your personal data, write to [hello@kuutti.app](mailto:hello@kuutti.app). [Other ways to reach the association](/#contact).
+For questions, and for requests about your personal data, write to [hello@kuutti.app](mailto:hello@kuutti.app). [Other ways to reach the association](/contact/).

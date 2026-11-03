@@ -1,14 +1,10 @@
 ---
 title: Contact
 description: How to reach Kuutti ry - by e-mail, by post, and on its channels.
-nav: 4
+nav: 6
 ---
 
-## Write to us
-
 [hello@kuutti.app](mailto:hello@kuutti.app) reaches the association: questions about Kuutti or the association, requests about your personal data, membership, and the press.
-
-## By post
 
 Kuutti ry, Tontunmäentie 22&nbsp;E, 02200&nbsp;Espoo, Finland.
 
