@@ -26,5 +26,8 @@ export const PINNED: Pinned = {
     "2026-10-draft-3": "abf9ef52d956699c",
   },
   research: { "2026-09-draft-1": "0cd317fd8cc2d703" },
-  special_category: { "2026-10-draft-2": "bb0b1aa5f3054f7e" },
+  special_category: {
+    "2026-10-draft-2": "bb0b1aa5f3054f7e",
+    "2026-11-draft-3": "72ae16e637a87e1b",
+  },
 };

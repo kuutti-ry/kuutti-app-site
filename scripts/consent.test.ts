@@ -71,7 +71,7 @@ const appModule = (versions: Record<string, string>) =>
 const APP_TODAY = {
   privacy: "2026-09-draft-1",
   research: "2026-09-draft-1",
-  special_category: "2026-10-draft-2",
+  special_category: "2026-11-draft-3",
   terms: "2026-09-draft-1",
 };
 

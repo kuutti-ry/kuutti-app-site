@@ -17,7 +17,7 @@
  * - /legal/versions.json names every kind of the app's, and each address
  *   leads to a page of the site and to the anchor of its version there.
  * - Every version of src/consent-versions.ts, not only the newest, has its
- *   anchor on its page: people agreed to it, and the app's builds in their
+ *   one anchor on its page: people agreed to it, and the app's builds in their
  *   hands link to it until they are updated.
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
@@ -227,9 +227,14 @@ for (const kind of CONSENT_KINDS) {
   const file = fileOf(path);
   const html = file ? readFileSync(file, "utf8") : "";
   for (const version of Object.keys(PINNED[kind])) {
-    if (!html.includes(` id="${anchorOf(kind, version)}"`)) {
+    const anchors = html.split(` id="${anchorOf(kind, version)}"`).length - 1;
+    if (anchors === 0) {
       problems.push(
         `${path}: no anchor for ${kind} ${version}; a version people agreed to keeps its text on the site under its anchor`,
+      );
+    } else if (anchors > 1) {
+      problems.push(
+        `${path}: ${anchors} anchors for ${kind} ${version}; the app's link to it leads to one place`,
       );
     }
   }
