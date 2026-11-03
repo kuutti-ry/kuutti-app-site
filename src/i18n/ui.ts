@@ -13,9 +13,11 @@ export const UI = {
     "nav.label": "Pages",
     "nav.menu": "Menu",
     "home.soon": "Not in the stores yet.",
+    "home.title": "Kuutti ry",
     "home.description":
-      "A free app for meeting people in Finland, made by Kuutti ry, a non-profit association.",
-    "home.purpose": "Our purpose",
+      "A non-profit association working to reduce loneliness in Finland, and the maker of Kuutti, a free app for meeting people.",
+    "home.mission": "Our mission",
+    "home.readOn": "Read on: {title}",
     "home.more": "More",
     "home.ideas": "Anybody can propose a feature, and help build it:",
     "home.propose": "open a proposal on GitHub",

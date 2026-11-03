@@ -68,10 +68,12 @@ test("every channel of the association is an https address with a mark the foote
   }
 });
 
-test("the home page says what Kuutti is, and the footer names the association as the register does, with an address to write to", () => {
+test("the home page says what the association is and what it makes, and the footer names it as the register does, with an address to write to", () => {
+  assert.equal(t("en", "home.title"), "Kuutti ry");
+  assert.equal(t("en", "home.mission"), "Our mission");
   assert.equal(
     t("en", "home.description"),
-    "A free app for meeting people in Finland, made by Kuutti ry, a non-profit association.",
+    "A non-profit association working to reduce loneliness in Finland, and the maker of Kuutti, a free app for meeting people.",
   );
   assert.equal(t("en", "home.soon"), "Not in the stores yet.");
   assert.equal(

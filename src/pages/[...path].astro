@@ -15,7 +15,7 @@ import {
   writtenIn,
 } from "../lib/content.ts";
 import { drawFlags } from "../lib/flag.ts";
-import { lowered, opened } from "../lib/home.ts";
+import { opened } from "../lib/home.ts";
 import { type RouteProps, routes } from "../lib/routes.ts";
 import { SITE } from "../site.ts";
 
@@ -37,24 +37,32 @@ const htmlOf = (entry: { id: string; rendered?: { html: string } }): string => {
 const html =
   view.kind === "page" ? htmlOf(view.page) : view.kind === "text" ? htmlOf(view.text) : null;
 
-// The home page is the whole site in one, since Google's reviewer reads no
-// other page (docs/decisions.md, 22): the logo, the name, and in a sentence
-// what Kuutti is and who makes it, which is also the page's description
-// (15); at the top, the association's purpose in the words of its bylaws,
-// which is what About Us says before its first heading; then every page of
-// the navigation, in its order, as a section under its title at the anchor
-// the header leads to, About Us without what is already above; and last,
-// where anybody proposes a feature (19) and the rest of the site, by its
-// links. No button, and no store badge until there is a listing.
+// The home page leads to the pages of the navigation and says what each is
+// (docs/decisions.md, 23): the logo, the name, and in a sentence what the
+// association is and what it makes, which is also the page's description; at
+// the top, its mission, which is what About Us says before its first heading;
+// then every other page of the navigation, in its order, by what it says
+// before its first heading, with a link to the page; and last, where anybody
+// proposes a feature (19) and the rest of the site, by its links. No button,
+// and no store badge until there is a listing.
 const sections =
   view.kind === "home"
-    ? (await navigation(locale)).map((section) => ({ ...section, ...opened(htmlOf(section.page)) }))
+    ? (await navigation(locale)).map((section) => ({
+        ...section,
+        href: pathOf(locale, section.slug),
+        opening: opened(htmlOf(section.page)).opening,
+      }))
     : [];
-const purpose = sections.find((section) => section.slug === "about")?.opening ?? "";
-if (view.kind === "home" && purpose === "") {
-  throw new Error(
-    "the home page opens with what About Us says before its first heading, and it says nothing there",
-  );
+for (const section of sections) {
+  if (section.opening === "") {
+    throw new Error(
+      `the home page shows what ${section.title} says before its first heading, and it says nothing there`,
+    );
+  }
+}
+const mission = sections.find((section) => section.slug === "about");
+if (view.kind === "home" && mission === undefined) {
+  throw new Error("the home page opens with the mission, which is in About Us");
 }
 const elsewhere =
   view.kind === "home"
@@ -66,7 +74,7 @@ const elsewhere =
 
 const head =
   view.kind === "home"
-    ? { title: t(locale, "site.name"), description: t(locale, "home.description") }
+    ? { title: t(locale, "home.title"), description: t(locale, "home.description") }
     : view.kind === "shelf"
       ? { title: t(locale, "legal.title"), description: t(locale, "legal.description") }
       : view.kind === "page"
@@ -110,28 +118,23 @@ const earlier =
       <>
         <section class="hero">
           <img src="/logo.png" alt="" width="840" height="572" />
-          <h1>{t(locale, "site.name")}</h1>
+          <h1>{t(locale, "home.title")}</h1>
           <p class="lead">{t(locale, "home.description")}</p>
         </section>
         <div class="prose home">
-          <section id="purpose">
-            <h2>{t(locale, "home.purpose")}</h2>
-            <Fragment set:html={purpose} />
-          </section>
           {sections.map((section) => (
-            <section id={section.slug}>
-              <h2>{section.title}</h2>
+            <section id={section === mission ? "mission" : section.slug}>
+              <h2>{section === mission ? t(locale, "home.mission") : section.title}</h2>
               {section.page.data.machine && (
                 <Notice
                   title={t(locale, "notice.machine.title")}
                   body={t(locale, "notice.machine.body")}
                 />
               )}
-              <Fragment
-                set:html={lowered(
-                  section.slug === "about" ? section.rest : `${section.opening}${section.rest}`,
-                )}
-              />
+              <Fragment set:html={section.opening} />
+              <p>
+                <a href={section.href}>{t(locale, "home.readOn", { title: section.title })}</a>
+              </p>
             </section>
           ))}
           <section id="more">

@@ -1,22 +1,18 @@
 ---
 title: About Us
-description: Kuutti ry - what it does, why it was founded, what its bylaws forbid it to do, who runs it, and the association as the register has it.
+description: Kuutti ry - its mission, what it does, why it was founded, what its bylaws forbid it to do, who runs it, and the association as the register has it.
 nav: 1
 ---
 
-Kuutti ry is a registered non-profit association in Espoo, Finland. Its purpose, in the words of its bylaws, is to promote safe, free and equal opportunities for everyone to meet other people and form relationships in Finland; to reduce loneliness; to support research into relationships and loneliness; and to keep an open community in which volunteers develop the service.
+**Our mission is to reduce loneliness in Finland, and to give everyone a safe, free and equal way to meet other people and form relationships.**
 
-It was founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. This site, kuutti.app, is its official website. Its [bylaws](/legal/bylaws/), in Finnish, are public.
+That is the purpose in section 2 of the association's [bylaws](/legal/bylaws/), which are public, in Finnish. In their words, it is to promote safe, free and equal opportunities for everyone to meet other people and form relationships in Finland; to reduce loneliness; to support research into relationships and loneliness; and to keep an open community in which volunteers develop the service.
+
+Kuutti ry is a registered non-profit association in Espoo, Finland. It was founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. This site, kuutti.app, is its official website.
 
 ## What it does
 
-Kuutti ry develops Kuutti, a free app for meeting people in Finland, and will run it itself: the bylaws forbid handing the service to anybody else. The work is done by volunteers and in public: the code, the decisions behind it and the work in progress are at [github.com/kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app).
-
-The board runs the association: its members, its meetings and its books. Anybody who shares its purpose can [apply to become a member](/#membership).
-
-## Beyond the app
-
-What the association builds for Kuutti, it shares. [tunnistus-oidc](https://github.com/kuutti-ry/tunnistus-oidc) is a free toolkit that lets other Finnish online services sign people in with strong identification, a bank or mobile ID, through Telia's identification service. It is published under the MIT licence, so a public body, a non-profit or a company may use it without paying and without having to publish its own code. The association wrote it for Kuutti; it is not an official Telia product.
+Kuutti ry develops Kuutti, a free app for meeting people in Finland, and will run it itself. It prepares for research into relationships and loneliness, keeps an open community of volunteers, and publishes what it builds. [Our work](/work/) says how, and where each of these stands.
 
 ## In the register
 
@@ -51,11 +47,13 @@ Changing these needs a unanimous decision in two meetings, at least thirty days 
 
 ## Who we are
 
-**The board** was elected at the founding meeting on 1 October 2026 and has three members. Its chair is Nikolai Denissov.
+**The board** was elected at the founding meeting on 1 October 2026 and has three members. Its chair is Nikolai Denissov. It runs the association: its members, its meetings and its books.
 
 **Volunteers:** mostly alumni of Aalto University, and some who study there now.
 
-To reach any of us, write to [hello@kuutti.app](mailto:hello@kuutti.app), or see [Contact](/#contact).
+**Members:** anybody who shares the association's purpose can [apply to become one](/membership/).
+
+To reach any of us, write to [hello@kuutti.app](mailto:hello@kuutti.app), or see [Contact](/contact/).
 
 ## Questions
 
@@ -73,7 +71,7 @@ So that every account is one real adult, and so that somebody who was banned sta
 
 ### Can I join the association?
 
-Yes. A private person who accepts its purpose can apply to be a voting member, and a person or an organisation to be a supporting member; the board decides. [How to join](/#how-to-join).
+Yes. A private person who accepts its purpose can apply to be a voting member, and a person or an organisation to be a supporting member; the board decides. [How to join](/membership/#how-to-join).
 
 ### What does the name mean?
 

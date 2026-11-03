@@ -66,8 +66,8 @@ export async function allLegal(): Promise<LegalText[]> {
 }
 
 /**
- * The pages of the navigation in a language, in their order: each is also a
- * section of the home page, and the navigation leads there (docs/decisions.md, 22).
+ * The pages of the navigation in a language, in their order: the home page
+ * says what each is and leads to it, as the header does (docs/decisions.md, 23).
  */
 export async function navigation(
   locale: Locale,

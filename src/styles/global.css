@@ -138,13 +138,6 @@ h3 {
   font-weight: 600;
 }
 
-/* A question of About Us, a level lower where the home page shows it (docs/decisions.md, 22). */
-h4 {
-  font-size: var(--step-0);
-  font-weight: 650;
-  margin-top: 1.75em;
-}
-
 p,
 ul,
 ol,
@@ -236,7 +229,7 @@ body:has(> .site-header) {
   margin-inline-start: auto;
 }
 
-@media (min-width: 40rem) {
+@media (min-width: 46rem) {
   .site-nav.site-wide {
     display: block;
   }
@@ -341,8 +334,8 @@ body:has(> .site-header) {
 }
 
 /*
- * The rest of the home page: the purpose, then a section for each page of the
- * navigation and the rest of the site, each under a line (docs/decisions.md, 22).
+ * The rest of the home page: the mission, then a section for each page of the
+ * navigation and the rest of the site, each under a line (docs/decisions.md, 23).
  */
 .home > section + section {
   margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
