@@ -63,6 +63,7 @@ export const UI = {
     "footer.businessId": "Business ID {businessId}.",
     "footer.channels": "Kuutti ry elsewhere",
     "footer.channel": "Kuutti ry on {name}",
+    "footer.codeFromFinland": "Code from Finland community member",
     "notFound.title": "There is no such page",
     "notFound.body": "The address may be old or mistyped.",
     "notFound.home": "To the home page",

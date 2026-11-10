@@ -603,6 +603,35 @@ body:has(> .site-header) {
   fill: currentColor;
 }
 
+/*
+ * The channels, then the badge, on one line, so that the badge does not make
+ * the footer taller; even on a 320 px screen. Only with larger text there does
+ * the badge take a line of its own (docs/decisions.md, 24).
+ */
+.footer-end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/*
+ * Code from Finland's badge, as its association gives it: 96 px, down to 84 px
+ * where the line is short. Round, so is its focus ring.
+ */
+.member-badge {
+  display: inline-flex;
+  flex: 1 0 84px;
+  max-width: 96px;
+  border-radius: 50%;
+}
+
+.member-badge img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* --- Gaiane's structure (/ga/, docs/decisions.md 16) --------------------- */
 
 /* Words for a screen reader alone. */
