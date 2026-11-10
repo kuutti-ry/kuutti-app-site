@@ -10,7 +10,9 @@ interface Props {
 const { locale } = Astro.props;
 // The association as the register has it, its address in both the forms it is
 // written in, the address to write to, and its channels beside them by their
-// marks (docs/decisions.md, 8, 15 and 19; the marks are src/lib/marks.ts).
+// marks (docs/decisions.md, 8, 15 and 19; the marks are src/lib/marks.ts),
+// then Code from Finland's badge for its community members on the marks' line,
+// in the water's blue that is near its own (24).
 ---
 
 <footer class="site-footer">
@@ -27,20 +29,30 @@ const { locale } = Astro.props;
         )
       }
     </address>
-    {
-      SITE.social.length > 0 && (
-        <ul class="channels" aria-label={t(locale, "footer.channels")}>
-          {SITE.social.map((channel) => (
-            <li>
-              <a href={channel.href} aria-label={t(locale, "footer.channel", { name: channel.name })}>
-                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-                  <path d={MARKS[channel.mark]} />
-                </svg>
-              </a>
-            </li>
-          ))}
-        </ul>
-      )
-    }
+    <div class="footer-end">
+      {
+        SITE.social.length > 0 && (
+          <ul class="channels" aria-label={t(locale, "footer.channels")}>
+            {SITE.social.map((channel) => (
+              <li>
+                <a href={channel.href} aria-label={t(locale, "footer.channel", { name: channel.name })}>
+                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                    <path d={MARKS[channel.mark]} />
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <a class="member-badge" href={SITE.codeFromFinland}>
+        <img
+          src="/badges/code-from-finland-community-member.svg"
+          alt={t(locale, "footer.codeFromFinland")}
+          width="96"
+          height="96"
+        />
+      </a>
+    </div>
   </div>
 </footer>
