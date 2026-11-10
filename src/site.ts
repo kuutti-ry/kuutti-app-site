@@ -49,6 +49,11 @@ export const SITE = {
     { name: "Instagram", href: "https://www.instagram.com/kuutti_ry/", mark: "instagram" },
   ] as { name: string; href: string; mark: Mark }[],
   /**
+   * Code from Finland (Koodia Suomesta ry), whose community member Kuutti ry
+   * is: the footer shows its badge and links here (docs/decisions.md, 24).
+   */
+  codeFromFinland: "https://koodiasuomesta.fi/en/",
+  /**
    * The app's listings in the stores. Null until the app is published: the
    * download page of Gaiane's structure then shows that store's badge dimmed,
    * not as a link (src/components/StoreBadges.astro). The home page shows no
